@@ -8,11 +8,11 @@
         <version>2.2.5.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.fans.bravegirls.batch</groupId>
-    <artifactId>bravegirls-batch</artifactId>
+    <groupId>com.fans.bravegirls</groupId>
+    <artifactId>FearlessAppServer</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>bravegirls-batch</name>
-    <description>bravegirls batch</description>
+    <name>FearlessAppServer</name>
+    <description>FearlessAppServer</description>
 
     <properties>
         <java.version>1.8</java.version>
