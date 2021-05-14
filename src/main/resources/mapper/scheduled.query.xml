@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fans.bravegirls.batch.biz.dao.ScheduleDao">
+
+	<!-- 일정 삭제 -->
+	<delete id="deleteScheduled" parameterType="string">
+		delete from schedules
+		where reg_yyyymm >= #{regYyyymm}
+	</delete>
+
+	<!-- 일정 등록 -->
+	<insert id="insertScheduled" parameterType="ScheduleVo">
+		insert into schedules ( 
+			schedule_id 
+			, title
+		    , start_time
+		    , end_time
+		    , start_local_time
+		    , end_local_time
+		    , all_day
+		    , description
+		    , image
+		    , location
+		    , category_id
+		    , category_nm
+		    , category_color
+		    , timezone
+		    , reg_yyyymm
+		) values (
+			#{scheduleId} 
+			, #{title}
+		    , #{startTime}
+		    , #{endTime}
+		    , #{startLocalTime}
+		    , #{endLocalTime}
+		    , #{allDay}
+		    , #{description}
+		    , #{image}
+		    , #{location}
+		    , #{categoryId}
+		    , #{name}
+		    , #{color}
+		    , #{timezone}
+		    , #{regYyyymm}
+		)
+		
+	</insert>
+	
+	<!-- 임시 조회 -->
+	<select id="selectScheduled" parameterType="string" resultType="ScheduleVo">
+		SELECT 
+			schedule_id 
+			, title
+		    , start_time
+		    , end_time
+		    , start_local_time
+		    , end_local_time
+		    , all_day
+		    , description
+		    , image
+		    , location
+		    , category_id
+		    , category_nm
+		    , category_color
+		    , timezone
+		    , DATE_FORMAT(STR_TO_DATE(start_local_time, '%Y.%m.%d'),'%Y%m%d') as view_cal
+		FROM mydb.schedules
+		where reg_yyyymm=#{regYyyymm}
+	</select>
+
+    
+</mapper>

@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %magenta([%thread]) %highlight(%-5level) %logger{36}.%M [%L]- %msg%n</Pattern>
+        </layout>
+    </appender>
+
+
+
+
+    <!--
+    jdbc.sqlonly    : Logs only SQL
+    jdbc.sqltiming  : Logs the SQL, post-execution, including timing execution statistics
+    jdbc.audit      : Logs ALL JDBC calls except for ResultSets
+    jdbc.resultset  : all calls to ResultSet objects are logged
+    jdbc.connection : Logs connection open and close events
+    -->
+    <springProfile name="local">
+        <logger name="org.springframework" level="DEBUG">
+            <appender-ref ref="CONSOLE"/>
+        </logger>
+        <logger name="org.springframework.web" level="DEBUG">
+            <appender-ref ref="CONSOLE"/>
+
+
+
+        </logger>
+        <logger name="jdbc.sqlonly" level="DEBUG" additivity="false">
+            <appender-ref ref="CONSOLE"/>
+        </logger>
+        <logger name="jdbc.resultset" level="DEBUG" additivity="false">
+            <appender-ref ref="CONSOLE"/>
+       </logger>
+        <logger name="com.fans.bravegirls.batch" level="DEBUG" additivity="false">
+            <appender-ref ref="CONSOLE"/>
+        </logger>
+        <root level="DEBUG">
+            <appender-ref ref="CONSOLE"/>
+        </root>
+    </springProfile>
+
+    <springProfile name="dev">
+        <logger name="org.springframework" level="INFO">
+            <appender-ref ref="CONSOLE"/>
+        </logger>
+        <logger name="org.springframework.web" level="INFO">
+            <appender-ref ref="CONSOLE"/>
+
+
+
+        </logger>
+        <logger name="jdbc.sqlonly" level="DEBUG" additivity="false">
+            <appender-ref ref="CONSOLE"/>
+        </logger>
+        <logger name="jdbc.resultset" level="DEBUG" additivity="false">
+            <appender-ref ref="CONSOLE"/>
+        </logger>
+        <logger name="com.fans.bravegirls.batch" level="DEBUG" additivity="false">
+            <appender-ref ref="CONSOLE"/>
+        </logger>
+        <root level="DEBUG">
+            <appender-ref ref="CONSOLE"/>
+        </root>
+
+        <property name="LOGS" value="/home/ubuntu/app/logs/bravegirls/batch" />
+        <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <encoder>
+                <Pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36}.%M [%L]- %msg%n</Pattern>
+            </encoder>
+            <file>${LOGS}/application.log</file>
+            <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+                <fileNamePattern>${LOGS}/application.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+                <maxFileSize>10MB</maxFileSize>
+                <maxHistory>30</maxHistory>
+            </rollingPolicy>
+        </appender>
+
+        <logger name="org.springframework" level="DEBUG">
+            <appender-ref ref="FILE"/>
+        </logger>
+        <logger name="org.springframework.web" level="DEBUG">
+            <appender-ref ref="FILE"/>
+        </logger>
+        <logger name="jdbc.sqlonly" level="DEBUG">
+            <appender-ref ref="FILE"/>
+        </logger>
+        <logger name="jdbc.resultset" level="DEBUG" additivity="false">
+            <appender-ref ref="FILE"/>
+        </logger>
+        <logger name="com.fans.bravegirls.batch" level="DEBUG">
+            <appender-ref ref="FILE"/>
+        </logger>
+        <root level="DEBUG">
+            <appender-ref ref="FILE"/>
+            <appender-ref ref="CONSOLE"/>
+        </root>
+    </springProfile>
+
+
+    <springProfile name="prod">
+        <logger name="org.springframework" level="INFO">
+            <appender-ref ref="CONSOLE"/>
+        </logger>
+        <logger name="org.springframework.web" level="INFO">
+            <appender-ref ref="CONSOLE"/>
+
+
+
+        </logger>
+        <logger name="jdbc.sqlonly" level="INFO" additivity="false">
+            <appender-ref ref="CONSOLE"/>
+        </logger>
+        <logger name="jdbc.resultset" level="INFO" additivity="false">
+            <appender-ref ref="CONSOLE"/>
+        </logger>
+        <logger name="com.fans.bravegirls.batch" level="INFO" additivity="false">
+            <appender-ref ref="CONSOLE"/>
+        </logger>
+        <root level="INFO">
+            <appender-ref ref="CONSOLE"/>
+        </root>
+
+        <property name="LOGS" value="/home/ubuntu/app/logs/bravegirls/batch" />
+        <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <encoder>
+                <Pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36}.%M [%L]- %msg%n</Pattern>
+            </encoder>
+            <file>${LOGS}/application.log</file>
+            <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+                <fileNamePattern>${LOGS}/application.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+                <maxFileSize>10MB</maxFileSize>
+                <maxHistory>30</maxHistory>
+            </rollingPolicy>
+        </appender>
+
+        <logger name="org.springframework" level="INFO">
+            <appender-ref ref="FILE"/>
+        </logger>
+        <logger name="org.springframework.web" level="INFO">
+            <appender-ref ref="FILE"/>
+        </logger>
+        <logger name="jdbc.sqlonly" level="INFO">
+            <appender-ref ref="FILE"/>
+        </logger>
+        <logger name="jdbc.resultset" level="INFO" additivity="false">
+            <appender-ref ref="FILE"/>
+        </logger>
+        <logger name="com.fans.bravegirls.batch" level="INFO">
+            <appender-ref ref="FILE"/>
+        </logger>
+        <root level="INFO">
+            <appender-ref ref="FILE"/>
+            <appender-ref ref="CONSOLE"/>
+        </root>
+    </springProfile>
+
+</configuration>

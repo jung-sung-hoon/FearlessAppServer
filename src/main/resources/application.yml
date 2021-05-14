@@ -1,0 +1,40 @@
+spring:
+  profiles:
+    active: local
+
+server:
+  port: 19876
+
+
+---
+spring:
+  profiles: local
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    jdbcUrl: jdbc:mysql://fearless-assemble-db.ctk83ps9umjm.ap-northeast-2.rds.amazonaws.com:3306/mydb?autoReconnection=true&characterEncoding=UTF8
+    username: admin
+    password: "Danbal!0511"
+    maximum-pool-size: 1
+
+
+---
+spring:
+  profiles: dev
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    jdbcUrl: jdbc:mysql://fearless-assemble-db.ctk83ps9umjm.ap-northeast-2.rds.amazonaws.com:3306/mydb?autoReconnection=true&characterEncoding=UTF8&useSSL=false
+    username: admin
+    password: "Danbal!0511"
+    maximum-pool-size: 1
+
+
+---
+spring:
+  profiles: prod
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    jdbcUrl: jdbc:mysql://fearless-assemble-db.ctk83ps9umjm.ap-northeast-2.rds.amazonaws.com:3306/mydb?autoReconnection=true&characterEncoding=UTF8
+    username: admin
+    password: "Danbal!0511"
+    maximum-pool-size: 1
+
