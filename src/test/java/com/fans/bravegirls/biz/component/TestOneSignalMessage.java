@@ -3,13 +3,17 @@ package com.fans.bravegirls.biz.component;
 
 import lombok.extern.slf4j.Slf4j;
 
+import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import com.fans.bravegirls.service.OneSignalMessageService;
 
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
@@ -26,6 +30,21 @@ public class TestOneSignalMessage {
 
     private Logger L = LoggerFactory.getLogger(this.getClass());
     
+    @Autowired
+    OneSignalMessageService oneSignalMessageService;
+    
+    
+    @Test
+    public void send_message() {
+    	
+    	String message = "테스트 메시지";
+    	
+    	System.out.println("시작");
+    	
+    	oneSignalMessageService.send_message(message);
+    	
+    	System.out.println("종료");
+    }
     
     //@Test
     public void sendPush() {

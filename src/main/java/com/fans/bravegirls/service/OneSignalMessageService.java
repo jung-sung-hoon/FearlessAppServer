@@ -1,32 +1,18 @@
 package com.fans.bravegirls.service;
 
-import com.fans.bravegirls.vo.model.ScheduleVo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.fans.bravegirls.dao.ScheduleDao;
-import com.fans.bravegirls.common.utils.HTTPUtil;
 
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLEncoder;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
 import java.util.Scanner;
-import java.util.TimeZone;
 
 @Slf4j
 @Service
@@ -39,16 +25,13 @@ public class OneSignalMessageService {
 	private final String app_id			= "6395ae43-f8e5-4862-b70a-da8402d413c8";
 
     //메시지 보내기
-    public String selectScheduled(String regYyyymm) {
-
+	@Async
+    public void send_message(String message) {
+		
     	String jsonResponse = "";
     	
     	try
 		{
-    		String message = "테스트 메시지";
-    		
-			
-			   
 			URL url = new URL(onesignal_url);
 			HttpURLConnection con = (HttpURLConnection)url.openConnection();
 			con.setUseCaches(false);
@@ -59,13 +42,14 @@ public class OneSignalMessageService {
 			con.setRequestProperty("Authorization", "Basic " + rest_api_key); // REST API KEY
 			
 			con.setRequestMethod("POST");
-			
+			/*
 			String strJsonBody = "{"
 			+   "\"app_id\": \""+app_id+"\"," // ONESIGNAL APP IDA
 			+   "\"included_segments\": [\"Subscribed Users\"],"
 			+   "\"data\": {\"foo\": \"bar\"},"
 			+   "\"contents\": {\"en\": \""+message+"\"}"
 			+ "}";
+			*/
    
 			JSONObject contents_obj = new JSONObject();
 			contents_obj.put("en" , message);
@@ -73,15 +57,20 @@ public class OneSignalMessageService {
 			JSONObject data_obj = new JSONObject();
 			data_obj.put("foo" , "bar");
 			
+			ArrayList<String> users = new ArrayList<>();
+			users.add("Subscribed Users");
+			
 			JSONObject body_obj = new JSONObject();
 			body_obj.put("app_id", app_id);
-			body_obj.put("included_segments", "[\"Subscribed Users\"]");
-			body_obj.put("data", data_obj.toJSONString());
+			body_obj.put("included_segments", users);
+			body_obj.put("data", data_obj);
+			body_obj.put("contents" , contents_obj);
 			
    
-			System.out.println("strJsonBody:\n" + strJsonBody);
+			System.out.println("strJsonBody:\n" + body_obj.toJSONString());
+			//System.out.println("strJsonBody:\n" + strJsonBody);
 			
-			byte[] sendBytes = strJsonBody.getBytes("UTF-8");
+			byte[] sendBytes = body_obj.toJSONString().getBytes("UTF-8");
 			con.setFixedLengthStreamingMode(sendBytes.length);
 			
 			OutputStream outputStream = con.getOutputStream();
@@ -108,8 +97,6 @@ public class OneSignalMessageService {
 		}
     	
     	System.out.println("jsonResponse:\n" + jsonResponse);
-
-        return jsonResponse;
     }
 }
 

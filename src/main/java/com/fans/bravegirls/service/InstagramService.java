@@ -24,6 +24,8 @@ public class InstagramService {
 
     private Logger L = LoggerFactory.getLogger(this.getClass());
 
+    @Autowired 
+    OneSignalMessageService oneSignalMessageService;
     
     @Autowired
     InstagramDao instagramDao;
@@ -186,7 +188,11 @@ public class InstagramService {
 					if(update_cnt > 0) {
 						System.out.println("push 보내기");
 						
-						TelegramMessage.funcTelegram(one_vo.getUserId() + " 님의 사진이 등록 되었습니다.");
+						String message = one_vo.getUserId() + " 님의 사진이 등록 되었습니다.";
+						
+						TelegramMessage.funcTelegram(message);
+						
+						oneSignalMessageService.send_message(message);
 					}
 					
 				}
@@ -293,7 +299,12 @@ public class InstagramService {
 					//푸쉬 보내기
 					if(update_cnt > 0) {
 						System.out.println("push 보내기");
-						TelegramMessage.funcTelegram(one_vo.getUserId() + " 님의 스토리가 등록 되었습니다.");
+						
+						String message = one_vo.getUserId() + " 님의 스토리가 등록 되었습니다.";
+						
+						TelegramMessage.funcTelegram(message);
+						
+						oneSignalMessageService.send_message(message);
 					}
 					
 				}
