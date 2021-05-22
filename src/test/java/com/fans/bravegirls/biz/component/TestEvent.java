@@ -15,11 +15,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.fans.bravegirls.service.EventsService;
 import com.fans.bravegirls.vo.model.EventsVo;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.TimeZone;
 
 
 @Slf4j
@@ -53,7 +49,7 @@ public class TestEvent {
     		
     		System.out.println(regYyyymm);
     		*/
-    		List<EventsVo> result_list = eventsService.selectEvents(regYyyymm);
+    		List<EventsVo> result_list = eventsService.selectEventsInProgress();
         	
         	for(EventsVo one_obj : result_list) {
         		System.out.println(one_obj);
