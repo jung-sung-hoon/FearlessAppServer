@@ -19,7 +19,7 @@
     jdbc.connection : Logs connection open and close events
     -->
     <springProfile name="local">
-        <logger name="org.springframework" level="DEBUG">
+        <logger name="org.springframework" level="INFO">
             <appender-ref ref="CONSOLE"/>
         </logger>
         <logger name="org.springframework.web" level="DEBUG">
