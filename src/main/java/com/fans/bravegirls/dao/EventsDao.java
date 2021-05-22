@@ -13,5 +13,5 @@ public interface EventsDao {
     
 
     //이벤트 조회
-    List<EventsVo> selectEvents(String startTime);
+    List<EventsVo> selectEventsInProgress();
 }

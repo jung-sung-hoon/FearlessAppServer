@@ -25,11 +25,10 @@ public class EventController extends BaseRestController {
 
 
     @GetMapping(value = "/events")
-    public ResponseEntity<?> scheduled(HttpServletRequest request,
-            @RequestParam(value = "view_cal", defaultValue = "") String view_cal) {
+    public ResponseEntity<?> getEvents(HttpServletRequest request) {
         ipCheck(request);
 
-        List<EventsVo> result = eventsService.selectEvents(view_cal);
+        List<EventsVo> result = eventsService.selectEventsInProgress();
 
         HashMap<String, Object> result_map = new HashMap<>();
 

@@ -6,7 +6,7 @@
 	
 	
 	<!-- 이벤트 조회 -->
-	<select id="selectEvents" parameterType="string" resultType="EventsVo">
+	<select id="selectEventsInProgress" resultType="EventsVo">
 		SELECT 
 			id
 	        ,title
@@ -19,7 +19,9 @@
 	        , DATE_FORMAT(start_time,'%Y-%m-%d') as view_start
 	        , DATE_FORMAT(end_time,'%Y-%m-%d') as view_end
 		FROM events
-		where start_time >= #{startTime}
+		where start_time &lt;= now()
+		and end_time >= now()
+		and is_in_progress is true
 	    order by start_time asc
 	</select>
 
