@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fans.bravegirls.dao.EventsDao">
+
+	
+	
+	<!-- 이벤트 조회 -->
+	<select id="selectEventsInProgress" resultType="EventsVo">
+		SELECT 
+			id
+	        ,title
+	        ,start_time
+	        ,end_time
+	        ,description
+	        ,image
+	        ,url
+	        ,is_in_progress
+	        , DATE_FORMAT(start_time,'%Y-%m-%d') as view_start
+	        , DATE_FORMAT(end_time,'%Y-%m-%d') as view_end
+		FROM events
+		where start_time &lt;= now()
+		and end_time >= now()
+		and is_in_progress is true
+	    order by start_time asc
+	</select>
+
+    
+</mapper>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fans.bravegirls.dao.HotVideoDao">
+
+
+
+    <select id="selectHotVideosHavingTag" parameterType="int" resultType="HotVideoVo">
+        select a.id, a.code, a.title, a.play_time, a.upload_date, d.title as channel_title
+        from youtube_hot_videos a,
+        youtube_hot_video_tags b,
+        youtube_tags c,
+        youtube_ch_info d
+        where a.id = b.video_id
+        and b.tag_id = c.id
+        and a.channel_id = d.seq
+        and c.id = #{id}
+        and a.is_usable = true
+        order by a.upload_date desc
+    </select>
+
+    <select id="selectTagsOfHotVideo" parameterType="int" resultType="HotVideoTagVo">
+        select b.id, b.title
+        from youtube_hot_video_tags a,
+        youtube_tags b
+        where a.tag_id = b.id
+        and a.video_id = #{id}
+    </select>
+
+    <select id="selectAllHotVideoTags" resultType="HotVideoTagVo">
+        select id, title, video_count
+        from (
+            select b.id, b.title, b.disp_order, count(1) as video_count
+            from youtube_hot_video_tags a,
+            youtube_tags b
+            where a.tag_id = b.id
+            group by b.id) derived
+        where video_count > 0
+        order by derived.disp_order
+    </select>
+
+</mapper>
