@@ -77,7 +77,7 @@ public class ScheduleService {
             DateFormat reg_format = new SimpleDateFormat("yyyyMM");
             String reg_yyyymm = reg_format.format(now_date);
 
-            reg_yyyymm = "202103";
+            //reg_yyyymm = "202103";
 
             DateFormat in_format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX");
             in_format.setTimeZone(tz);
@@ -90,7 +90,7 @@ public class ScheduleService {
             start_cal.set(Calendar.SECOND, 0);
 
             String startLocalTime = in_format.format(start_cal.getTime());
-            startLocalTime = "2021-03-01T00:00:00+09:00";
+            //startLocalTime = "2021-03-01T00:00:00+09:00";
             System.out.println("startLocalTime = " + startLocalTime);
 
             Calendar end_cal = Calendar.getInstance();
