@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.fans.bravegirls.common.utils.HTTPUtil;
 import com.fans.bravegirls.common.utils.TelegramMessage;
 import com.fans.bravegirls.dao.InstagramDao;
+import com.fans.bravegirls.vo.code.DataType;
 import com.fans.bravegirls.vo.code.MediaKind;
 import com.fans.bravegirls.vo.code.SnsKind;
 import com.fans.bravegirls.vo.model.CookieInfoVo;
@@ -105,10 +106,13 @@ public class InstagramService {
 		    	
     	List<SnsUserInfoVo> list = selectSnsUserInfo(snsUserInfoVo);
     	
+    	HashMap<String,Object> data_param = new HashMap<>();
+    	data_param.put(DataType.notiType.toString(), snsKind);
+    	
     	for(SnsUserInfoVo one_vo : list) {
     		
         	//포토 조회
-        	String return_usr_id = call_instagram_photo( one_vo , headerData);
+        	String return_usr_id = call_instagram_photo( one_vo , headerData , data_param);
         	
         	//업데이트 한다.
         	one_vo.setId(return_usr_id);
@@ -123,7 +127,7 @@ public class InstagramService {
      * @param headerData
      * @return
      */
-    public String call_instagram_photo(SnsUserInfoVo one_vo , HashMap<String,String> headerData) {
+    public String call_instagram_photo(SnsUserInfoVo one_vo , HashMap<String,String> headerData , HashMap<String,Object> data_param) {
     	
     	String usr_id = one_vo.getUserId();
     	long last_date = Long.parseLong(one_vo.getLastUpdateTime());
@@ -192,7 +196,7 @@ public class InstagramService {
 						
 						TelegramMessage.funcTelegram(message);
 						
-						oneSignalMessageService.send_message(message);
+						oneSignalMessageService.send_message(data_param , message);
 					}
 					
 				}
@@ -223,12 +227,15 @@ public class InstagramService {
 		SnsUserInfoVo snsUserInfoVo = new SnsUserInfoVo();
 		snsUserInfoVo.setSnsKind(snsKind);
 		snsUserInfoVo.setMediaKind(mediaKind);
+		
+		HashMap<String,Object> data_param = new HashMap<>();
+    	data_param.put(DataType.notiType.toString(), snsKind);
 		    	
     	List<SnsUserInfoVo> list = selectSnsUserInfo(snsUserInfoVo);
     	
     	for(SnsUserInfoVo one_vo : list) {
     		
-    		call_instagram_video( one_vo , headerData);
+    		call_instagram_video( one_vo , headerData , data_param);
         	
     	}
     }
@@ -238,7 +245,7 @@ public class InstagramService {
      * @param one_vo
      * @param headerData
      */
-    public void call_instagram_video(SnsUserInfoVo one_vo , HashMap<String,String> headerData ) {
+    public void call_instagram_video(SnsUserInfoVo one_vo , HashMap<String,String> headerData , HashMap<String,Object> data_param ) {
     	
     	String id = one_vo.getId();
     	long last_date = Long.parseLong(one_vo.getLastUpdateTime());
@@ -304,7 +311,7 @@ public class InstagramService {
 						
 						TelegramMessage.funcTelegram(message);
 						
-						oneSignalMessageService.send_message(message);
+						oneSignalMessageService.send_message(data_param , message);
 					}
 					
 				}
