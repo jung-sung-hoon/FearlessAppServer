@@ -14,10 +14,13 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.fans.bravegirls.service.OneSignalMessageService;
+import com.fans.bravegirls.vo.code.DataType;
+import com.fans.bravegirls.vo.code.SnsKind;
 
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.Scanner;
 
 
@@ -39,9 +42,14 @@ public class TestOneSignalMessage {
     	
     	String message = "테스트 메시지";
     	
+    	String snsKind = SnsKind.instagram.toString();
+    	
+    	HashMap<String,Object> data_param = new HashMap<>();
+    	data_param.put(DataType.notiType.toString(), snsKind);
+    	
     	System.out.println("시작");
     	
-    	oneSignalMessageService.send_message(message);
+    	oneSignalMessageService.send_message(data_param , message);
     	
     	System.out.println("종료");
     }

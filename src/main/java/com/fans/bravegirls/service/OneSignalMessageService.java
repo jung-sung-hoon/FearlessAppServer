@@ -12,6 +12,7 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 @Slf4j
@@ -26,7 +27,7 @@ public class OneSignalMessageService {
 
     //메시지 보내기
 	@Async
-    public void send_message(String message) {
+    public void send_message(HashMap<String,Object> data_param , String message) {
 		
     	String jsonResponse = "";
     	
@@ -56,6 +57,8 @@ public class OneSignalMessageService {
 			
 			JSONObject data_obj = new JSONObject();
 			data_obj.put("foo" , "bar");
+			
+			data_obj.putAll(data_param);
 			
 			ArrayList<String> users = new ArrayList<>();
 			users.add("Subscribed Users");
