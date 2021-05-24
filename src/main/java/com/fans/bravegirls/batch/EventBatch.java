@@ -40,7 +40,7 @@ public class EventBatch {
     /**
      * 이벤트 D-1 , 오전 10시에 알람 보낸다.
      */
-    //@Scheduled(cron = "00 00 10 * * *")
+    @Scheduled(cron = "00 00 10 * * *")
     public void selectEventDeadline() {
 
         L.info("[이벤트 D-1 체크 시작]");
