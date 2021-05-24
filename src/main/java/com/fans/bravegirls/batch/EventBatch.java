@@ -1,16 +1,19 @@
-package com.fans.bravegirls.biz.component;
+package com.fans.bravegirls.batch;
 
+import lombok.RequiredArgsConstructor;
 
-import lombok.extern.slf4j.Slf4j;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.fans.bravegirls.common.utils.TelegramMessage;
 import com.fans.bravegirls.service.EventsService;
@@ -19,63 +22,30 @@ import com.fans.bravegirls.vo.code.DataType;
 import com.fans.bravegirls.vo.code.SnsKind;
 import com.fans.bravegirls.vo.model.EventsVo;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
 
-
-@Slf4j
-@ActiveProfiles("local")
-@RunWith(SpringRunner.class)
-@SpringBootTest
-public class TestEvent {
+@RequiredArgsConstructor
+@Component
+@Transactional
+public class EventBatch {
 
     private Logger L = LoggerFactory.getLogger(this.getClass());
+
     
     @Autowired 
     OneSignalMessageService oneSignalMessageService;
     
     @Autowired
     EventsService eventsService;
-    
-    //@Test
-    public void selectEvents() {
-    	
-    	
-    	String regYyyymm = "";
-    	
-    	//regYyyymm = regYyyymm + "01000000";
-    	try {
-    		//Date start_date = null;
-    		//DateFormat start_format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-    		/*
-    		DateFormat start_format = new SimpleDateFormat("yyyyMMddHHmmss");
-    		start_date = start_format.parse(regYyyymm);
-    		
-    		DateFormat chg_format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-    		regYyyymm = chg_format.format(start_date);
-    		
-    		System.out.println(regYyyymm);
-    		*/
-    		List<EventsVo> result_list = eventsService.selectEventsInProgress();
-        	
-        	for(EventsVo one_obj : result_list) {
-        		System.out.println(one_obj);
-        	}
-    		
-    	} catch (Exception e) {
-    		e.printStackTrace();
-    	}
-    }
-    
-    
-    //이벤트 D-1 , 오전 10시에 알람 보낸다.
-    @Test
+
+    /**
+     * 이벤트 D-1 , 오전 10시에 알람 보낸다.
+     */
+    //@Scheduled(cron = "00 00 10 * * *")
     public void selectEventDeadline() {
-    	
-    	String endTime = "";
+
+        L.info("[이벤트 D-1 체크 시작]");
+        
+        String endTime = "";
     	
     	try {
     		
@@ -112,13 +82,21 @@ public class TestEvent {
     	} catch (Exception e) {
     		e.printStackTrace();
     	}
+        
+        L.info("[이벤트 D-1 체크 종료]");
     }
     
     
-    //@Test
+    /**
+     * 00 시에 이벤트 지간것들 is_in_progress false 로 변경
+     */
+    @Scheduled(cron = "00 00 00 * * *")
     public void updateEventEnd() {
-    	
-    	String endTime = "";
+
+        L.info("[이벤트 false 처리 시작]");
+        
+        String endTime = "";
+        
     	
     	try {
     		
@@ -137,6 +115,8 @@ public class TestEvent {
     	} catch (Exception e) {
     		e.printStackTrace();
     	}
+        
+    	L.info("[이벤트 false 처리 종료]");
     }
 
 }

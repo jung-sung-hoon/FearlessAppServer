@@ -24,6 +24,28 @@
 		and is_in_progress is true
 	    order by start_time asc
 	</select>
+	
+	<!-- 이벤트 D-1 , 오전 10시에 알람 보낸다. -->
+	<select id="selectEventDeadline" resultType="EventsVo" parameterType="string">
+		select * from mydb.events
+		where 1=1
+		and end_time &lt;= #{endTime}
+		and is_in_progress is true
+	</select>
+	
+	<!-- 00 시에 이벤트 지간것들 is_in_progress false 로 변경 -->
+	<update id="updateEventEnd" parameterType="string">
+		update events
+		set is_in_progress = false
+		where 1=1
+		and id in (
+			select id from events
+			where 1=1
+			and is_in_progress is true
+			and end_time &lt; #{endTime}
+		)
+		and is_in_progress is true
+	</update>
 
     
 </mapper>

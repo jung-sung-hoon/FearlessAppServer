@@ -8,8 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.fans.bravegirls.dao.EventsDao;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Slf4j
@@ -25,6 +23,18 @@ public class EventsService {
     public List<EventsVo> selectEventsInProgress() {
 
         return eventsDao.selectEventsInProgress();
+    }
+    
+    
+    //이벤트 D-1 , 오전 10시에 알람 보낸다.
+    public List<EventsVo> selectEventDeadline(String endTime) {
+        return eventsDao.selectEventDeadline(endTime);
+    }
+    
+    
+    //00 시에 이벤트 지간것들 is_in_progress false 로 변경
+    public int updateEventEnd(String endTime) {
+    	return eventsDao.updateEventEnd(endTime);
     }
 }
 
