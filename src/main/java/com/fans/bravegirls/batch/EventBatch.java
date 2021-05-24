@@ -96,6 +96,7 @@ public class EventBatch {
         L.info("[이벤트 false 처리 시작]");
         
         String endTime = "";
+        
     	
     	try {
     		
