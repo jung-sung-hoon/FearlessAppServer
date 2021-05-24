@@ -29,6 +29,7 @@ public class InstagramScrapBatch {
     @Scheduled(cron = "0 */5 * * * *")
     public void instagram_scrap_photo() {
 
+    	//사진 크롤링
     	String sns_kind = SnsKind.instagram.toString();
     	String media_type = MediaKind.photo.toString();
     	
@@ -37,16 +38,16 @@ public class InstagramScrapBatch {
         instagramService.instagram_scrap_photo();
         
         L.info("["+sns_kind+" - " + media_type + " 스크래핑 종료]");
-    }
-    
-    /**
-     * 5분마다 작동
-     */
-    @Scheduled(cron = "0 */5 * * * *")
-    public void instagram_scrap_video() {
-
-    	String sns_kind = SnsKind.instagram.toString();
-    	String media_type = MediaKind.video.toString();
+        
+        try {
+    		Thread.sleep(2000);
+    	} catch (Exception e) {
+    		
+    	}
+        
+        //비디오 크롤링
+        sns_kind = SnsKind.instagram.toString();
+    	media_type = MediaKind.video.toString();
     	
         L.info("["+sns_kind+" - " + media_type + " 스크래핑 시작]");
         
@@ -54,5 +55,4 @@ public class InstagramScrapBatch {
         
         L.info("["+sns_kind+" - " + media_type + " 스크래핑 종료]");
     }
-
 }

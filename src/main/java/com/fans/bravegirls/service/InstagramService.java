@@ -118,6 +118,12 @@ public class InstagramService {
         	one_vo.setId(return_usr_id);
         	
         	updateSnsUserInfoId(one_vo);
+        	
+        	try {
+        		Thread.sleep(5000);
+        	} catch (Exception e) {
+        		
+        	}
     	}
     }
     
@@ -237,6 +243,11 @@ public class InstagramService {
     		
     		call_instagram_video( one_vo , headerData , data_param);
         	
+    		try {
+        		Thread.sleep(5000);
+        	} catch (Exception e) {
+        		
+        	}
     	}
     }
     
