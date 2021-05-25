@@ -22,4 +22,8 @@ public interface EventsDao {
     
     //00 시에 이벤트 지간것들 is_in_progress false 로 변경
     int updateEventEnd(String endTime);
+    
+    
+    //이벤트 시작일 알림 , 오전 10시에 알람 보낸다.
+    List<EventsVo>  selectEventStart(EventsVo eventsVo);
 }
