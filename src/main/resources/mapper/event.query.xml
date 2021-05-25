@@ -46,6 +46,22 @@
 		)
 		and is_in_progress is true
 	</update>
+	
+	<!-- 이벤트 시작일 알림 -->
+	<select id="selectEventStart" resultType="EventsVo" parameterType="EventsVo">
+		select id
+	        ,title
+	        ,start_time
+	        ,end_time
+	        ,description
+	        ,image
+	        ,url
+	        ,is_in_progress
+	    from events
+		where start_time >= #{startTime}
+		and start_time &lt;= #{endTime}
+		and is_in_progress is true
+	</select>
 
     
 </mapper>

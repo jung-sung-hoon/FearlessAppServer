@@ -118,5 +118,61 @@ public class EventBatch {
         
     	L.info("[이벤트 false 처리 종료]");
     }
+    
+    /**
+     * 이벤트 시작 알림 , 오전 10시에 알람 보낸다.
+     */
+    @Scheduled(cron = "00 00 10 * * *")
+    public void selectEventStart() {
+
+        L.info("[이벤트 시작 알림 시작]");
+        
+        String startTime 	= "";
+    	String endTime 		= "";
+    	
+    	try {
+    		//이벤트 시작
+    		String snsKind = SnsKind.event_start.toString();
+    		
+    		HashMap<String,Object> data_param = new HashMap<>();
+    		data_param.put(DataType.notiType.toString(), snsKind);
+    		
+    		Date now_date = new Date();
+    		
+    		SimpleDateFormat start_format = new SimpleDateFormat("yyyy-MM-dd");
+    		
+    		startTime 	= start_format.format(now_date) + " 00:00:00";
+    		endTime 	= start_format.format(now_date) + " 23:59:59";
+    		
+    		//System.out.println("startTime = " + startTime);
+    		//System.out.println("endTime   = " + endTime);
+    		
+    		EventsVo eventsVo = new EventsVo();
+    		eventsVo.setStartTime(startTime);
+    		eventsVo.setEndTime(endTime);
+    		
+    		List<EventsVo> result_list = eventsService.selectEventStart(eventsVo);
+        	
+        	//System.out.println(result_list);
+        	
+        	for(EventsVo one_obj : result_list) {
+        		//System.out.println(one_obj);
+        		
+        		String start_time = one_obj.getStartTime();
+        		String end_time = one_obj.getEndTime();
+        		String title 	= "'"+one_obj.getTitle()+"' 의 이벤트가 시작되었습니다. [시작 시간 : " + start_time + " , 종료 시간 : " + end_time + "]";
+        		
+        		TelegramMessage.funcTelegram(title);
+				
+				oneSignalMessageService.send_message(data_param , title);
+        		
+        	}
+    		
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    	}
+        
+    	L.info("[이벤트 시작 알림 종료]");
+    }
 
 }

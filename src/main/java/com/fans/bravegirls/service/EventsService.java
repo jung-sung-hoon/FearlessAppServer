@@ -36,6 +36,14 @@ public class EventsService {
     public int updateEventEnd(String endTime) {
     	return eventsDao.updateEventEnd(endTime);
     }
+    
+    
+    //이벤트 시작일 알림 , 오전 10시에 알람 보낸다.
+    public List<EventsVo>  selectEventStart(EventsVo eventsVo) {
+    	return eventsDao.selectEventStart(eventsVo);
+    }
+    
+    
 }
 
 
