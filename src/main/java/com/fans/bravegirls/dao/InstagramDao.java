@@ -17,7 +17,7 @@ public interface InstagramDao {
 	List<SnsUserInfoVo> selectSnsUserInfo(SnsUserInfoVo snsUserInfoVo);
 	
     //크롤링할 head 정보 가져오기
-    List<CookieInfoVo> selectCookieInfo(String snsKind);
+    List<CookieInfoVo> selectCookieInfo(CookieInfoVo cookieInfoVo);
     
     //미디어의 최종 등록 시간을 업데이트 한다.
     int updateSnsUserInfoLastUpdateTime(SnsUserInfoVo snsUserInfoVo);

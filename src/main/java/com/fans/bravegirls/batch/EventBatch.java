@@ -11,6 +11,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,6 +27,7 @@ import com.fans.bravegirls.vo.model.EventsVo;
 @RequiredArgsConstructor
 @Component
 @Transactional
+@Profile("prod")
 public class EventBatch {
 
     private Logger L = LoggerFactory.getLogger(this.getClass());

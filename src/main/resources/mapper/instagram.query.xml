@@ -20,12 +20,13 @@
 	</select>
 
 	<!-- 크롤링할 head 정보 가져오기 -->
-	<select id="selectCookieInfo" parameterType="string" resultType="CookieInfoVo">
+	<select id="selectCookieInfo" parameterType="CookieInfoVo" resultType="CookieInfoVo">
 		SELECT 
 			cookie_id
 		    ,cookie_val
 		FROM cookie_info
 		where sns_kind = #{snsKind}
+		and seq = #{seq}
 	</select>
 
     

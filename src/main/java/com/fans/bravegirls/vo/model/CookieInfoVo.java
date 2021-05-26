@@ -7,5 +7,5 @@ public class CookieInfoVo {
 	private String snsKind;
 	private String cookieId;
     private String cookieVal;
-    
+    private String seq;
 }
