@@ -3,6 +3,8 @@ package com.fans.bravegirls.batch;
 import com.fans.bravegirls.service.ScheduleService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.context.annotation.Profile;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 @Component
 @Transactional
+@Profile("prod")
 public class ScheduleBatch {
 
     private final ScheduleService scheduleService;

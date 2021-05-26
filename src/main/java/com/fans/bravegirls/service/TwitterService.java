@@ -116,7 +116,7 @@ public class TwitterService {
     	
     	//쿠키 데이타 저장
     	HashMap<String,String> headerData = new HashMap<>();
-    	instagramService.set_cookie_info(headerData , snsKind);
+    	instagramService.set_cookie_info(headerData , snsKind, "0");
 		
 		//트위터 트윗  시작
 		SnsUserInfoVo snsUserInfoVo = new SnsUserInfoVo();
