@@ -46,8 +46,8 @@ public class InstagramService {
      * @param kind
      * @return
      */
-    public List<CookieInfoVo> selectCookieInfo(String snsKind) {
-    	return instagramDao.selectCookieInfo(snsKind);
+    public List<CookieInfoVo> selectCookieInfo(CookieInfoVo cookieInfoVo) {
+    	return instagramDao.selectCookieInfo(cookieInfoVo);
     }
     
     /**
@@ -73,9 +73,13 @@ public class InstagramService {
      * @param headerData
      * @param kind
      */
-    public void set_cookie_info(HashMap<String,String> headerData , String kind) {
+    public void set_cookie_info(HashMap<String,String> headerData , String kind, String seq) {
     	
-    	List<CookieInfoVo> list = selectCookieInfo(kind);
+    	CookieInfoVo cookieInfoVo = new CookieInfoVo();
+    	cookieInfoVo.setSeq(seq);
+    	cookieInfoVo.setSnsKind(kind);
+    	
+    	List<CookieInfoVo> list = selectCookieInfo(cookieInfoVo);
     	
     	for(CookieInfoVo one_cookie : list) {
     		
@@ -91,13 +95,13 @@ public class InstagramService {
     /**
      * 인스타 그램 사진 스크래핑
      */
-    public void instagram_scrap_photo() {
+    public void instagram_scrap_photo(String seq) {
     	String snsKind = SnsKind.instagram.toString();
     	String mediaKind = MediaKind.photo.toString();
     	
     	//쿠키 데이타 저장
     	HashMap<String,String> headerData = new HashMap<>();
-		set_cookie_info(headerData , snsKind);
+		set_cookie_info(headerData , snsKind, seq);
 		
 		//인스타 그램 사진 크롤링 시작
 		SnsUserInfoVo snsUserInfoVo = new SnsUserInfoVo();
@@ -221,13 +225,13 @@ public class InstagramService {
     /**
      * 인스타 그램 비디오(스토리) 스크래핑
      */
-    public void instagram_scrap_video() {
+    public void instagram_scrap_video(String seq) {
     	String snsKind = SnsKind.instagram.toString();
     	String mediaKind = MediaKind.video.toString();
     	
     	//쿠키 데이타 저장
     	HashMap<String,String> headerData = new HashMap<>();
-		set_cookie_info(headerData , snsKind);
+		set_cookie_info(headerData , snsKind , seq);
 		
 		//인스타 그램 사진 크롤링 시작
 		SnsUserInfoVo snsUserInfoVo = new SnsUserInfoVo();

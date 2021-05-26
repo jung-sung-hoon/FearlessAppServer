@@ -152,7 +152,7 @@ public class TestTwitterApiBatch {
     	
     	//쿠키 데이타 저장
     	HashMap<String,String> headerData = new HashMap<>();
-		set_cookie_info(headerData , snsKind);
+		set_cookie_info(headerData , snsKind , "0");
 		
 		//트위터 트윗  시작
 		SnsUserInfoVo snsUserInfoVo = new SnsUserInfoVo();
@@ -174,9 +174,13 @@ public class TestTwitterApiBatch {
     }
     
     
-    public void set_cookie_info(HashMap<String,String> headerData , String kind) {
+    public void set_cookie_info(HashMap<String,String> headerData , String kind, String seq) {
     	
-    	List<CookieInfoVo> list = instagramService.selectCookieInfo(kind);
+    	CookieInfoVo cookieInfoVo = new CookieInfoVo();
+    	cookieInfoVo.setSeq(seq);
+    	cookieInfoVo.setSnsKind(kind);
+    	
+    	List<CookieInfoVo> list = instagramService.selectCookieInfo(cookieInfoVo);
     	
     	for(CookieInfoVo one_cookie : list) {
     		
