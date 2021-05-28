@@ -6,7 +6,7 @@ import com.fans.bravegirls.service.ScheduleService;
 import com.fans.bravegirls.vo.code.DataType;
 import com.fans.bravegirls.vo.code.SnsKind;
 import com.fans.bravegirls.vo.model.ScheduleVo;
-import com.sun.xml.internal.messaging.saaj.util.Base64;
+
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +16,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Base64;
+import java.util.Base64.Decoder;
 import java.util.HashMap;
 import java.util.List;
 import java.net.URLDecoder;
@@ -43,10 +45,13 @@ public class OneSignalMessageController extends BaseRestController {
 
         boolean isUrl = false;
         
+        Decoder decoder = Base64.getDecoder();
+
+        
         //link 는 base64 디코딩, url decoding 한다.
         if(link != null && link.length() > 0) {
         	
-        	link = Base64.base64Decode(link);
+        	link = new String(decoder.decode(link));
         	link = URLDecoder.decode(link);
         	
         	System.out.println(link);
@@ -57,7 +62,7 @@ public class OneSignalMessageController extends BaseRestController {
         //link 는 base64 디코딩, url decoding 한다.
         if(subject != null && subject.length() > 0) {
         	
-        	subject = Base64.base64Decode(subject);
+        	subject = new String(decoder.decode(subject));
         	subject = URLDecoder.decode(subject);
         }
         

@@ -17,7 +17,7 @@ import com.fans.bravegirls.common.utils.HTTPUtil;
 import com.fans.bravegirls.service.OneSignalMessageService;
 import com.fans.bravegirls.vo.code.DataType;
 import com.fans.bravegirls.vo.code.SnsKind;
-import com.sun.xml.internal.messaging.saaj.util.Base64;
+
 
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
@@ -25,6 +25,8 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Scanner;
+import java.util.Base64;
+import java.util.Base64.*;
 
 
 
@@ -115,8 +117,11 @@ public class TestOneSignalMessage {
 		}
     }
     
-    @Test
+    //@Test
     public void oneSignalMessage() {
+    	
+    	Encoder encoder = Base64.getEncoder();
+
     	
     	String link = "https://gall.dcinside.com/mgallery/board/view/?id=bravegirls0409&no=500735";
     	
@@ -124,7 +129,7 @@ public class TestOneSignalMessage {
     	
     	System.out.println(link);
     	
-    	link = new String(Base64.encode(link.getBytes()));
+    	link = new String(encoder.encode(link.getBytes()));
     	
     	String subject = "[공지] ⭐⭐⭐음원총공 서포트 공지⭐⭐⭐";
     	
@@ -132,7 +137,7 @@ public class TestOneSignalMessage {
     	
     	System.out.println(subject);
     	
-    	subject = new String(Base64.encode(subject.getBytes()));
+    	subject = new String(encoder.encode(subject.getBytes()));
     	
     	
     	HashMap<String,Object> data_param = new HashMap<>();

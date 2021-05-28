@@ -330,44 +330,6 @@ public class InstagramService {
 					
 				}
 				
-				/*
-				JSONObject one_item = (JSONObject)items.get(size-1);
-				
-				//System.out.println(one_item);
-				
-				
-				long device_timestamp = (Long)one_item.get("taken_at");
-				
-				//System.out.println(device_timestamp);
-				
-			    //String formatTime = dateFormat.format(device_timestamp);
-			    //System.out.println(device_timestamp + " = " + formatTime);
-				
-				
-				if(last_date < device_timestamp) {
-					
-					System.out.println("신규 스토리 있다.");
-					
-					//마지막 시간 저장한다.
-					one_vo.setLastUpdateTime(String.valueOf(device_timestamp));
-					
-					//db 에 마지막 날짜 수정
-					int update_cnt = updateSnsUserInfoLastUpdateTime(one_vo);
-					
-					//푸쉬 보내기
-					if(update_cnt > 0) {
-						System.out.println("push 보내기");
-						
-						String message = one_vo.getUserId() + " 님의 스토리가 등록 되었습니다.";
-						
-						TelegramMessage.funcTelegram(message);
-						
-						oneSignalMessageService.send_message(data_param , message);
-					}
-					
-				}
-				*/
-				
 			}
 			
 		} catch (Exception e) {
