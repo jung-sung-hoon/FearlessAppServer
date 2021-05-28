@@ -263,6 +263,78 @@ public class TestInstagramScrapBatch {
 		}
     	
     }
+    
+    public void call_instagram_video2(HashMap<String, SnsUserInfoVo> user_info , HashMap<String,String> headerData ) {
+    	
+    	//String id = one_vo.getId();
+    	//long last_date = Long.parseLong(one_vo.getLastUpdateTime());
+    	
+    	String url = "https://i.instagram.com/api/v1/feed/reels_tray/";
+    	
+    	HTTPUtil httpManager = new HTTPUtil(url);
+		httpManager.setHeader(headerData);
+		
+		String result = httpManager.httpGetSend(null);
+		
+		//System.out.println(result);
+		
+		JSONParser parsor = new JSONParser();
+		try {
+			JSONObject order_json = (JSONObject)parsor.parse(result);
+			
+			JSONArray tray = (JSONArray)order_json.get("tray");
+			
+			System.out.println(tray);
+			
+			if(tray != null && tray.size() > 0) {
+				int size = tray.size();
+				
+				for(int i = 0 ; i < size ; i++) {
+					
+					JSONObject one_item = (JSONObject)tray.get(i);
+					
+					String id = String.valueOf((long)one_item.get("id"));
+					
+					//갤주 정보가 들어 있는지 확인
+					System.out.println(user_info.get(id));
+					if(user_info.get(id) == null) {
+						continue;
+					}
+					
+					SnsUserInfoVo one_info = (SnsUserInfoVo)user_info.get(id);
+					
+					long last_date = Long.parseLong(one_info.getLastUpdateTime());
+					
+					
+					//있다면 마지막 시간 확인 할것
+					long latest_reel_media = (Long)one_item.get("latest_reel_media");
+					
+					
+					if(last_date < latest_reel_media) {
+						
+						System.out.println("신규 스토리 있다.");
+						
+						//마지막 시간 저장한다.
+						one_info.setLastUpdateTime(String.valueOf(latest_reel_media));
+						
+						//db 에 마지막 날짜 수정
+						int update_cnt = instagramService.updateSnsUserInfoLastUpdateTime(one_info);
+						
+						//푸쉬 보내기
+						if(update_cnt > 0) {
+							System.out.println("push 보내기");
+						}
+					}
+					
+				}
+				
+			}
+			
+		} catch (Exception e) {
+			
+		}
+    	
+    }
    
     //@Test
     public void instagram_scrap_video() {
@@ -277,14 +349,22 @@ public class TestInstagramScrapBatch {
 		SnsUserInfoVo snsUserInfoVo = new SnsUserInfoVo();
 		snsUserInfoVo.setSnsKind(snsKind);
 		snsUserInfoVo.setMediaKind(mediaKind);
-		    	
+		  
+		HashMap<String, SnsUserInfoVo> user_info = new HashMap<>();
+		
     	List<SnsUserInfoVo> list = instagramService.selectSnsUserInfo(snsUserInfoVo);
     	
     	for(SnsUserInfoVo one_vo : list) {
     		
-    		call_instagram_video( one_vo , headerData);
+    		user_info.put(one_vo.getId() , one_vo);
         	
     	}
+    	
+    	System.out.println(user_info);
+    	
+    	//call_instagram_video2( user_info , headerData);
+    	
+    	instagramService.instagram_scrap_video("1");
 		
     }
     
