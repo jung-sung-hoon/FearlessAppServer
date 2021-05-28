@@ -117,7 +117,7 @@ public class TestOneSignalMessage {
 		}
     }
     
-    @Test
+    //@Test
     public void oneSignalMessage() {
     	
     	Encoder encoder = Base64.getEncoder();
