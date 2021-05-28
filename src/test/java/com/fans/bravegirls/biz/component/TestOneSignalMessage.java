@@ -13,13 +13,16 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.fans.bravegirls.common.utils.HTTPUtil;
 import com.fans.bravegirls.service.OneSignalMessageService;
 import com.fans.bravegirls.vo.code.DataType;
 import com.fans.bravegirls.vo.code.SnsKind;
+import com.sun.xml.internal.messaging.saaj.util.Base64;
 
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -37,7 +40,7 @@ public class TestOneSignalMessage {
     OneSignalMessageService oneSignalMessageService;
     
     
-    @Test
+    //@Test
     public void send_message() {
     	
     	String message = "테스트 메시지";
@@ -110,6 +113,45 @@ public class TestOneSignalMessage {
 		} catch(Throwable t) {
 			t.printStackTrace();
 		}
+    }
+    
+    @Test
+    public void oneSignalMessage() {
+    	
+    	String link = "https://gall.dcinside.com/mgallery/board/view/?id=bravegirls0409&no=500735";
+    	
+    	link = URLEncoder.encode(link);
+    	
+    	System.out.println(link);
+    	
+    	link = new String(Base64.encode(link.getBytes()));
+    	
+    	String subject = "[공지] ⭐⭐⭐음원총공 서포트 공지⭐⭐⭐";
+    	
+    	subject = URLEncoder.encode(subject);
+    	
+    	System.out.println(subject);
+    	
+    	subject = new String(Base64.encode(subject.getBytes()));
+    	
+    	
+    	HashMap<String,Object> data_param = new HashMap<>();
+    	data_param.put("notiType", "dc_noti");
+    	data_param.put("subject", subject);
+    	data_param.put("link", link);
+    	
+    	System.out.println(data_param);
+    	
+    	String url = "http://localhost:19876/api/v1/oneSignal/message";
+    	
+		HTTPUtil httpManager = new HTTPUtil(url);
+		
+		httpManager.post_type = 1;		//post
+		
+					
+		String result = httpManager.httpPostSend(data_param);
+		
+    	
     }
     
 }

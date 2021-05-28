@@ -37,7 +37,7 @@ public class HTTPUtil {
 	
 	private String url = "";
 	
-	private int post_type = 0;		//0 : get , 1 : post , 2 : json
+	public int post_type = 0;		//0 : get , 1 : post , 2 : json
 	
 	private List<NameValuePair> params = new ArrayList<NameValuePair>();
 	
@@ -119,7 +119,7 @@ public class HTTPUtil {
 	
 	public String httpPostSend(Map<String , Object> paramData) {
 		
-		post_type = 2;	// 1 : default url parameter , 2 : json parameter
+		//post_type = 2;	// 1 : default url parameter , 2 : json parameter
 		
 		CloseableHttpClient httpclient = null;
 		CloseableHttpResponse response1 = null;

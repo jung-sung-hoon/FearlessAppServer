@@ -240,19 +240,18 @@ public class InstagramService {
 		
 		HashMap<String,Object> data_param = new HashMap<>();
     	data_param.put(DataType.notiType.toString(), snsKind);
-		    	
+		
+    	HashMap<String, SnsUserInfoVo> user_info = new HashMap<>();
+    	
     	List<SnsUserInfoVo> list = selectSnsUserInfo(snsUserInfoVo);
     	
     	for(SnsUserInfoVo one_vo : list) {
     		
-    		call_instagram_video( one_vo , headerData , data_param);
-        	
-    		try {
-        		Thread.sleep(5000);
-        	} catch (Exception e) {
-        		
-        	}
+    		user_info.put(one_vo.getId() , one_vo);
+    		
     	}
+    	
+    	call_instagram_video( user_info , headerData , data_param);
     }
     
     /**
@@ -260,12 +259,9 @@ public class InstagramService {
      * @param one_vo
      * @param headerData
      */
-    public void call_instagram_video(SnsUserInfoVo one_vo , HashMap<String,String> headerData , HashMap<String,Object> data_param ) {
+    public void call_instagram_video(HashMap<String, SnsUserInfoVo> user_info , HashMap<String,String> headerData , HashMap<String,Object> data_param ) {
     	
-    	String id = one_vo.getId();
-    	long last_date = Long.parseLong(one_vo.getLastUpdateTime());
-    	
-    	String url = "https://i.instagram.com/api/v1/feed/reels_media/?reel_ids="+id;
+    	String url = "https://i.instagram.com/api/v1/feed/reels_tray/";
     	
     	HTTPUtil httpManager = new HTTPUtil(url);
 		httpManager.setHeader(headerData);
@@ -277,24 +273,64 @@ public class InstagramService {
 		try {
 			JSONObject order_json = (JSONObject)parsor.parse(result);
 			
-			JSONArray reels_media = (JSONArray)order_json.get("reels_media");
+			JSONArray tray = (JSONArray)order_json.get("tray");
 			
-			System.out.println(reels_media);
+			System.out.println(tray);
 			
-			if(reels_media == null || reels_media.size() == 0) {
+			if(tray == null || tray.size() == 0) {
 				return;
 			}
 			
-			JSONObject media_one = (JSONObject)reels_media.get(0);
-			
-			JSONArray items = (JSONArray)media_one.get("items");
-			
-			System.out.println(items);
-			
-			if(items != null && items.size() > 0) {
+			if(tray != null && tray.size() > 0) {
 				
-				int size = items.size();
+				int size = tray.size();
+				
+				for(int i = 0 ; i < size ; i++) {
 					
+					JSONObject one_item = (JSONObject)tray.get(i);
+					
+					String id = String.valueOf((long)one_item.get("id"));
+					
+					//갤주 정보가 들어 있는지 확인
+					System.out.println(user_info.get(id));
+					if(user_info.get(id) == null) {
+						continue;
+					}
+					
+					SnsUserInfoVo one_info = (SnsUserInfoVo)user_info.get(id);
+					
+					long last_date = Long.parseLong(one_info.getLastUpdateTime());
+					
+					
+					//있다면 마지막 시간 확인 할것
+					long latest_reel_media = (Long)one_item.get("latest_reel_media");
+					
+					
+					if(last_date < latest_reel_media) {
+						
+						System.out.println("신규 스토리 있다.");
+						
+						//마지막 시간 저장한다.
+						one_info.setLastUpdateTime(String.valueOf(latest_reel_media));
+						
+						//db 에 마지막 날짜 수정
+						int update_cnt = updateSnsUserInfoLastUpdateTime(one_info);
+						
+						//푸쉬 보내기
+						if(update_cnt > 0) {
+							System.out.println("push 보내기");
+							
+							String message = one_info.getUserId() + " 님의 스토리가 등록 되었습니다.";
+							
+							TelegramMessage.funcTelegram(message);
+							
+							oneSignalMessageService.send_message(data_param , message);
+						}
+					}
+					
+				}
+				
+				/*
 				JSONObject one_item = (JSONObject)items.get(size-1);
 				
 				//System.out.println(one_item);
@@ -330,6 +366,7 @@ public class InstagramService {
 					}
 					
 				}
+				*/
 				
 			}
 			
