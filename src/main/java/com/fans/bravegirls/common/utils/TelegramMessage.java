@@ -36,6 +36,7 @@ public class TelegramMessage {
 	public static void main(String[] args) {
 		String message = "테스트 메시지";
 		funcTelegram(message);
+		
 	}
 	
 	
