@@ -4,6 +4,7 @@ package com.fans.bravegirls.biz.component;
 import com.fans.bravegirls.vo.model.ScheduleVo;
 import lombok.extern.slf4j.Slf4j;
 
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,7 +54,7 @@ public class TestStatsBatch {
 			
 			TimeZone tz = TimeZone.getTimeZone(zone);
 			
-			DateFormat out_format = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
+			DateFormat out_format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			out_format.setTimeZone(tz);
 			
 			outSLocalTime = out_format.format(date);

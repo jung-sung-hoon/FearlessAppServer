@@ -51,7 +51,7 @@ public class ScheduleService {
 
             TimeZone tz = TimeZone.getTimeZone(zone);
 
-            DateFormat out_format = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
+            DateFormat out_format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             out_format.setTimeZone(tz);
 
             outSLocalTime = out_format.format(date);
@@ -214,11 +214,13 @@ public class ScheduleService {
                         DateFormat in_format = new SimpleDateFormat("yyyy-MM-dd");
                         reg_date = in_format.parse(startLocalTime);
 
-                        DateFormat out_format = new SimpleDateFormat("yyyy.MM.dd");
+                        DateFormat out_format = new SimpleDateFormat("yyyy-MM-dd");
 
                         startLocalTime = out_format.format(reg_date);
 
                         endLocalTime = startLocalTime;
+                        
+                        endTime = startTime;
                     }
 
                     DateFormat reg_format = new SimpleDateFormat("yyyyMM");
