@@ -1,16 +1,18 @@
 package com.fans.bravegirls.controller;
 
 import com.fans.bravegirls.common.BaseRestController;
+import com.fans.bravegirls.common.exception.http.BadRequestException;
 import com.fans.bravegirls.service.OneSignalMessageService;
 import com.fans.bravegirls.service.ScheduleService;
 import com.fans.bravegirls.vo.code.DataType;
 import com.fans.bravegirls.vo.code.SnsKind;
 import com.fans.bravegirls.vo.model.ScheduleVo;
 
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -30,17 +32,35 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping(value = "/api/v1", produces = MediaType.APPLICATION_JSON_VALUE)
 public class OneSignalMessageController extends BaseRestController {
 
-
+	private Logger L = LoggerFactory.getLogger(this.getClass());
+	
 	@Autowired
 	OneSignalMessageService oneSignalMessageService;
 
     @PostMapping(value = "/oneSignal/message")
     public ResponseEntity<?> oneSignalMessage(HttpServletRequest request,
-    		@RequestParam(value = "push_type", defaultValue = "") 	String push_type,	//원 시그널 메시지 타입
-            @RequestParam(value = "subject", defaultValue = "") 	String subject,		//제목
-            @RequestParam(value = "link", defaultValue = "") 		String link			//url
+    		@RequestParam(value = "push_type", defaultValue = "" ) 	String push_type,	//원 시그널 메시지 타입
+            @RequestParam(value = "subject", defaultValue = "" , required=false ) 	String subject,		//제목
+            @RequestParam(value = "link", defaultValue = ""    , required=false) 	String link			//url
             
-    ) {
+    ) throws BadRequestException {
+    	L.debug("subject = " + subject);
+    	L.debug("link = " + link);
+    	
+    	L.info("subject = " + subject);
+    	L.info("link = " + link);
+    	
+    	if(subject == null || subject.length() == 0) {
+    		subject = "";
+    	}
+    	
+    	subject = subject.trim();
+    	
+    	if(subject.length() == 0) {
+    		throw new BadRequestException("제목을 입력해 주세요.");
+    	}
+    	
+    	
         ipCheck(request);
 
         boolean isUrl = false;

@@ -251,7 +251,10 @@ public class InstagramService {
     		
     	}
     	
-    	call_instagram_video( user_info , headerData , data_param);
+    	if(list.size() > 0) {
+    		call_instagram_video( user_info , headerData , data_param);
+    	}
+    	
     }
     
     /**
