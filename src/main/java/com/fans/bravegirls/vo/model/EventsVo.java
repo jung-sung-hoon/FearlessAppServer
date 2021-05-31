@@ -16,4 +16,5 @@ public class EventsVo {
     private String viewEnd;
     private String isInProgress;
     private String viewCal;
+    private String limitDay;
 }

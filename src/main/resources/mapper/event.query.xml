@@ -27,7 +27,10 @@
 	
 	<!-- 이벤트 D-1 , 오전 10시에 알람 보낸다. -->
 	<select id="selectEventDeadline" resultType="EventsVo" parameterType="string">
-		select * from mydb.events
+		select 
+			*
+			, DATE_FORMAT(end_time,'%Y-%m-%d') as limit_day 
+		from mydb.events
 		where 1=1
 		and end_time &lt;= #{endTime}
 		and is_in_progress is true

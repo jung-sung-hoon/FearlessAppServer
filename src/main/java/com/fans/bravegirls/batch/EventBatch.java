@@ -58,7 +58,11 @@ public class EventBatch {
     		
     		SimpleDateFormat start_format = new SimpleDateFormat("yyyy-MM-dd 23:59:59");
     		
+    		SimpleDateFormat today_format = new SimpleDateFormat("yyyy-MM-dd");
+    		
     		Date start_date = new Date();
+    		
+    		String today_date = today_format.format(start_date);
             
             Calendar c = Calendar.getInstance();
             c.setTime(start_date);
@@ -67,13 +71,24 @@ public class EventBatch {
     		
     		endTime = start_format.format(start_date);
     		
+    		
+    		System.out.println("today_date = " + today_date);
+    		System.out.println("endTime = " + endTime);
+    		
     		List<EventsVo> result_list = eventsService.selectEventDeadline(endTime);
         	
         	for(EventsVo one_obj : result_list) {
         		System.out.println(one_obj);
         		
         		String end_time = one_obj.getEndTime();
-        		String title 	= "'"+one_obj.getTitle()+"' 의 이벤트 종료일이 1일 남았습니다. [종료시간 : " + end_time + "]";
+        		String title 	= "'"+one_obj.getTitle()+"' 의 이벤트 종료일이 1일 남았습니다.";
+        		
+        		if(one_obj.getLimitDay().equals(today_date)) {
+        			title 	= "'"+one_obj.getTitle()+"' 의 이벤트 종료일 입니다.";
+        		}
+        		
+        		title = title + " [종료시간 : " + end_time + "]";
+        		
         		
         		TelegramMessage.funcTelegram(title);
 				
