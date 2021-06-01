@@ -30,7 +30,7 @@ public class InstagramScrapBatch {
      */
     //@Scheduled(cron = "0 */5 */2 * * *")
    // @Scheduled(cron = "0 */5 */3 * * *")
-    //@Scheduled(cron = "0 */5 0-11 * * *")
+    @Scheduled(cron = "0 */5 0-11 * * *")
     public void instagram_scrap_photo_0() {
 
     	String seq = "1";
