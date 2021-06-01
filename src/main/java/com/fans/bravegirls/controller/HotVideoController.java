@@ -46,6 +46,8 @@ public class HotVideoController extends BaseRestController {
         	pageSize = 100;
         }
         
+        int start_page = offSet;
+        
         offSet = (offSet - 1) * pageSize;
         
         pageHotVideoVo.setOffSet(offSet);
@@ -64,6 +66,8 @@ public class HotVideoController extends BaseRestController {
         	result_map.put("nextYn", "Y");
         	result.remove(pageSize);
         }
+        
+        result_map.put("nextPageNum", (start_page+1));
         
         result_map.put("total_cnt", hotVideoService.selectHotVideosHavingTagCnt(pageHotVideoVo));
         
