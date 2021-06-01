@@ -22,7 +22,7 @@
 		where start_time &lt;= now()
 		and end_time >= now()
 		and is_in_progress is true
-	    order by start_time asc
+	    order by end_time asc
 	</select>
 	
 	<!-- 이벤트 D-1 , 오전 10시에 알람 보낸다. -->
