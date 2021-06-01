@@ -13,7 +13,7 @@
 	        ,start_time
 	        ,end_time
 	        ,description
-	        ,image
+	        ,image as thumbnailImg
 	        ,url
 	        ,is_in_progress
 	        , DATE_FORMAT(start_time,'%Y-%m-%d') as view_start
@@ -57,7 +57,7 @@
 	        ,start_time
 	        ,end_time
 	        ,description
-	        ,image
+	        ,image as thumbnailImg
 	        ,url
 	        ,is_in_progress
 	    from events
