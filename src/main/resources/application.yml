@@ -14,7 +14,7 @@ spring:
     jdbcUrl: jdbc:mysql://fearless-assemble-db.ctk83ps9umjm.ap-northeast-2.rds.amazonaws.com:3306/mydb?autoReconnection=true&characterEncoding=UTF8
     username: admin
     password: "Danbal!0511"
-    maximum-pool-size: 10
+    maximum-pool-size: 2
 
 
 ---

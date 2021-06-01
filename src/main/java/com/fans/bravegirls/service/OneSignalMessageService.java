@@ -56,7 +56,7 @@ public class OneSignalMessageService {
 			contents_obj.put("en" , message);
 			
 			JSONObject data_obj = new JSONObject();
-			data_obj.put("foo" , "bar");
+			//data_obj.put("foo" , "bar");
 			
 			data_obj.putAll(data_param);
 			
