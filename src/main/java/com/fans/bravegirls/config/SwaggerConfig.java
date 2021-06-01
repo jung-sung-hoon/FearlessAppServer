@@ -27,15 +27,6 @@ public class SwaggerConfig {
     }
 	
 	
-	private ApiInfo getApiInfo() {
-		return new ApiInfo(
-	            "NEO REST API ", //title
-	            "스프링부트 샘플 프로젝트", //description
-	            "v2", //version
-	            "서비스 약관 URL", //termsOfServiceUrl
-	            "linked2ev", //contactName
-	            "License", //license
-	            "13.209.32.248:19876/"); //licenseUrl
-    }
+	
 	
 }
