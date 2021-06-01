@@ -25,6 +25,11 @@ public class HotVideoService {
 
         return hotVideoVos;
     }
+    
+    
+    public int selectHotVideosHavingTagCnt(PageHotVideoVo pageHotVideoVo) {
+    	return hotVideoDao.selectHotVideosHavingTagCnt(pageHotVideoVo);
+    }
 
     public List<HotVideoTagVo> selectAllHotVideoTags() {
         return hotVideoDao.selectAllHotVideoTags();

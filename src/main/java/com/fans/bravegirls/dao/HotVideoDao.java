@@ -13,6 +13,8 @@ import org.springframework.stereotype.Repository;
 public interface HotVideoDao {
     List<HotVideoVo> selectHotVideosHavingTag(PageHotVideoVo pageHotVideoVo);
 
+    int selectHotVideosHavingTagCnt(PageHotVideoVo pageHotVideoVo);
+    
     List<HotVideoTagVo> selectTagsOfHotVideo(int videoId);
 
     List<HotVideoTagVo> selectAllHotVideoTags();

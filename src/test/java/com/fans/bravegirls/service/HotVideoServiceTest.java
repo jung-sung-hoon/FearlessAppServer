@@ -49,6 +49,9 @@ public class HotVideoServiceTest {
         
         System.out.println("hotVideoVos size = " + hotVideoVos.size());
         System.out.println(hotVideoVos);
+        
+        //총건수
+        System.out.println(hotVideoService.selectHotVideosHavingTagCnt(pageHotVideoVo));
     }
 
     //@Test

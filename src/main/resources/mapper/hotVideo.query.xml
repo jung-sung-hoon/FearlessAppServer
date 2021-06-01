@@ -19,6 +19,19 @@
         order by a.upload_date desc
         LIMIT #{offSet}, #{pageSize}
     </select>
+    
+    <select id="selectHotVideosHavingTagCnt" parameterType="PageHotVideoVo" resultType="int">
+        select count(*) as cnt
+        from youtube_hot_videos a,
+        youtube_hot_video_tags b,
+        youtube_tags c,
+        youtube_ch_info d
+        where a.id = b.video_id
+        and b.tag_id = c.id
+        and a.channel_id = d.id
+        and c.id = #{id}
+        and a.is_usable = true
+    </select>
 
     <select id="selectTagsOfHotVideo" parameterType="int" resultType="HotVideoTagVo">
         select b.id, b.title
