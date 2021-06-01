@@ -4,12 +4,12 @@ import lombok.Data;
 
 @Data
 public class EventsVo {
-    private String id;
+    private int id;
     private String title;
     private String startTime;
     private String endTime;
     private String description;
-    private String image;
+    private String thumbnailImg;
     private String url;
     private String regDtm;
     private String viewStart;
