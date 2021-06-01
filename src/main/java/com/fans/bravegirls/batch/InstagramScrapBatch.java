@@ -17,7 +17,7 @@ import com.fans.bravegirls.vo.code.SnsKind;
 @RequiredArgsConstructor
 @Component
 @Transactional
-@Profile("local")
+@Profile("prod")
 public class InstagramScrapBatch {
 
     private Logger L = LoggerFactory.getLogger(this.getClass());

@@ -3,6 +3,8 @@ package com.fans.bravegirls.service;
 import java.util.List;
 import com.fans.bravegirls.vo.model.HotVideoTagVo;
 import com.fans.bravegirls.vo.model.HotVideoVo;
+import com.fans.bravegirls.vo.model.PageHotVideoVo;
+
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.Test;
@@ -21,14 +23,35 @@ public class HotVideoServiceTest {
     @Test
     public void selectHotVideosHavingTag() {
 
-        List<HotVideoVo> hotVideoVos = hotVideoService.selectHotVideosHavingTag(1);
+    	int tagId = 1;
+    	int offSet = 1;
+    	int pageSize = 2;
+    	
+    	PageHotVideoVo pageHotVideoVo = new PageHotVideoVo();
+        pageHotVideoVo.setId(tagId);
+        
+        offSet = (offSet - 1) * pageSize;
+        
+        pageHotVideoVo.setOffSet(offSet);
+        pageHotVideoVo.setPageSize(pageSize+1);
+    	
+        List<HotVideoVo> hotVideoVos = hotVideoService.selectHotVideosHavingTag(pageHotVideoVo);
 
         Assert.assertNotNull(hotVideoVos);
         Assert.assertNotNull(hotVideoVos.get(0).getTags());
+        
+        System.out.println("hotVideoVos size = " + hotVideoVos.size());
+        System.out.println(hotVideoVos);
+        
+        if(hotVideoVos.size() > pageSize) {
+        	hotVideoVos.remove(pageSize);
+        }
+        
+        System.out.println("hotVideoVos size = " + hotVideoVos.size());
         System.out.println(hotVideoVos);
     }
 
-    @Test
+    //@Test
     public void selectAllHotVideoTags() {
 
         List<HotVideoTagVo> hotVideoTagVos = hotVideoService.selectAllHotVideoTags();
