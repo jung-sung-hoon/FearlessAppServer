@@ -2,6 +2,7 @@ package com.fans.bravegirls.controller;
 
 import com.fans.bravegirls.common.BaseRestController;
 import com.fans.bravegirls.service.EventsService;
+import com.fans.bravegirls.vo.code.EventCategory;
 import com.fans.bravegirls.vo.model.EventsVo;
 
 import lombok.RequiredArgsConstructor;
@@ -25,10 +26,11 @@ public class EventController extends BaseRestController {
 
 
     @GetMapping(value = "/events")
-    public ResponseEntity<?> getEvents(HttpServletRequest request) {
+    public ResponseEntity<?> getEvents(HttpServletRequest request, @RequestParam(value = "category", required = false)
+            EventCategory category) {
         ipCheck(request);
 
-        List<EventsVo> result = eventsService.selectEventsInProgress();
+        List<EventsVo> result = eventsService.selectEventsInProgress(category);
 
         HashMap<String, Object> result_map = new HashMap<>();
 
