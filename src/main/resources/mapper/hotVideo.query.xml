@@ -5,7 +5,7 @@
 
 
 
-    <select id="selectHotVideosHavingTag" parameterType="int" resultType="HotVideoVo">
+    <select id="selectHotVideosHavingTag" parameterType="PageHotVideoVo" resultType="HotVideoVo">
         select a.id, a.code, a.title, a.play_time, a.upload_date, d.title as channel_title
         from youtube_hot_videos a,
         youtube_hot_video_tags b,
@@ -17,6 +17,7 @@
         and c.id = #{id}
         and a.is_usable = true
         order by a.upload_date desc
+        LIMIT #{offSet}, #{pageSize}
     </select>
 
     <select id="selectTagsOfHotVideo" parameterType="int" resultType="HotVideoTagVo">
