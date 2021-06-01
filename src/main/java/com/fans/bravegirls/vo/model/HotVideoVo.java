@@ -14,7 +14,7 @@ public class HotVideoVo {
     private String channelTitle;
 
 
-    public String getThumbnailImg() {
+    public String getThumbnailImage() {
         return "https://img.youtube.com/vi/" + this.code + "/0.jpg";
     }
 
