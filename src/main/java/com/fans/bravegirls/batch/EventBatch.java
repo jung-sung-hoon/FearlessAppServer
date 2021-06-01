@@ -58,12 +58,9 @@ public class EventBatch {
     		
     		SimpleDateFormat start_format = new SimpleDateFormat("yyyy-MM-dd 23:59:59");
     		
-    		SimpleDateFormat today_format = new SimpleDateFormat("yyyy-MM-dd");
-    		
     		Date start_date = new Date();
     		
-    		String today_date = today_format.format(start_date);
-            
+    		
             Calendar c = Calendar.getInstance();
             c.setTime(start_date);
             c.add(Calendar.DATE, 1);
@@ -71,9 +68,14 @@ public class EventBatch {
     		
     		endTime = start_format.format(start_date);
     		
-    		
-    		System.out.println("today_date = " + today_date);
     		System.out.println("endTime = " + endTime);
+
+    		Date today_date = new Date();
+    		SimpleDateFormat today_format = new SimpleDateFormat("yyyyMMdd");
+    		String str_date = today_format.format(today_date);
+    		
+    		Date diff_today_date = today_format.parse(str_date);
+    		System.out.println("diff_today_date = " + diff_today_date);
     		
     		List<EventsVo> result_list = eventsService.selectEventDeadline(endTime);
         	
@@ -81,18 +83,30 @@ public class EventBatch {
         		System.out.println(one_obj);
         		
         		String end_time = one_obj.getEndTime();
-        		String title 	= "'"+one_obj.getTitle()+"' 의 이벤트 종료일이 1일 남았습니다.";
         		
-        		if(one_obj.getLimitDay().equals(today_date)) {
-        			title 	= "'"+one_obj.getTitle()+"' 의 이벤트 종료일 입니다.";
+        		String limit_day = one_obj.getLimitDay();
+        		Date diff_limit_day = today_format.parse(limit_day);
+        		
+        		long diffDay = (diff_limit_day.getTime() - diff_today_date.getTime()) / (24*60*60*1000);
+                System.out.println(diffDay+"일");
+
+                String title 	= "";
+                
+                if(diffDay == 0) {
+                	title 	= "'"+one_obj.getTitle()+"' 의 이벤트 종료일 입니다.";
+                } else if(diffDay == 1) {
+                	title 	= "'"+one_obj.getTitle()+"' 의 이벤트 종료일이 1일 남았습니다.";
+                }
+        				
+        		if(title.length() > 0) {
+        			title = title + " [종료시간 : " + end_time + "]";
+            		
+            		TelegramMessage.funcTelegram(title);
+    				
+    				oneSignalMessageService.send_message(data_param , title);
         		}
         		
-        		title = title + " [종료시간 : " + end_time + "]";
         		
-        		
-        		TelegramMessage.funcTelegram(title);
-				
-				oneSignalMessageService.send_message(data_param , title);
         		
         	}
     		
