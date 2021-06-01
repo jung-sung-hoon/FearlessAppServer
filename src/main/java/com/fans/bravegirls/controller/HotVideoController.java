@@ -65,6 +65,8 @@ public class HotVideoController extends BaseRestController {
         	result.remove(pageSize);
         }
         
+        result_map.put("total_cnt", hotVideoService.selectHotVideosHavingTagCnt(pageHotVideoVo));
+        
         return success(result_map);
     }
 
