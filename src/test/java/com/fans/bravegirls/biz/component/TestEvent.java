@@ -1,6 +1,7 @@
 package com.fans.bravegirls.biz.component;
 
 
+import com.fans.bravegirls.vo.code.EventCategory;
 import lombok.extern.slf4j.Slf4j;
 
 import org.junit.Test;
@@ -59,7 +60,7 @@ public class TestEvent {
     		
     		System.out.println(regYyyymm);
     		*/
-    		List<EventsVo> result_list = eventsService.selectEventsInProgress();
+    		List<EventsVo> result_list = eventsService.selectEventsInProgress(EventCategory.event);
         	
         	for(EventsVo one_obj : result_list) {
         		System.out.println(one_obj);

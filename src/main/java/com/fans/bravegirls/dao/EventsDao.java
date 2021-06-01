@@ -1,5 +1,6 @@
 package com.fans.bravegirls.dao;
 
+import com.fans.bravegirls.vo.code.EventCategory;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -13,7 +14,7 @@ public interface EventsDao {
     
 
     //이벤트 조회
-    List<EventsVo> selectEventsInProgress();
+    List<EventsVo> selectEventsInProgress(EventCategory category);
     
     
     //이벤트 D-1 , 오전 10시에 알람 보낸다.

@@ -1,5 +1,6 @@
 package com.fans.bravegirls.service;
 
+import com.fans.bravegirls.vo.code.EventCategory;
 import com.fans.bravegirls.vo.model.EventsVo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,9 +21,9 @@ public class EventsService {
 
 
     //이벤트 조회
-    public List<EventsVo> selectEventsInProgress() {
+    public List<EventsVo> selectEventsInProgress(EventCategory category) {
 
-        return eventsDao.selectEventsInProgress();
+        return eventsDao.selectEventsInProgress(category);
     }
     
     

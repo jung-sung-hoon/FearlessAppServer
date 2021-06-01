@@ -1,5 +1,6 @@
 package com.fans.bravegirls.vo.model;
 
+import com.fans.bravegirls.vo.code.EventCategory;
 import lombok.Data;
 
 @Data
@@ -17,4 +18,5 @@ public class EventsVo {
     private String isInProgress;
     private String viewCal;
     private String limitDay;
+    private EventCategory category;
 }
