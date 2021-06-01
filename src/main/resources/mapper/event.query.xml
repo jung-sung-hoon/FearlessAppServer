@@ -33,7 +33,7 @@
 	<select id="selectEventDeadline" resultType="EventsVo" parameterType="string">
 		select 
 			*
-			, DATE_FORMAT(end_time,'%Y-%m-%d') as limit_day 
+			, DATE_FORMAT(end_time,'%Y%m%d') as limit_day 
 		from mydb.events
 		where 1=1
 		and end_time &lt;= #{endTime}
