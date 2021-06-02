@@ -1,9 +1,22 @@
 spring:
   profiles:
     active: local
+  http:
+    encoding:
+      charset: UTF-8
+      force: true
+      enabled: true
+      force-response: true
+      force-request: true
+      mapping:
+        KOREAN: UTF-8
+      
 
 server:
   port: 19876
+  servlet:
+    encoding:
+      charset: UTF-8
 
 
 ---
