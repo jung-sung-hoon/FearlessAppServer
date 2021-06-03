@@ -27,7 +27,7 @@ public class OneSignalMessageService {
 
     //메시지 보내기
 	@Async
-    public void send_message(HashMap<String,Object> data_param , String message) {
+    public void send_message(HashMap<String,Object> data_param , String message , HashMap<String,Object> main_param) {
 		
     	String jsonResponse = "";
     	
@@ -68,6 +68,10 @@ public class OneSignalMessageService {
 			body_obj.put("included_segments", users);
 			body_obj.put("data", data_obj);
 			body_obj.put("contents" , contents_obj);
+			
+			if(main_param != null) {
+				body_obj.putAll(main_param);
+			}
 			
    
 			System.out.println("strJsonBody:\n" + body_obj.toJSONString());

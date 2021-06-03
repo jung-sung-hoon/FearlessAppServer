@@ -130,7 +130,7 @@ public class TestTwitterApiBatch {
 						
 						TelegramMessage.funcTelegram(message);
 						
-						oneSignalMessageService.send_message(data_param , message);
+						oneSignalMessageService.send_message(data_param , message , null);
 					}
 					
 				}

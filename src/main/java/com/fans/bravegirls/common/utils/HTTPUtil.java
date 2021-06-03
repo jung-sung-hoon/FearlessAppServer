@@ -11,8 +11,10 @@ import org.apache.http.Header;
 import org.apache.http.HeaderElement;
 import org.apache.http.HeaderElementIterator;
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpHost;
 import org.apache.http.HttpMessage;
 import org.apache.http.NameValuePair;
+import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -20,6 +22,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicHeaderElementIterator;
 import org.apache.http.message.BasicNameValuePair;
@@ -37,12 +40,19 @@ public class HTTPUtil {
 	
 	private String url = "";
 	
+	////post_type = 2;	// 1 : default url parameter , 2 : json parameter
 	public int post_type = 0;		//0 : get , 1 : post , 2 : json
 	
 	private List<NameValuePair> params = new ArrayList<NameValuePair>();
 	
 	private Map<String , String> headerMap = null;
 	public Map<String , String> cookieMap	= new HashMap<String , String>();
+	
+	//프록시
+	private HttpHost proxy = null;
+	
+	//request 옵션
+	RequestConfig requestConfig = null;
 	
 	public HTTPUtil(){}
 	
@@ -115,19 +125,31 @@ public class HTTPUtil {
 	    }
 	}
 	
+	public void setProxy(HttpHost proxy) {
+		this.proxy = proxy;
+	}
 	
+	public void setRequestConfig(RequestConfig requestConfig) {
+		this.requestConfig = requestConfig;
+	}
 	
 	public String httpPostSend(Map<String , Object> paramData) {
-		
-		//post_type = 2;	// 1 : default url parameter , 2 : json parameter
 		
 		CloseableHttpClient httpclient = null;
 		CloseableHttpResponse response1 = null;
 		try {
 			
-			httpclient = HttpClients.createDefault();
+			if(proxy == null) {
+				httpclient = HttpClients.createDefault();
+			} else {
+				httpclient = HttpClientBuilder.create().setProxy(proxy).build();
+			}
 			
 			HttpPost post = new HttpPost(this.url);
+			
+			if(requestConfig != null) {
+				post.setConfig(requestConfig);
+			}
 			
 			setHeader(post);
 			clearParameter();
@@ -184,7 +206,12 @@ public class HTTPUtil {
 		CloseableHttpResponse response1 = null;
 		HttpEntity entity1 = null;
 		try {
-			httpclient = HttpClients.createDefault();
+			
+			if(proxy == null) {
+				httpclient = HttpClients.createDefault();
+			} else {
+				httpclient = HttpClientBuilder.create().setProxy(proxy).build();
+			}
 			
 			clearParameter();
 			setParameter(paramData);
@@ -196,6 +223,10 @@ public class HTTPUtil {
 				    .build();
 			
 			HttpGet httpGet = new HttpGet(uri);
+			
+			if(requestConfig != null) {
+				httpGet.setConfig(requestConfig);
+			}
 			
 			setHeader(httpGet);
 			
@@ -224,7 +255,12 @@ public class HTTPUtil {
 		CloseableHttpResponse response1 = null;
 		
 		try {
-			httpclient = HttpClients.createDefault();
+			
+			if(proxy == null) {
+				httpclient = HttpClients.createDefault();
+			} else {
+				httpclient = HttpClientBuilder.create().setProxy(proxy).build();
+			}
 			
 			clearParameter();
 			setParameter(paramData);
@@ -236,6 +272,10 @@ public class HTTPUtil {
 				    .build();
 			
 			HttpGet httpGet = new HttpGet(uri);
+			
+			if(requestConfig != null) {
+				httpGet.setConfig(requestConfig);
+			}
 			
 			setHeader(httpGet);
 			

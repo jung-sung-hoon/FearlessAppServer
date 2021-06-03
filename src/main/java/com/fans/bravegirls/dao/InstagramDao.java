@@ -4,6 +4,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 import com.fans.bravegirls.vo.model.CookieInfoVo;
+import com.fans.bravegirls.vo.model.ProxyServerVo;
 import com.fans.bravegirls.vo.model.SnsUserInfoVo;
 
 import java.util.List;
@@ -24,4 +25,7 @@ public interface InstagramDao {
     
     //미디어의 사용자 ID 를 업데이트 한다.
     int updateSnsUserInfoId(SnsUserInfoVo snsUserInfoVo);
+    
+    //프록시
+    ProxyServerVo selectProxyServer(ProxyServerVo proxyServerVo);
 }

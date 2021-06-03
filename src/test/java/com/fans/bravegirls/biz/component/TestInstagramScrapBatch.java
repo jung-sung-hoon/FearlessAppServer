@@ -3,6 +3,7 @@ package com.fans.bravegirls.biz.component;
 
 import lombok.extern.slf4j.Slf4j;
 
+import org.apache.http.HttpHost;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -20,6 +21,7 @@ import com.fans.bravegirls.service.InstagramService;
 import com.fans.bravegirls.vo.code.MediaKind;
 import com.fans.bravegirls.vo.code.SnsKind;
 import com.fans.bravegirls.vo.model.CookieInfoVo;
+import com.fans.bravegirls.vo.model.ProxyServerVo;
 import com.fans.bravegirls.vo.model.SnsUserInfoVo;
 
 import java.util.HashMap;
@@ -336,8 +338,21 @@ public class TestInstagramScrapBatch {
     	
     }
    
-    //@Test
+    @Test
     public void instagram_scrap_video() {
+    	
+    	//프로시 정보 조회
+    	ProxyServerVo proxyServerVo = new ProxyServerVo();
+    	proxyServerVo.setSeq("1");
+    	//ProxyServerVo proxy_info = instagramService.selectProxyServer(proxyServerVo);
+    	ProxyServerVo proxy_info = null;
+    	
+    	HttpHost proxy = null;
+    	
+    	if(proxy_info != null) {
+    		proxy = new HttpHost(proxy_info.getServerIp(), Integer.parseInt(proxy_info.getServerPort()));
+    	}
+    	
     	String snsKind = SnsKind.instagram.toString();
     	String mediaKind = MediaKind.video.toString();
     	
@@ -364,7 +379,7 @@ public class TestInstagramScrapBatch {
     	
     	//call_instagram_video2( user_info , headerData);
     	
-    	instagramService.instagram_scrap_video("1");
+    	instagramService.instagram_scrap_video("2" , proxy);
 		
     }
     

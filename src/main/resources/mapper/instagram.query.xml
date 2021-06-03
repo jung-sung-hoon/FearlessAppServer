@@ -51,5 +51,13 @@
 		and user_id 	= #{userId}
     </update>
     
+    <!-- 프로시 정보 조회 -->
+    <select id="selectProxyServer" parameterType="ProxyServerVo" resultType="ProxyServerVo">
+		select server_ip , server_port , use_yn 
+		From proxy_server
+		where 1=1
+		and seq = #{seq}
+		and use_yn = 'Y'
+	</select>
     
 </mapper>
