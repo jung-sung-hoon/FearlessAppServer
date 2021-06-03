@@ -1,5 +1,6 @@
 package com.fans.bravegirls.service;
 
+import org.apache.http.HttpHost;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -15,6 +16,7 @@ import com.fans.bravegirls.vo.code.DataType;
 import com.fans.bravegirls.vo.code.MediaKind;
 import com.fans.bravegirls.vo.code.SnsKind;
 import com.fans.bravegirls.vo.model.CookieInfoVo;
+import com.fans.bravegirls.vo.model.ProxyServerVo;
 import com.fans.bravegirls.vo.model.SnsUserInfoVo;
 
 import java.util.HashMap;
@@ -69,6 +71,17 @@ public class InstagramService {
     }
     
     /**
+     * 프록시 정보 조회
+     * @param proxyServerVo
+     * @return
+     */
+    public ProxyServerVo selectProxyServer(ProxyServerVo proxyServerVo) {
+    	return instagramDao.selectProxyServer(proxyServerVo);
+    }
+    
+    
+    
+    /**
      * 쿠키 데이타 설정
      * @param headerData
      * @param kind
@@ -95,7 +108,7 @@ public class InstagramService {
     /**
      * 인스타 그램 사진 스크래핑
      */
-    public void instagram_scrap_photo(String seq) {
+    public void instagram_scrap_photo(String seq , HttpHost proxy) {
     	String snsKind = SnsKind.instagram.toString();
     	String mediaKind = MediaKind.photo.toString();
     	
@@ -116,7 +129,7 @@ public class InstagramService {
     	for(SnsUserInfoVo one_vo : list) {
     		
         	//포토 조회
-        	String return_usr_id = call_instagram_photo( one_vo , headerData , data_param);
+        	String return_usr_id = call_instagram_photo( one_vo , headerData , data_param , proxy);
         	
         	//업데이트 한다.
         	one_vo.setId(return_usr_id);
@@ -131,13 +144,14 @@ public class InstagramService {
     	}
     }
     
+    
     /**
      * 인스타 그램 사진 데이타 스크래핑
      * @param one_vo
      * @param headerData
      * @return
      */
-    public String call_instagram_photo(SnsUserInfoVo one_vo , HashMap<String,String> headerData , HashMap<String,Object> data_param) {
+    public String call_instagram_photo(SnsUserInfoVo one_vo , HashMap<String,String> headerData , HashMap<String,Object> data_param , HttpHost proxy) {
     	
     	String usr_id = one_vo.getUserId();
     	long last_date = Long.parseLong(one_vo.getLastUpdateTime());
@@ -146,6 +160,10 @@ public class InstagramService {
     	
 		HTTPUtil httpManager = new HTTPUtil(url);
 		httpManager.setHeader(headerData);
+		
+		if(proxy != null) {
+			httpManager.setProxy(proxy);
+		}
 					
 		String result = httpManager.httpGetSend(null);
 		
@@ -206,7 +224,14 @@ public class InstagramService {
 						
 						TelegramMessage.funcTelegram(message);
 						
-						oneSignalMessageService.send_message(data_param , message);
+						HashMap<String,Object> main_param = new HashMap<>();
+						
+						String photo_url = "https://www.instagram.com/p/"+node.get("shortcode")+"/?utm_source=ig_web_copy_link";
+						
+						main_param.put("url", photo_url);
+						
+						
+						oneSignalMessageService.send_message(data_param , message , main_param);
 					}
 					
 				}
@@ -225,7 +250,7 @@ public class InstagramService {
     /**
      * 인스타 그램 비디오(스토리) 스크래핑
      */
-    public void instagram_scrap_video(String seq) {
+    public void instagram_scrap_video(String seq , HttpHost proxy) {
     	String snsKind = SnsKind.instagram.toString();
     	String mediaKind = MediaKind.video.toString();
     	
@@ -240,7 +265,7 @@ public class InstagramService {
 		
 		HashMap<String,Object> data_param = new HashMap<>();
     	data_param.put(DataType.notiType.toString(), snsKind);
-		
+    	
     	HashMap<String, SnsUserInfoVo> user_info = new HashMap<>();
     	
     	List<SnsUserInfoVo> list = selectSnsUserInfo(snsUserInfoVo);
@@ -252,7 +277,7 @@ public class InstagramService {
     	}
     	
     	if(list.size() > 0) {
-    		call_instagram_video( user_info , headerData , data_param);
+    		call_instagram_video( user_info , headerData , data_param , proxy);
     	}
     	
     }
@@ -262,12 +287,16 @@ public class InstagramService {
      * @param one_vo
      * @param headerData
      */
-    public void call_instagram_video(HashMap<String, SnsUserInfoVo> user_info , HashMap<String,String> headerData , HashMap<String,Object> data_param ) {
+    public void call_instagram_video(HashMap<String, SnsUserInfoVo> user_info , HashMap<String,String> headerData , HashMap<String,Object> data_param , HttpHost proxy ) {
     	
     	String url = "https://i.instagram.com/api/v1/feed/reels_tray/";
     	
     	HTTPUtil httpManager = new HTTPUtil(url);
 		httpManager.setHeader(headerData);
+		
+		if(proxy != null) {
+			httpManager.setProxy(proxy);
+		}
 		
 		String result = httpManager.httpGetSend(null);
 		
@@ -327,7 +356,18 @@ public class InstagramService {
 							
 							TelegramMessage.funcTelegram(message);
 							
-							oneSignalMessageService.send_message(data_param , message);
+							HashMap<String,Object> main_param = null;
+							
+							String pk = call_instagram_video2(one_info , headerData );
+							
+							if(pk.length() > 0) {
+								main_param = new HashMap<>();
+								String photo_url = "https://instagram.com/stories/"+one_info.getUserId()+"/"+pk+"?utm_source=ig_story_item_share&utm_medium=share_sheet";
+								
+								main_param.put("url", photo_url);
+							}
+							
+							oneSignalMessageService.send_message(data_param , message , main_param);
 						}
 					}
 					
@@ -338,7 +378,59 @@ public class InstagramService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+    }
+    
+    public String call_instagram_video2(SnsUserInfoVo one_vo , HashMap<String,String> headerData ) {
     	
+    	String id = one_vo.getId();
+    	
+    	String pk = "";
+    	
+    	String url = "https://i.instagram.com/api/v1/feed/reels_media/?reel_ids="+id;
+    	
+    	HTTPUtil httpManager = new HTTPUtil(url);
+		httpManager.setHeader(headerData);
+		
+		String result = httpManager.httpGetSend(null);
+		
+		//System.out.println(result);
+		
+		JSONParser parsor = new JSONParser();
+		try {
+			JSONObject order_json = (JSONObject)parsor.parse(result);
+			
+			JSONArray reels_media = (JSONArray)order_json.get("reels_media");
+			
+			System.out.println(reels_media);
+			
+			JSONObject media_one = (JSONObject)reels_media.get(0);
+			
+			JSONArray items = (JSONArray)media_one.get("items");
+			
+			System.out.println(items);
+			
+			if(items != null && items.size() > 0) {
+				
+				int size = items.size();
+					
+				JSONObject one_item = (JSONObject)items.get(size-1);
+				
+				//System.out.println(one_item);
+				
+				
+				//long device_timestamp = (Long)one_item.get("taken_at");
+				
+				//System.out.println(device_timestamp);
+				
+				pk = (String)one_item.get("pk");
+				
+			}
+			
+		} catch (Exception e) {
+			
+		}
+    	
+		return pk;
     }
 }
 

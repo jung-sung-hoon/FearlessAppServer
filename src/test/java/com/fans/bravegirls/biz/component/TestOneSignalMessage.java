@@ -54,7 +54,7 @@ public class TestOneSignalMessage {
     	
     	System.out.println("시작");
     	
-    	oneSignalMessageService.send_message(data_param , message);
+    	oneSignalMessageService.send_message(data_param , message , null);
     	
     	System.out.println("종료");
     }

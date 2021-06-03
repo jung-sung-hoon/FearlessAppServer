@@ -103,7 +103,7 @@ public class EventBatch {
             		
             		TelegramMessage.funcTelegram(title);
     				
-    				oneSignalMessageService.send_message(data_param , title);
+    				oneSignalMessageService.send_message(data_param , title , null);
         		}
         		
         		
@@ -195,7 +195,7 @@ public class EventBatch {
         		
         		TelegramMessage.funcTelegram(title);
 				
-				oneSignalMessageService.send_message(data_param , title);
+				oneSignalMessageService.send_message(data_param , title , null);
         		
         	}
     		
