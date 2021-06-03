@@ -106,7 +106,7 @@ public class TestEvent {
         		
         		TelegramMessage.funcTelegram(title);
 				
-				oneSignalMessageService.send_message(data_param , title);
+				oneSignalMessageService.send_message(data_param , title , null);
         		
         	}
     		
@@ -181,7 +181,7 @@ public class TestEvent {
         		
         		TelegramMessage.funcTelegram(title);
 				
-				oneSignalMessageService.send_message(data_param , title);
+				oneSignalMessageService.send_message(data_param , title , null);
         		
         	}
     		

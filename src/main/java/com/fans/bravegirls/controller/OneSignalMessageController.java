@@ -99,7 +99,7 @@ public class OneSignalMessageController extends BaseRestController {
     	System.out.println("data_param = " + data_param);
     	System.out.println("message = " + message);
     	
-    	oneSignalMessageService.send_message(data_param, message);
+    	oneSignalMessageService.send_message(data_param, message , null);
         
         return success("OK");
     }
