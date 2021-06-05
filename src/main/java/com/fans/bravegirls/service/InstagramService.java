@@ -309,10 +309,6 @@ public class InstagramService {
 			
 			System.out.println(tray);
 			
-			if(tray == null || tray.size() == 0) {
-				return;
-			}
-			
 			if(tray != null && tray.size() > 0) {
 				
 				int size = tray.size();
@@ -373,6 +369,31 @@ public class InstagramService {
 					
 				}
 				
+			}
+			
+			//라이브 방송이 있다.
+			JSONArray broadcasts = (JSONArray)order_json.get("broadcasts");
+			
+			if(broadcasts != null && broadcasts.size() > 0) {
+				
+				JSONObject obj_board = (JSONObject)broadcasts.get(0);
+				
+				JSONObject broadcast_owner = (JSONObject)obj_board.get("broadcast_owner");
+				
+				String username = (String)broadcast_owner.get("username");
+				
+				String message = username + " 님의 라이브 방송이 등록 되었습니다.";
+				
+				TelegramMessage.funcTelegram(message);
+				
+				HashMap<String,Object> main_param = null;
+				
+				main_param = new HashMap<>();
+				String photo_url = "https://instagram.com/"+username+"/live";
+				
+				main_param.put("url", photo_url);
+				
+				oneSignalMessageService.send_message(data_param , message , main_param);
 			}
 			
 		} catch (Exception e) {

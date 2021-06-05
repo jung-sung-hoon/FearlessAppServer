@@ -61,7 +61,7 @@ public class TestInstagramScrapBatch {
     public void set_cookie_info(HashMap<String,String> headerData , String kind , String seq) {
     	
     	CookieInfoVo cookieInfoVo = new CookieInfoVo();
-    	cookieInfoVo.setSeq("0");
+    	cookieInfoVo.setSeq(seq);
     	cookieInfoVo.setSnsKind(kind);
     	
     	List<CookieInfoVo> list = instagramService.selectCookieInfo(cookieInfoVo);
@@ -341,6 +341,8 @@ public class TestInstagramScrapBatch {
     @Test
     public void instagram_scrap_video() {
     	
+    	String cookie_info = "2";
+    	
     	//프로시 정보 조회
     	ProxyServerVo proxyServerVo = new ProxyServerVo();
     	proxyServerVo.setSeq("1");
@@ -358,7 +360,7 @@ public class TestInstagramScrapBatch {
     	
     	//쿠키 데이타 저장
     	HashMap<String,String> headerData = new HashMap<>();
-		set_cookie_info(headerData , snsKind,"1");
+		set_cookie_info(headerData , snsKind , cookie_info );
 		
 		//인스타 그램 사진 크롤링 시작
 		SnsUserInfoVo snsUserInfoVo = new SnsUserInfoVo();
@@ -379,7 +381,7 @@ public class TestInstagramScrapBatch {
     	
     	//call_instagram_video2( user_info , headerData);
     	
-    	instagramService.instagram_scrap_video("2" , proxy);
+    	instagramService.instagram_scrap_video(cookie_info , proxy);
 		
     }
     
