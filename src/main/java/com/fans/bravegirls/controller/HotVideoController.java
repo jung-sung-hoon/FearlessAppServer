@@ -8,6 +8,7 @@ import com.fans.bravegirls.service.HotVideoService;
 import com.fans.bravegirls.vo.model.HotVideoTagVo;
 import com.fans.bravegirls.vo.model.HotVideoVo;
 import com.fans.bravegirls.vo.model.PageHotVideoVo;
+import com.fans.bravegirls.vo.model.PageInfoVo;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,28 +31,28 @@ public class HotVideoController extends BaseRestController {
     @GetMapping(value = "/hotVideos")
     public ResponseEntity<?> getHotVideos(HttpServletRequest request,
             @RequestParam(value = "tag_id") int tagId
-            ,@RequestParam(value = "off_set") int offSet
-            ,@RequestParam(value = "page_size") int pageSize) {
+            ,@RequestParam(value = "page") int page
+            ,@RequestParam(value = "size") int size) {
         ipCheck(request);
 
         
         PageHotVideoVo pageHotVideoVo = new PageHotVideoVo();
         pageHotVideoVo.setId(tagId);
         
-        if(pageSize <= 0) {
-        	pageSize = 20;
+        if(size <= 0) {
+        	size = 20;
         }
         
-        if(pageSize > 100) {
-        	pageSize = 100;
+        if(size > 100) {
+        	size = 100;
         }
         
-        int start_page = offSet;
+        int start_page = page;
         
-        offSet = (offSet - 1) * pageSize;
+        page = (page - 1) * size;
         
-        pageHotVideoVo.setOffSet(offSet);
-        pageHotVideoVo.setPageSize(pageSize+1);
+        pageHotVideoVo.setOffSet(page);
+        pageHotVideoVo.setPageSize(size+1);
         
         List<HotVideoVo> result = hotVideoService.selectHotVideosHavingTag(pageHotVideoVo);
 
@@ -62,14 +63,19 @@ public class HotVideoController extends BaseRestController {
         //다음 페이지 있나의 여부
         result_map.put("nextYn", "N");
         
-        if(result.size() > pageSize) {
+        if(result.size() > size) {
         	result_map.put("nextYn", "Y");
-        	result.remove(pageSize);
+        	result.remove(size);
         }
         
         result_map.put("nextPageNum", (start_page+1));
         
-        result_map.put("total_cnt", hotVideoService.selectHotVideosHavingTagCnt(pageHotVideoVo));
+        PageInfoVo pageInfo = new PageInfoVo();
+        pageInfo.setPage(start_page);
+        pageInfo.setSize(size);
+        pageInfo.setTotal(hotVideoService.selectHotVideosHavingTagCnt(pageHotVideoVo));
+        
+        result_map.put("pageInfo", pageInfo );
         
         return success(result_map);
     }
