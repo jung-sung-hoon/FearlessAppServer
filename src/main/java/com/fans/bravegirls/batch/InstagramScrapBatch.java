@@ -32,7 +32,7 @@ public class InstagramScrapBatch {
      */
     //@Scheduled(cron = "0 */5 */2 * * *")
     //@Scheduled(cron = "0 */5 */3 * * *")
-    @Scheduled(cron = "0 0 0-6 * * *")
+    @Scheduled(cron = "0 0 00-06 * * *")
     public void instagram_scrap_photo_0() {
 
     	String seq = "1";
@@ -47,7 +47,7 @@ public class InstagramScrapBatch {
      */
     //@Scheduled(cron = "0 */5 1-23/2 * * *")
     //@Scheduled(cron = "0 */5 1-23/3 * * *")
-    @Scheduled(cron = "0 0 7-12 * * *")
+    @Scheduled(cron = "0 0 07-12 * * *")
     public void instagram_scrap_photo_1() {
 
     	String seq = "2";
@@ -93,7 +93,7 @@ public class InstagramScrapBatch {
     	HttpHost proxy = null;
     	
     	if(proxy_info != null) {
-    		proxy = new HttpHost(proxy_info.getServerIp(), Integer.parseInt(proxy_info.getServerPort()));
+    		//proxy = new HttpHost(proxy_info.getServerIp(), Integer.parseInt(proxy_info.getServerPort()));
     	}
     	
     	//사진 크롤링

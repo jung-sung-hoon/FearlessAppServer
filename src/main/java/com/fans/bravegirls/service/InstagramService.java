@@ -245,6 +245,7 @@ public class InstagramService {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+			L.info("오류["+usr_id+"] = " + result);
 			System.out.println(result);
 		}
 		
