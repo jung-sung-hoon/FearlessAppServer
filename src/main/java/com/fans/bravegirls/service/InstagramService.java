@@ -131,10 +131,13 @@ public class InstagramService {
         	//포토 조회
         	String return_usr_id = call_instagram_photo( one_vo , headerData , data_param , proxy);
         	
-        	//업데이트 한다.
-        	one_vo.setId(return_usr_id);
+        	if(return_usr_id.length() > 0) {
+        		//업데이트 한다.
+            	one_vo.setId(return_usr_id);
+            	
+            	updateSnsUserInfoId(one_vo);
+        	}
         	
-        	updateSnsUserInfoId(one_vo);
         	
         	try {
         		Thread.sleep(5000);
@@ -164,19 +167,19 @@ public class InstagramService {
 		if(proxy != null) {
 			httpManager.setProxy(proxy);
 		}
-					
-		String result = httpManager.httpGetSend(null);
-		
-		result = result.substring(result.indexOf(">window._sharedData"));
-		
-		result = result.substring(0, result.indexOf(";</script>"));
-		
-		result = result.substring(result.indexOf("=")+1);
 		
 		String return_usr_id = "";
 		
-		JSONParser parsor = new JSONParser();
+		String result = httpManager.httpGetSend(null);
 		try {
+			result = result.substring(result.indexOf(">window._sharedData"));
+			
+			result = result.substring(0, result.indexOf(";</script>"));
+			
+			result = result.substring(result.indexOf("=")+1);
+			
+			JSONParser parsor = new JSONParser();
+		
 			JSONObject order_json = (JSONObject)parsor.parse(result);
 			
 			JSONObject entry_data = (JSONObject)order_json.get("entry_data");
@@ -215,6 +218,7 @@ public class InstagramService {
 					
 					//db 에 마지막 날짜 수정
 					int update_cnt = updateSnsUserInfoLastUpdateTime(one_vo);
+					//int update_cnt = 1;
 					
 					//푸쉬 보내기
 					if(update_cnt > 0) {
@@ -241,6 +245,7 @@ public class InstagramService {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+			System.out.println(result);
 		}
 		
     	return return_usr_id;
