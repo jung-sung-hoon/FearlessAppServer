@@ -341,7 +341,7 @@ public class TestInstagramScrapBatch {
     @Test
     public void instagram_scrap_video() {
     	
-    	String cookie_info = "2";
+    	String cookie_info = "1";
     	
     	//프로시 정보 조회
     	ProxyServerVo proxyServerVo = new ProxyServerVo();
@@ -381,7 +381,9 @@ public class TestInstagramScrapBatch {
     	
     	//call_instagram_video2( user_info , headerData);
     	
-    	instagramService.instagram_scrap_video(cookie_info , proxy);
+    	//instagramService.instagram_scrap_video(cookie_info , proxy);
+    	
+    	instagramService.instagram_scrap_photo( cookie_info ,  proxy);
 		
     }
     
