@@ -29,6 +29,7 @@ import com.fans.bravegirls.common.utils.TelegramMessage;
 import com.fans.bravegirls.dao.InstagramDao;
 import com.fans.bravegirls.service.InstagramService;
 import com.fans.bravegirls.service.OneSignalMessageService;
+import com.fans.bravegirls.service.TwitterService;
 import com.fans.bravegirls.vo.code.DataType;
 import com.fans.bravegirls.vo.code.MediaKind;
 import com.fans.bravegirls.vo.code.SnsKind;
@@ -69,6 +70,9 @@ public class TestTwitterApiBatch {
     
     @Autowired
     InstagramService instagramService;
+    
+    @Autowired
+    TwitterService twitterService;
     
     //트위터 이미지 호출 하기
     public String call_twitter_img(HashMap<String,String> headerData , String twitter_id) {
@@ -253,8 +257,8 @@ public class TestTwitterApiBatch {
     	for(SnsUserInfoVo one_vo : list) {
     		
         	//트윗 조회
-    		call_twitter_tw( one_vo , headerData , data_param);
-        	
+    		//call_twitter_tw( one_vo , headerData , data_param);
+    		twitterService.call_twitter_tw( one_vo , headerData , data_param);
     	}
     }
     
