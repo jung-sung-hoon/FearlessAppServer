@@ -117,13 +117,13 @@ public class TestOneSignalMessage {
 		}
     }
     
-    //@Test
+    @Test
     public void oneSignalMessage() {
     	
     	Encoder encoder = Base64.getEncoder();
 
     	
-    	String link = "https://gall.dcinside.com/mgallery/board/view/?id=bravegirls0409&no=500735";
+    	String link = "https://gall.dcinside.com/mgallery/board/view/?id=bravegirls0409&no=486999&search_head=100&page=5";
     	
     	link = URLEncoder.encode(link);
     	
@@ -131,7 +131,7 @@ public class TestOneSignalMessage {
     	
     	link = new String(encoder.encode(link.getBytes()));
     	
-    	String subject = "[공지] ⭐⭐⭐음원총공 서포트 공지⭐⭐⭐";
+    	String subject = "[공지] 홍은지 생일 서포트 오픈[TEST]";
     	
     	subject = URLEncoder.encode(subject);
     	
@@ -140,10 +140,34 @@ public class TestOneSignalMessage {
     	subject = new String(encoder.encode(subject.getBytes()));
     	
     	
+    	//이미지 url 
+    	String img_url = "https://scontent-ssn1-1.cdninstagram.com/v/t51.2885-15/e35/c0.180.1440.1440a/s320x320/188034101_197178312230248_4152800119850839564_n.jpg?tp=1&_nc_ht=scontent-ssn1-1.cdninstagram.com&_nc_cat=104&_nc_ohc=VHjd_J4RL0oAX-5J_70&edm=ABfd0MgBAAAA&ccb=7-4&oh=337409a9d4cf8ff3a32fc33f1d27bd91&oe=60C77DD8&_nc_sid=7bff83";
+    	
+    	img_url = URLEncoder.encode(img_url);
+    	
+    	System.out.println(img_url);
+    	
+    	img_url = new String(encoder.encode(img_url.getBytes()));
+    	
+    	
+    	//아이콘 url
+    	String icon_url = "https://scontent-ssn1-1.cdninstagram.com/v/t51.2885-15/e35/s320x320/29739648_227320564516371_5489093857851211776_n.jpg?tp=1&_nc_ht=scontent-ssn1-1.cdninstagram.com&_nc_cat=103&_nc_ohc=ey9F3srLPekAX8YFbks&edm=APU89FABAAAA&ccb=7-4&oh=8c517b405b02dcb1ee503096f20abefa&oe=60C6770F&_nc_sid=86f79a";
+    	
+    	icon_url = URLEncoder.encode(icon_url);
+    	
+    	System.out.println(icon_url);
+    	
+    	icon_url = new String(encoder.encode(icon_url.getBytes()));
+    	
     	HashMap<String,Object> data_param = new HashMap<>();
-    	data_param.put("notiType", "dc_noti");
-    	data_param.put("subject", subject);
-    	data_param.put("link", link);
+    	//data_param.put("notiType", "dc_noti");
+    	data_param.put("notiType", SnsKind.normal.toString());
+    	data_param.put("subject", subject.replaceAll("=", ""));
+    	data_param.put("link", link.replaceAll("=", ""));
+    	
+    	data_param.put("img_url", img_url.replaceAll("=", ""));
+    	data_param.put("icon_url", icon_url.replaceAll("=", ""));
+    	
     	
     	System.out.println(data_param);
     	
