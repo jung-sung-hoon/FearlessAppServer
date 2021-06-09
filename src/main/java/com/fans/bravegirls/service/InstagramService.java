@@ -234,6 +234,11 @@ public class InstagramService {
 						
 						main_param.put("url", photo_url);
 						
+						String img_src = (String)node.get("thumbnail_src");
+						
+						main_param.put("large_icon", img_src);
+				    	main_param.put("big_picture", img_src);
+						
 						
 						oneSignalMessageService.send_message(data_param , message , main_param);
 					}
