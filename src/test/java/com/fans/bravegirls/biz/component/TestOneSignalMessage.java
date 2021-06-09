@@ -161,7 +161,7 @@ public class TestOneSignalMessage {
     	
     	HashMap<String,Object> data_param = new HashMap<>();
     	//data_param.put("notiType", "dc_noti");
-    	data_param.put("notiType", SnsKind.normal.toString());
+    	data_param.put("push_type", SnsKind.normal.toString());
     	data_param.put("subject", subject.replaceAll("=", ""));
     	data_param.put("link", link.replaceAll("=", ""));
     	
