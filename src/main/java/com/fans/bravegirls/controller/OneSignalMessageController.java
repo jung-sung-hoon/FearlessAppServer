@@ -39,11 +39,11 @@ public class OneSignalMessageController extends BaseRestController {
 
     @PostMapping(value = "/oneSignal/message")
     public ResponseEntity<?> oneSignalMessage(HttpServletRequest request,
-    		@RequestParam(value = "push_type", defaultValue = "" ) 	String push_type,	//원 시그널 메시지 타입
-            @RequestParam(value = "subject", defaultValue = "" , required=false ) 	String subject,		//제목
-            @RequestParam(value = "link", defaultValue = ""    , required=false) 	String link,			//url
-            @RequestParam(value = "img_url ", defaultValue = "" ) 	String img_url , 	//푸시 이미지 
-            @RequestParam(value = "icon_url ", defaultValue = "" ) 	String icon_url 	//푸시  아이콘
+    		@RequestParam(name = "push_type", defaultValue = "" ) 	String push_type,	//원 시그널 메시지 타입
+            @RequestParam(name = "subject", defaultValue = "" , required=false ) 	String subject,		//제목
+            @RequestParam(name = "link", defaultValue = ""    , required=false) 	String link,			//url
+            @RequestParam(name = "img_url", defaultValue = "" ) 	String img_url , 	//푸시 이미지 
+            @RequestParam(name = "icon_url", defaultValue = "" ) 	String icon_url 	//푸시  아이콘
             
     ) throws BadRequestException {
     	L.debug("subject = " + subject);
