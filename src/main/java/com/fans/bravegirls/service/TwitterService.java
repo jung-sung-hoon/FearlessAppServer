@@ -35,6 +35,60 @@ public class TwitterService {
     InstagramService instagramService;
     
     
+  //트위터 이미지 호출 하기
+    public String call_twitter_img(HashMap<String,String> headerData , String twitter_id) {
+    	
+    	String rtn_img_url = "";
+    	
+    	String url = "https://api.twitter.com/2/tweets?ids="+twitter_id+"&expansions=attachments.media_keys&media.fields=duration_ms,height,media_key,preview_image_url,public_metrics,type,url,width";
+    	
+    	System.out.println("tt url = " + url);
+    	
+    	HTTPUtil httpManager = new HTTPUtil(url);
+		httpManager.setHeader(headerData);
+		
+		
+		String result = httpManager.httpGetSend(null);
+		
+		System.out.println(result);
+		
+		if(result == null || result.length() == 0) {
+			return "";
+		}
+		
+		JSONParser parsor = new JSONParser();
+		try {
+			
+			JSONObject order_json = (JSONObject)parsor.parse(result);
+			
+			JSONObject includes = (JSONObject)order_json.get("includes");
+			
+			if(includes == null) {
+				return "";
+			}
+			
+			JSONArray media_arr = (JSONArray)includes.get("media");
+			
+			int size = media_arr.size();
+			
+			if(size > 0) {
+				
+				JSONObject one_data = (JSONObject)media_arr.get(0);
+				
+				rtn_img_url = (String)one_data.get("url");
+				
+				if(rtn_img_url == null || rtn_img_url.length() == 0) {
+					rtn_img_url = (String)one_data.get("preview_image_url");
+				}
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return rtn_img_url; 
+    }
+    
     
     //트위터 등록하기
     public void call_twitter_tw(SnsUserInfoVo one_vo , HashMap<String,String> headerData , HashMap<String,Object> data_param ) {
@@ -95,7 +149,32 @@ public class TwitterService {
 						
 						TelegramMessage.funcTelegram(message);
 						
-						oneSignalMessageService.send_message(data_param , message,null);
+						//이미지 주소를 알아내기 위해서 트윗 api 호출
+						String twitter_id = (String)one_data.get("id");
+						
+						System.out.println("twitter_id = " + twitter_id);
+						
+						
+						String img_url = "";
+						
+						HashMap<String,Object> main_param = new HashMap<>();;
+						
+						if(twitter_id != null && twitter_id.length() > 0) {
+							img_url = call_twitter_img(headerData , twitter_id);
+							
+							System.out.println("img_url = " + img_url);
+							
+							
+							
+							main_param.put("large_icon", img_url);
+					    	main_param.put("big_picture", img_url);
+						}
+						
+						String app_url = "https://twitter.com/"+id+"/status/"+twitter_id;
+						
+						main_param.put("url", app_url);
+						
+						oneSignalMessageService.send_message(data_param , message,main_param);
 					}
 					
 				}
