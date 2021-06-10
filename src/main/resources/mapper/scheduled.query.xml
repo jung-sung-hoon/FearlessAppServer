@@ -67,6 +67,7 @@
 		    , DATE_FORMAT(STR_TO_DATE(start_local_time, '%Y.%m.%d'),'%Y%m%d') as view_cal
 		FROM mydb.schedules
 		where reg_yyyymm=#{regYyyymm}
+		order by start_time asc , schedule_id asc
 	</select>
 
     
