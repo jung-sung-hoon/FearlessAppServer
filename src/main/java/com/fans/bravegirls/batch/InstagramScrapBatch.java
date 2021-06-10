@@ -32,7 +32,7 @@ public class InstagramScrapBatch {
      */
     //@Scheduled(cron = "0 */5 */2 * * *")
     //@Scheduled(cron = "0 */5 */3 * * *")
-    @Scheduled(cron = "0 0 00-06 * * *")
+    @Scheduled(cron = "0 */30 00-06 * * *")
     public void instagram_scrap_photo_0() {
 
     	String seq = "1";
@@ -47,7 +47,7 @@ public class InstagramScrapBatch {
      */
     //@Scheduled(cron = "0 */5 1-23/2 * * *")
     //@Scheduled(cron = "0 */5 1-23/3 * * *")
-    @Scheduled(cron = "0 0 07-12 * * *")
+    @Scheduled(cron = "0 */30 07-12 * * *")
     public void instagram_scrap_photo_1() {
 
     	String seq = "2";
@@ -61,7 +61,7 @@ public class InstagramScrapBatch {
      * 5분마다 작동 , 홀수 시
      */
     //@Scheduled(cron = "0 */5 1-23/2 * * *")
-    @Scheduled(cron = "0 0 13-18 * * *")
+    @Scheduled(cron = "0 */30 13-18 * * *")
     public void instagram_scrap_photo_2() {
 
     	String seq = "1";
@@ -73,7 +73,7 @@ public class InstagramScrapBatch {
     
     
     //@Scheduled(cron = "0 */10 19-23 * * *")
-    @Scheduled(cron = "0 0 19-23 * * *")
+    @Scheduled(cron = "0 */30 19-23 * * *")
     public void instagram_scrap_photo_3() {
 
     	String seq = "2";
