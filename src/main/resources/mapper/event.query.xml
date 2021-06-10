@@ -26,7 +26,7 @@
 		<if test="category != null">
 			and category = #{category}
 		</if>
-	    order by end_time asc
+	    order by end_time asc , id asc
 	</select>
 	
 	<!-- 이벤트 D-1 , 오전 10시에 알람 보낸다. -->

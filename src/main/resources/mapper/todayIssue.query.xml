@@ -15,5 +15,6 @@
         , reg_date
         FROM today_issues
         where DATE_FORMAT(start_time,'%Y%m') = #{yyyyMM}
+        order by start_time asc , id asc
     </select>
 </mapper>

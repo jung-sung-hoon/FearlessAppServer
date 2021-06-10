@@ -16,7 +16,7 @@
         and a.channel_id = d.id
         and c.id = #{id}
         and a.is_usable = true
-        order by a.upload_date desc
+        order by a.upload_date desc , a.id desc
         LIMIT #{offSet}, #{pageSize}
     </select>
     
