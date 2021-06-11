@@ -1,5 +1,6 @@
 package com.fans.bravegirls.batch;
 
+import com.fans.bravegirls.vo.code.OneSignalSegment;
 import lombok.RequiredArgsConstructor;
 
 import java.text.SimpleDateFormat;
@@ -103,7 +104,7 @@ public class EventBatch {
             		
             		TelegramMessage.funcTelegram(title);
     				
-    				oneSignalMessageService.send_message(data_param , title , null);
+    				oneSignalMessageService.send_message(data_param , title , null, OneSignalSegment.GalleryEvent);
         		}
         		
         		
@@ -195,7 +196,7 @@ public class EventBatch {
         		
         		TelegramMessage.funcTelegram(title);
 				
-				oneSignalMessageService.send_message(data_param , title , null);
+				oneSignalMessageService.send_message(data_param , title , null, OneSignalSegment.GalleryEvent);
         		
         	}
     		
