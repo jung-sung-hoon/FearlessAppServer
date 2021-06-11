@@ -43,10 +43,10 @@ public class TestOneSignalMessage {
     OneSignalMessageService oneSignalMessageService;
     
     
-    //@Test
+    @Test
     public void send_message() {
     	
-    	String message = "테스트 메시지";
+    	String message = "테스트 메시지 - 인스타만";
     	
     	String snsKind = SnsKind.instagram.toString();
     	
@@ -59,7 +59,7 @@ public class TestOneSignalMessage {
     	System.out.println("종료");
     }
     
-    //@Test
+    @Test
     public void sendPush() {
     	
     	try
