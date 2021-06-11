@@ -1,5 +1,6 @@
 package com.fans.bravegirls.service;
 
+import com.fans.bravegirls.vo.code.OneSignalSegment;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.json.simple.JSONObject;
@@ -27,7 +28,7 @@ public class OneSignalMessageService {
 
     //메시지 보내기
 	@Async
-    public void send_message(HashMap<String,Object> data_param , String message , HashMap<String,Object> main_param) {
+    public void send_message(HashMap<String,Object> data_param , String message , HashMap<String,Object> main_param, OneSignalSegment segment) {
 		
     	String jsonResponse = "";
     	
@@ -56,16 +57,12 @@ public class OneSignalMessageService {
 			contents_obj.put("en" , message);
 			
 			JSONObject data_obj = new JSONObject();
-			//data_obj.put("foo" , "bar");
-			
+
 			data_obj.putAll(data_param);
-			
-			ArrayList<String> users = new ArrayList<>();
-			users.add("Subscribed Users");
 			
 			JSONObject body_obj = new JSONObject();
 			body_obj.put("app_id", app_id);
-			body_obj.put("included_segments", users);
+			body_obj.put("included_segments", segment.getSegmentName());
 			body_obj.put("data", data_obj);
 			body_obj.put("contents" , contents_obj);
 			

@@ -5,6 +5,7 @@ import com.fans.bravegirls.common.exception.http.BadRequestException;
 import com.fans.bravegirls.service.OneSignalMessageService;
 import com.fans.bravegirls.service.ScheduleService;
 import com.fans.bravegirls.vo.code.DataType;
+import com.fans.bravegirls.vo.code.OneSignalSegment;
 import com.fans.bravegirls.vo.code.SnsKind;
 import com.fans.bravegirls.vo.model.ScheduleVo;
 
@@ -39,7 +40,7 @@ public class OneSignalMessageController extends BaseRestController {
 
     @PostMapping(value = "/oneSignal/message")
     public ResponseEntity<?> oneSignalMessage(HttpServletRequest request,
-    		@RequestParam(name = "push_type", defaultValue = "" ) 	String push_type,	//원 시그널 메시지 타입
+    		@RequestParam(name = "segment", defaultValue = "All" ) OneSignalSegment segment,	// 세그먼트
             @RequestParam(name = "subject", defaultValue = "" , required=false ) 	String subject,		//제목
             @RequestParam(name = "link", defaultValue = ""    , required=false) 	String link,			//url
             @RequestParam(name = "img_url", defaultValue = "" ) 	String img_url , 	//푸시 이미지 
@@ -57,11 +58,6 @@ public class OneSignalMessageController extends BaseRestController {
     	
     	L.info("img_url = " + img_url);
     	L.info("icon_url = " + icon_url);
-    	
-    	if(push_type == null || push_type.length() == 0) {
-    		push_type = SnsKind.dc_noti.toString();
-    	}
-    	
     	
     	if(subject == null || subject.length() == 0) {
     		subject = "";
@@ -123,7 +119,6 @@ public class OneSignalMessageController extends BaseRestController {
         	
     	//원 시그널 push 보낸다.
     	HashMap<String,Object> data_param = new HashMap<String,Object>();
-    	data_param.put(DataType.notiType.toString() , push_type);
     	data_param.put(DataType.isUrl.toString()    , isUrl);
     	data_param.put(DataType.url.toString()      , link);
     	
@@ -142,7 +137,7 @@ public class OneSignalMessageController extends BaseRestController {
     	
     	// dcapp://m.dcinside.com/board/bravegirls0409/539833
     	
-    	oneSignalMessageService.send_message(data_param, message , main_param);
+    	oneSignalMessageService.send_message(data_param, message , main_param, segment);
         
         return success("OK");
     }
@@ -199,7 +194,7 @@ public class OneSignalMessageController extends BaseRestController {
     	System.out.println("data_param = " + data_param);
     	System.out.println("message = " + message);
     	
-    	oneSignalMessageService.send_message(data_param, message , main_param);
+    	oneSignalMessageService.send_message(data_param, message , main_param, OneSignalSegment.Instagram);
         
         return success("OK");
     }

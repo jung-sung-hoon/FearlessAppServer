@@ -1,6 +1,7 @@
 package com.fans.bravegirls.biz.component;
 
 
+import com.fans.bravegirls.vo.code.OneSignalSegment;
 import lombok.extern.slf4j.Slf4j;
 
 import org.json.simple.JSONArray;
@@ -219,7 +220,7 @@ public class TestTwitterApiBatch {
 						
 						main_param.put("url", app_url);
 						
-						oneSignalMessageService.send_message(data_param , message , main_param);
+						oneSignalMessageService.send_message(data_param , message , main_param, OneSignalSegment.Twitter);
 					}
 					
 				}
