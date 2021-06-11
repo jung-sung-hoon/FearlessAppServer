@@ -2,6 +2,7 @@ package com.fans.bravegirls.biz.component;
 
 
 import com.fans.bravegirls.vo.code.EventCategory;
+import com.fans.bravegirls.vo.code.OneSignalSegment;
 import lombok.extern.slf4j.Slf4j;
 
 import org.junit.Test;
@@ -106,7 +107,7 @@ public class TestEvent {
         		
         		TelegramMessage.funcTelegram(title);
 				
-				oneSignalMessageService.send_message(data_param , title , null);
+				oneSignalMessageService.send_message(data_param , title , null, OneSignalSegment.GalleryEvent);
         		
         	}
     		
@@ -181,7 +182,7 @@ public class TestEvent {
         		
         		TelegramMessage.funcTelegram(title);
 				
-				oneSignalMessageService.send_message(data_param , title , null);
+				oneSignalMessageService.send_message(data_param , title , null, OneSignalSegment.GalleryEvent);
         		
         	}
     		

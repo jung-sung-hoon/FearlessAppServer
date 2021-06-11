@@ -1,5 +1,6 @@
 package com.fans.bravegirls.service;
 
+import com.fans.bravegirls.vo.code.OneSignalSegment;
 import org.apache.http.HttpHost;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -240,7 +241,7 @@ public class InstagramService {
 				    	main_param.put("big_picture", img_src);
 						
 						
-						oneSignalMessageService.send_message(data_param , message , main_param);
+						oneSignalMessageService.send_message(data_param , message , main_param, OneSignalSegment.Instagram);
 					}
 					
 				}
@@ -374,7 +375,7 @@ public class InstagramService {
 								main_param.put("url", photo_url);
 							}
 							
-							oneSignalMessageService.send_message(data_param , message , main_param);
+							oneSignalMessageService.send_message(data_param , message , main_param, OneSignalSegment.Instagram);
 						}
 					}
 					
@@ -404,7 +405,7 @@ public class InstagramService {
 				
 				main_param.put("url", photo_url);
 				
-				oneSignalMessageService.send_message(data_param , message , main_param);
+				oneSignalMessageService.send_message(data_param , message , main_param, OneSignalSegment.Instagram);
 			}
 			
 		} catch (Exception e) {

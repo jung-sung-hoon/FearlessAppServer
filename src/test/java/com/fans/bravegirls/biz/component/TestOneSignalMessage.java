@@ -1,6 +1,7 @@
 package com.fans.bravegirls.biz.component;
 
 
+import com.fans.bravegirls.vo.code.OneSignalSegment;
 import lombok.extern.slf4j.Slf4j;
 
 import org.junit.Test;
@@ -42,24 +43,23 @@ public class TestOneSignalMessage {
     OneSignalMessageService oneSignalMessageService;
     
     
-    //@Test
+    @Test
     public void send_message() {
     	
-    	String message = "테스트 메시지";
+    	String message = "테스트 메시지 - 인스타만";
     	
     	String snsKind = SnsKind.instagram.toString();
     	
     	HashMap<String,Object> data_param = new HashMap<>();
-    	data_param.put(DataType.notiType.toString(), snsKind);
-    	
+
     	System.out.println("시작");
     	
-    	oneSignalMessageService.send_message(data_param , message , null);
+    	oneSignalMessageService.send_message(data_param , message , null, OneSignalSegment.Instagram);
     	
     	System.out.println("종료");
     }
     
-    //@Test
+    @Test
     public void sendPush() {
     	
     	try
