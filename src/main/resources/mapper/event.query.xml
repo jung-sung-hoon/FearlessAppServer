@@ -19,6 +19,7 @@
 			,category
 	        , DATE_FORMAT(start_time,'%Y-%m-%d') as view_start
 	        , DATE_FORMAT(end_time,'%Y-%m-%d') as view_end
+	        , short_desc
 		FROM events
 		where start_time &lt;= now()
 		and end_time >= now()
