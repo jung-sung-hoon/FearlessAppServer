@@ -20,4 +20,5 @@ public class EventsVo {
     private String limitDay;
     private String shortDesc;
     private EventCategory category;
+    
 }
