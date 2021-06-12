@@ -94,7 +94,7 @@ public class EventBatch {
                 String title 	= "";
                 
                 if(diffDay == 0) {
-                	title 	= "'"+one_obj.getTitle()+"' 의 이벤트 종료일 입니다.";
+                	title 	= "'"+one_obj.getTitle()+"' 의 이벤트 종료일입니다.";
                 } else if(diffDay == 1) {
                 	title 	= "'"+one_obj.getTitle()+"' 의 이벤트 종료일이 1일 남았습니다.";
                 }
