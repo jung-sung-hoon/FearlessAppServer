@@ -21,13 +21,14 @@
 	        , DATE_FORMAT(end_time,'%Y-%m-%d') as view_end
 	        , short_desc
 		FROM events
-		where start_time &lt;= now()
+		where 1=1
+		-- and start_time &lt;= now()
 		and end_time >= now()
 		and is_in_progress is true
 		<if test="category != null">
 			and category = #{category}
 		</if>
-	    order by end_time asc , id asc
+	    order by start_time asc , end_time asc , id asc
 	</select>
 	
 	<!-- 이벤트 D-1 , 오전 10시에 알람 보낸다. -->
