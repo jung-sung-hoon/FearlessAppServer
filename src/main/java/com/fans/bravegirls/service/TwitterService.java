@@ -149,7 +149,7 @@ public class TwitterService {
                     if(update_cnt > 0) {
                         System.out.println("push 보내기");
 
-                        String message = one_vo.getUserId() + " 님의 트윗이 등록되었습니다.";
+                        String message = one_vo.getUserId() + " 님의 트윗 사진이 등록되었습니다.";
 
                         TelegramMessage.funcTelegram(message);
 
