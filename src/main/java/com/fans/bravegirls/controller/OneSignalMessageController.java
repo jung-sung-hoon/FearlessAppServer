@@ -131,7 +131,8 @@ public class OneSignalMessageController extends BaseRestController {
     	
     	main_param.put("large_icon", icon_url);
     	main_param.put("big_picture", img_url);
-    	main_param.put("url", "dcapp://"+link.replaceAll("https://", "").replaceAll("http://", "") );
+    	//main_param.put("url", "dcapp://"+link.replaceAll("https://", "").replaceAll("http://", "") );
+    	main_param.put("url",  link);
     	
     	System.out.println("main_param = " + main_param);
     	

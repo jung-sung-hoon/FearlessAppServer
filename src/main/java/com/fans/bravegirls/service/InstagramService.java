@@ -225,7 +225,7 @@ public class InstagramService {
 					if(update_cnt > 0) {
 						System.out.println("push 보내기");
 						
-						String message = one_vo.getUserId() + " 님의 사진이 등록되었습니다.";
+						String message = one_vo.getUserId() + " 님의 인스타그램 사진이 등록되었습니다.";
 						
 						TelegramMessage.funcTelegram(message);
 						
@@ -360,7 +360,7 @@ public class InstagramService {
 						if(update_cnt > 0) {
 							System.out.println("push 보내기");
 							
-							String message = one_info.getUserId() + " 님의 스토리가 등록되었습니다.";
+							String message = one_info.getUserId() + " 님의 인스타그램 스토리가 등록되었습니다.";
 							
 							TelegramMessage.funcTelegram(message);
 							
@@ -394,7 +394,7 @@ public class InstagramService {
 				
 				String username = (String)broadcast_owner.get("username");
 				
-				String message = username + " 님의 라이브 방송이 등록되었습니다.";
+				String message = username + " 님의 인스타그램 라이브 방송이 등록되었습니다.";
 				
 				TelegramMessage.funcTelegram(message);
 				
