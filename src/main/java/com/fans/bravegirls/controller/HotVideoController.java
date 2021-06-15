@@ -42,8 +42,8 @@ public class HotVideoController extends BaseRestController {
             size = 20;
         }
 
-        if(size > 100) {
-            size = 100;
+        if(size > 1000) {
+            size = 1000;
         }
 
         if (page <= 1) {
