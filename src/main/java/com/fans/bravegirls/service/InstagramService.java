@@ -394,6 +394,13 @@ public class InstagramService {
 				
 				String username = (String)broadcast_owner.get("username");
 				
+				SnsUserInfoVo one_info = (SnsUserInfoVo)user_info.get(username);
+				
+				if(one_info == null) {
+					//System.out.println("AAAAA");
+					return;
+				}
+				
 				String message = username + " 님의 인스타그램 라이브 방송이 등록되었습니다.";
 				
 				TelegramMessage.funcTelegram(message);
@@ -404,6 +411,8 @@ public class InstagramService {
 				String photo_url = "https://instagram.com/"+username+"/live";
 				
 				main_param.put("url", photo_url);
+				
+				//System.out.println("photo_url = " + photo_url);
 				
 				oneSignalMessageService.send_message(data_param , message , main_param, OneSignalSegment.Instagram);
 			}

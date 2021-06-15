@@ -381,9 +381,11 @@ public class TestInstagramScrapBatch {
     	
     	//call_instagram_video2( user_info , headerData);
     	
-    	//instagramService.instagram_scrap_video(cookie_info , proxy);
+    	instagramService.instagram_scrap_video(cookie_info , proxy);
     	
-    	instagramService.instagram_scrap_photo( cookie_info ,  proxy);
+    	//instagramService.instagram_scrap_photo( cookie_info ,  proxy);
+    	
+    	
 		
     }
     
