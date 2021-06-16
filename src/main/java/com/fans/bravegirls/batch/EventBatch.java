@@ -103,8 +103,17 @@ public class EventBatch {
         			title = title + " [종료시간 : " + end_time + "]";
             		
             		TelegramMessage.funcTelegram(title);
+            		
+            		String event_url = one_obj.getUrl();
+            		
+            		HashMap<String,Object> main_param = null;
+            		
+            		if(event_url != null && event_url.length() > 0) {
+            			main_param = new HashMap<>();
+            			main_param.put("url",  event_url );
+            		}
     				
-    				oneSignalMessageService.send_message(data_param , title , null, OneSignalSegment.GalleryEvent);
+    				oneSignalMessageService.send_message(data_param , title , main_param , OneSignalSegment.GalleryEvent);
         		}
         		
         		
@@ -195,6 +204,15 @@ public class EventBatch {
         		String title 	= "'"+one_obj.getTitle()+"' 의 이벤트가 시작되었습니다. [시작 시간 : " + start_time + " , 종료 시간 : " + end_time + "]";
         		
         		TelegramMessage.funcTelegram(title);
+        		
+        		String event_url = one_obj.getUrl();
+        		
+        		HashMap<String,Object> main_param = null;
+        		
+        		if(event_url != null && event_url.length() > 0) {
+        			main_param = new HashMap<>();
+        			main_param.put("url",  event_url );
+        		}
 				
 				oneSignalMessageService.send_message(data_param , title , null, OneSignalSegment.GalleryEvent);
         		
