@@ -106,8 +106,19 @@ public class TestEvent {
         		String title 	= "'"+one_obj.getTitle()+"' 의 이벤트 종료일이 1일 남았습니다. [종료시간 : " + end_time + "]";
         		
         		TelegramMessage.funcTelegram(title);
+        		
+        		String event_url = one_obj.getUrl();
+        		
+        		HashMap<String,Object> main_param = null;
+        		
+        		if(event_url != null && event_url.length() > 0) {
+        			main_param = new HashMap<>();
+        			main_param.put("url",  event_url );
+        		}
+        		
+        		System.out.println(main_param);
 				
-				oneSignalMessageService.send_message(data_param , title , null, OneSignalSegment.GalleryEvent);
+				//oneSignalMessageService.send_message(data_param , title , null, OneSignalSegment.GalleryEvent);
         		
         	}
     		
@@ -182,7 +193,18 @@ public class TestEvent {
         		
         		TelegramMessage.funcTelegram(title);
 				
-				oneSignalMessageService.send_message(data_param , title , null, OneSignalSegment.GalleryEvent);
+        		String event_url = one_obj.getUrl();
+        		
+        		HashMap<String,Object> main_param = null;
+        		
+        		if(event_url != null && event_url.length() > 0) {
+        			main_param = new HashMap<>();
+        			main_param.put("url",  event_url );
+        		}
+        		
+        		System.out.println(main_param);
+        		
+				//oneSignalMessageService.send_message(data_param , title , null, OneSignalSegment.GalleryEvent);
         		
         	}
     		
