@@ -214,7 +214,7 @@ public class EventBatch {
         			main_param.put("url",  event_url );
         		}
 				
-				oneSignalMessageService.send_message(data_param , title , null, OneSignalSegment.GalleryEvent);
+				oneSignalMessageService.send_message(data_param , title , main_param , OneSignalSegment.GalleryEvent);
         		
         	}
     		
