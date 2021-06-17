@@ -24,6 +24,7 @@ public class OneSignalMessageService {
     private final String rest_api_key = "NTk2NTc1ZDYtNGI1ZC00ZDFlLTkwYTgtODQ0MmM4YTVmMGJk";
     private final String app_id = "469b6e4a-c568-4f74-afec-c478acb153bf";
 
+    
 
     //메시지 보내기
     @Async
