@@ -21,9 +21,10 @@ import org.springframework.transaction.annotation.Transactional;
 public class OneSignalMessageService {
 
     private final String onesignal_url = "https://onesignal.com/api/v1/notifications";
-    private final String rest_api_key = "YmQwYzI4NjktZGQ4NC00ZTBhLWFiMjYtNjgwOGNmZGIzOTdj";
-    private final String app_id = "6395ae43-f8e5-4862-b70a-da8402d413c8";
+    private final String rest_api_key = "NTk2NTc1ZDYtNGI1ZC00ZDFlLTkwYTgtODQ0MmM4YTVmMGJk";
+    private final String app_id = "469b6e4a-c568-4f74-afec-c478acb153bf";
 
+    
 
     //메시지 보내기
     @Async
