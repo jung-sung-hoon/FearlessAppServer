@@ -59,7 +59,7 @@ public class TestOneSignalMessage {
     	System.out.println("종료");
     }
     
-    @Test
+    //@Test
     public void sendPush() {
     	
     	try
