@@ -43,7 +43,7 @@ public class TestOneSignalMessage {
     OneSignalMessageService oneSignalMessageService;
     
     
-    @Test
+    //@Test
     public void send_message() {
     	
     	String message = "테스트 메시지 - 인스타만";
