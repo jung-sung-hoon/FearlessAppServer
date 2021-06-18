@@ -199,4 +199,120 @@ public class OneSignalMessageController extends BaseRestController {
         
         return success("OK");
     }
+    
+    @GetMapping(value = "/aos_message_test")
+    public ResponseEntity<?> aos_message_test(HttpServletRequest request,
+    		@RequestParam(value = "push_type", defaultValue = "" ) 	String push_type	//원 시그널 메시지 타입
+            
+    ) throws BadRequestException {
+    	
+    	L.debug("aos_message_test");
+    	
+    	String message = "";
+    	String link = "";
+    	String photo_url = "";
+    	String big_picture = "";
+    	
+    	HashMap<String,Object> main_param = new HashMap<>();
+    	
+    	boolean isUrl = false;
+    	
+    	if(push_type.equals(SnsKind.instagram.toString())) {
+    		
+    		message = "u.nalee 님의 사진이 등록 되었습니다.[test]";
+    		
+    		link = "";
+    		
+    		photo_url = "https://www.instagram.com/p/CPnA9prFTco/?utm_source=ig_web_copy_link";
+    		
+   			big_picture = "https://scontent-ssn1-1.cdninstagram.com/v/t51.2885-15/e35/s1080x1080/198621966_976690136482964_8018834584222455912_n.jpg?tp=1&_nc_ht=scontent-ssn1-1.cdninstagram.com&_nc_cat=1&_nc_ohc=3hUz8EcP20UAX-5OuNP&edm=ABfd0MgBAAAA&ccb=7-4&oh=1f5f708515258c35a22e7a43a388706d&oe=60C71A80&_nc_sid=7bff83";
+    			
+    	} else if(push_type.equals(SnsKind.twitter.toString())) {
+    		message = "u.nalee 님의 트윗이 등록 되었습니다.[test]";
+    		
+    		link = "";
+    		
+    		photo_url = "https://twitter.com/u_nalee_/status/1396839212008185860";
+    		
+    		big_picture = "https://pbs.twimg.com/media/E2KR2JLVoAEFx_b?format=jpg&name=large";
+    	}
+    	
+    	main_param.put("url", photo_url);
+    	main_param.put("large_icon", big_picture);
+    	main_param.put("big_picture", big_picture);
+    	
+        	
+    	//원 시그널 push 보낸다.
+    	HashMap<String,Object> data_param = new HashMap<String,Object>();
+    	data_param.put(DataType.notiType.toString() , push_type );
+    	data_param.put(DataType.isUrl.toString()    , isUrl);
+    	data_param.put(DataType.url.toString()      , "");
+    	
+    	
+    	
+    	System.out.println("data_param = " + data_param);
+    	System.out.println("message = " + message);
+    	
+    	oneSignalMessageService.send_message_aos(data_param, message , main_param, OneSignalSegment.Instagram);
+        
+        return success("OK");
+    }
+    
+    @GetMapping(value = "/ios_message_test")
+    public ResponseEntity<?> ios_message_test(HttpServletRequest request,
+    		@RequestParam(value = "push_type", defaultValue = "" ) 	String push_type	//원 시그널 메시지 타입
+            
+    ) throws BadRequestException {
+    	
+    	L.debug("ios_message_test");
+    	
+    	String message = "";
+    	String link = "";
+    	String photo_url = "";
+    	String big_picture = "";
+    	
+    	HashMap<String,Object> main_param = new HashMap<>();
+    	
+    	boolean isUrl = false;
+    	
+    	if(push_type.equals(SnsKind.instagram.toString())) {
+    		
+    		message = "u.nalee 님의 사진이 등록 되었습니다.[test]";
+    		
+    		link = "";
+    		
+    		photo_url = "https://www.instagram.com/p/CPnA9prFTco/?utm_source=ig_web_copy_link";
+    		
+   			big_picture = "https://scontent-ssn1-1.cdninstagram.com/v/t51.2885-15/e35/s1080x1080/198621966_976690136482964_8018834584222455912_n.jpg?tp=1&_nc_ht=scontent-ssn1-1.cdninstagram.com&_nc_cat=1&_nc_ohc=3hUz8EcP20UAX-5OuNP&edm=ABfd0MgBAAAA&ccb=7-4&oh=1f5f708515258c35a22e7a43a388706d&oe=60C71A80&_nc_sid=7bff83";
+    			
+    	} else if(push_type.equals(SnsKind.twitter.toString())) {
+    		message = "u.nalee 님의 트윗이 등록 되었습니다.[test]";
+    		
+    		link = "";
+    		
+    		photo_url = "https://twitter.com/u_nalee_/status/1396839212008185860";
+    		
+    		big_picture = "https://pbs.twimg.com/media/E2KR2JLVoAEFx_b?format=jpg&name=large";
+    	}
+    	
+    	main_param.put("url", photo_url);
+    	main_param.put("large_icon", big_picture);
+    	main_param.put("big_picture", big_picture);
+    	
+        	
+    	//원 시그널 push 보낸다.
+    	HashMap<String,Object> data_param = new HashMap<String,Object>();
+    	data_param.put(DataType.notiType.toString() , push_type );
+    	data_param.put(DataType.isUrl.toString()    , isUrl);
+    	data_param.put(DataType.url.toString()      , "");
+    	
+    	
+    	
+    	System.out.println("data_param = " + data_param);
+    	System.out.println("message = " + message);
+    	
+    	oneSignalMessageService.send_message_ios(data_param, message , main_param, OneSignalSegment.Instagram);
+        
+        return success("OK");
+    }
 }
