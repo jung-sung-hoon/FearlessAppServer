@@ -54,6 +54,42 @@ public class OneSignalMessageService {
     }
     
     
+    public void send_message_aos(HashMap<String, Object> data_param, String message,
+            HashMap<String, Object> main_param, OneSignalSegment segment ) {
+    	
+    	String jsonResponse = "";
+
+        try {
+        	//aos 보내기
+        	send_message(data_param , message, 
+        			main_param , segment , aos_rest_api_key , aos_app_id);
+
+
+        } catch(Throwable t) {
+            t.printStackTrace();
+        }
+
+        System.out.println("jsonResponse:\n" + jsonResponse);
+    }
+    
+    public void send_message_ios(HashMap<String, Object> data_param, String message,
+            HashMap<String, Object> main_param, OneSignalSegment segment ) {
+    	
+    	String jsonResponse = "";
+
+        try {
+        	//aos 보내기
+        	send_message(data_param , message, 
+        			main_param , segment , ios_rest_api_key , ios_app_id);
+
+
+        } catch(Throwable t) {
+            t.printStackTrace();
+        }
+
+        System.out.println("jsonResponse:\n" + jsonResponse);
+    }
+    
     public String send_message(HashMap<String, Object> data_param, String message,
             HashMap<String, Object> main_param, OneSignalSegment segment , String rest_api_key , String app_id) {
     	
