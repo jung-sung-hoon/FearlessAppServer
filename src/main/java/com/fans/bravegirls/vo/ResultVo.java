@@ -10,5 +10,6 @@ public class ResultVo {
     private String offset;
     private String size;
     private Object data;
+    private Object result;
     private String total;
 }

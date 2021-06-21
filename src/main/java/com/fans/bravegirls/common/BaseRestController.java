@@ -2,6 +2,8 @@ package com.fans.bravegirls.common;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+
 import javax.servlet.http.HttpServletRequest;
 import com.fans.bravegirls.common.exception.ExceptionBase;
 import com.fans.bravegirls.common.exception.http.ApiExecutionException;
@@ -87,6 +89,12 @@ public class BaseRestController {
         restResult.setMessage("");
         restResult.setData(data);
         restResult.setDatetime(LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
+        
+        HashMap<String,Object> result = new HashMap<>();
+        result.put("code", "200");
+        result.put("message", "");
+        restResult.setResult(result);
+        
         return new ResponseEntity<>(restResult, HttpStatus.OK);
     }
 
@@ -111,6 +119,12 @@ public class BaseRestController {
         restResult.setSize(size);
         restResult.setTotal(String.valueOf(total));
         restResult.setDatetime(LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
+        
+        HashMap<String,Object> result = new HashMap<>();
+        result.put("code", "200");
+        result.put("message", "");
+        restResult.setResult(result);
+        
         return new ResponseEntity<>(restResult, HttpStatus.OK);
     }
 
@@ -125,6 +139,12 @@ public class BaseRestController {
         restResult.setCode("400");
         restResult.setMessage(failMsg);
         restResult.setDatetime(LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
+        
+        HashMap<String,Object> result = new HashMap<>();
+        result.put("code", "400");
+        result.put("message", failMsg);
+        restResult.setResult(result);
+        
         return new ResponseEntity<>(restResult, HttpStatus.OK);
     }
 
@@ -139,6 +159,12 @@ public class BaseRestController {
         restResult.setCode("400");
         restResult.setMessage(failMsg);
         restResult.setDatetime(LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
+        
+        HashMap<String,Object> result = new HashMap<>();
+        result.put("code", "400");
+        result.put("message", failMsg);
+        restResult.setResult(result);
+        
         return new ResponseEntity<>(restResult, HttpStatus.OK);
     }
 
@@ -153,6 +179,12 @@ public class BaseRestController {
         restResult.setCode("401");
         restResult.setMessage(failMsg);
         restResult.setDatetime(LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
+        
+        HashMap<String,Object> result = new HashMap<>();
+        result.put("code", "401");
+        result.put("message", failMsg);
+        restResult.setResult(result);
+        
         return new ResponseEntity<>(restResult, HttpStatus.OK);
     }
 
@@ -167,6 +199,12 @@ public class BaseRestController {
         restResult.setCode("403");
         restResult.setMessage(failMsg);
         restResult.setDatetime(LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
+        
+        HashMap<String,Object> result = new HashMap<>();
+        result.put("code", "403");
+        result.put("message", failMsg);
+        restResult.setResult(result);
+        
         return new ResponseEntity<>(restResult, HttpStatus.OK);
     }
 

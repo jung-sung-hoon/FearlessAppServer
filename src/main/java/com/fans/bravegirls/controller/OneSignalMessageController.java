@@ -2,6 +2,7 @@ package com.fans.bravegirls.controller;
 
 import com.fans.bravegirls.common.BaseRestController;
 import com.fans.bravegirls.common.exception.http.BadRequestException;
+import com.fans.bravegirls.common.utils.TelegramMessage;
 import com.fans.bravegirls.service.OneSignalMessageService;
 import com.fans.bravegirls.service.ScheduleService;
 import com.fans.bravegirls.vo.code.DataType;
@@ -24,6 +25,7 @@ import java.util.Base64.Decoder;
 import java.util.HashMap;
 import java.util.List;
 import java.net.URLDecoder;
+import java.net.URLEncoder;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -136,9 +138,11 @@ public class OneSignalMessageController extends BaseRestController {
     	
     	System.out.println("main_param = " + main_param);
     	
+		TelegramMessage.funcTelegram(message + " " + URLEncoder.encode(link));
+    	
     	// dcapp://m.dcinside.com/board/bravegirls0409/539833
     	
-    	oneSignalMessageService.send_message(data_param, message , main_param, segment);
+    	//oneSignalMessageService.send_message(data_param, message , main_param, segment);
         
         return success("OK");
     }

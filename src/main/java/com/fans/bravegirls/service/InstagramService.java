@@ -225,13 +225,13 @@ public class InstagramService {
 					if(update_cnt > 0) {
 						System.out.println("push 보내기");
 						
-						String message = one_vo.getUserId() + " 님의 인스타그램 사진이 등록되었습니다.";
-						
-						TelegramMessage.funcTelegram(message);
-						
 						HashMap<String,Object> main_param = new HashMap<>();
 						
 						String photo_url = "https://www.instagram.com/p/"+node.get("shortcode")+"/?utm_source=ig_web_copy_link";
+						
+						String message = one_vo.getUserId() + " 님의 인스타그램 사진이 등록되었습니다. " + photo_url;
+						
+						TelegramMessage.funcTelegram(message);
 						
 						main_param.put("url", photo_url);
 						
@@ -362,8 +362,6 @@ public class InstagramService {
 							
 							String message = one_info.getUserId() + " 님의 인스타그램 스토리가 등록되었습니다.";
 							
-							TelegramMessage.funcTelegram(message);
-							
 							HashMap<String,Object> main_param = null;
 							
 							String pk = call_instagram_video2(one_info , headerData );
@@ -373,7 +371,11 @@ public class InstagramService {
 								String photo_url = "https://instagram.com/stories/"+one_info.getUserId()+"/"+pk+"?utm_source=ig_story_item_share&utm_medium=share_sheet";
 								
 								main_param.put("url", photo_url);
+								
+								message = message + " " + photo_url;
 							}
+							
+							TelegramMessage.funcTelegram(message);
 							
 							oneSignalMessageService.send_message(data_param , message , main_param, OneSignalSegment.Instagram);
 						}
@@ -401,16 +403,16 @@ public class InstagramService {
 					return;
 				}
 				
-				String message = username + " 님의 인스타그램 라이브 방송이 등록되었습니다.";
-				
-				TelegramMessage.funcTelegram(message);
-				
 				HashMap<String,Object> main_param = null;
 				
 				main_param = new HashMap<>();
 				String photo_url = "https://instagram.com/"+username+"/live";
 				
 				main_param.put("url", photo_url);
+				
+				String message = username + " 님의 인스타그램 라이브 방송이 등록되었습니다. " + photo_url;
+				
+				TelegramMessage.funcTelegram(message);
 				
 				//System.out.println("photo_url = " + photo_url);
 				
