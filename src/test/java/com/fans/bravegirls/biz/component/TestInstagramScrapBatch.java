@@ -338,10 +338,10 @@ public class TestInstagramScrapBatch {
     	
     }
    
-    @Test
+    //@Test
     public void instagram_scrap_video() {
     	
-    	String cookie_info = "1";
+    	String cookie_info = "3";
     	
     	//프로시 정보 조회
     	ProxyServerVo proxyServerVo = new ProxyServerVo();
