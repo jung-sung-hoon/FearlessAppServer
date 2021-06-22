@@ -30,6 +30,24 @@ public class HotVideoService {
     public int selectHotVideosHavingTagCnt(PageHotVideoVo pageHotVideoVo) {
     	return hotVideoDao.selectHotVideosHavingTagCnt(pageHotVideoVo);
     }
+    
+    
+    //기존 쿼리 문제 있어서 새로 추가
+    public List<HotVideoVo> selectHotVideosHavingTag2(PageHotVideoVo pageHotVideoVo) {
+        List<HotVideoVo> hotVideoVos = hotVideoDao.selectHotVideosHavingTag2(pageHotVideoVo);
+
+        for (HotVideoVo hotVideoVo : hotVideoVos) {
+            hotVideoVo.setTags(hotVideoDao.selectTagsOfHotVideo(hotVideoVo.getId()));
+        }
+
+        return hotVideoVos;
+    }
+    
+    
+    public int selectHotVideosHavingTagCnt2(PageHotVideoVo pageHotVideoVo) {
+    	return hotVideoDao.selectHotVideosHavingTagCnt2(pageHotVideoVo);
+    }
+    
 
     public List<HotVideoTagVo> selectAllHotVideoTags() {
         return hotVideoDao.selectAllHotVideoTags();
