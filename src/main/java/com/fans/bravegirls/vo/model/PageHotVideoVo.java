@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class PageHotVideoVo {
 
-    private int id;
+    private Integer tagId;
     private int pageSize;
     private int offSet;
 }

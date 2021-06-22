@@ -28,7 +28,7 @@ public class HotVideoServiceTest {
     	int pageSize = 2;
     	
     	PageHotVideoVo pageHotVideoVo = new PageHotVideoVo();
-        pageHotVideoVo.setId(tagId);
+        pageHotVideoVo.setTagId(tagId);
         
         offSet = (offSet - 1) * pageSize;
         
