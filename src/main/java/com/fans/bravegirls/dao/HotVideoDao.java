@@ -15,6 +15,11 @@ public interface HotVideoDao {
 
     int selectHotVideosHavingTagCnt(PageHotVideoVo pageHotVideoVo);
     
+    //기존 쿼리에 영향이 가서 추가함
+    List<HotVideoVo> selectHotVideosHavingTag2(PageHotVideoVo pageHotVideoVo);
+
+    int selectHotVideosHavingTagCnt2(PageHotVideoVo pageHotVideoVo);
+    
     List<HotVideoTagVo> selectTagsOfHotVideo(int videoId);
 
     List<HotVideoTagVo> selectAllHotVideoTags();
