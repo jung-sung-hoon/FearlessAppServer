@@ -29,14 +29,13 @@ public class HotVideoController extends BaseRestController {
 
 
     @GetMapping(value = "/hotVideos")
-    public ResponseEntity<?> getHotVideos(HttpServletRequest request
-            //            ,@RequestParam(value = "tag_id") int tagId
-            , @RequestParam(value = "page") int page, @RequestParam(value = "size") int size) {
+    public ResponseEntity<?> getHotVideos(HttpServletRequest request,
+            @RequestParam(value = "tag_id", required = false) Integer tagId,
+            @RequestParam(value = "page") int page, @RequestParam(value = "size") int size) {
         ipCheck(request);
 
-
         PageHotVideoVo pageHotVideoVo = new PageHotVideoVo();
-        //        pageHotVideoVo.setId(tagId);
+        pageHotVideoVo.setTagId(tagId);
 
         if(size <= 0) {
             size = 20;
@@ -46,7 +45,7 @@ public class HotVideoController extends BaseRestController {
             size = 1000;
         }
 
-        if (page <= 1) {
+        if(page <= 1) {
             page = 1;
         }
 
