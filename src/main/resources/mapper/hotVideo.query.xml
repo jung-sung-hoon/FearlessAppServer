@@ -16,7 +16,7 @@
         and b.tag_id = c.id and
         a.channel_id = d.id
         <if test="tagId != null">
-            and c.id = #{tagId}
+        <!--     and c.id = #{tagId} -->
         </if>
         and a.is_usable = true
         order by a.upload_date desc , a.id desc
@@ -33,10 +33,45 @@
         and b.tag_id = c.id and
         a.channel_id = d.id
         <if test="tagId != null">
-            and c.id = #{tagId}
+        <!--    and c.id = #{tagId} -->
         </if>
         and a.is_usable = true
     </select>
+    
+    
+    <select id="selectHotVideosHavingTag2" parameterType="PageHotVideoVo" resultType="HotVideoVo">
+        select unique a.id, a.code, a.title, a.play_time, a.upload_date, d.title as channel_title
+        from youtube_hot_videos a,
+        youtube_hot_video_tags b,
+        youtube_tags c,
+        youtube_ch_info d
+        where
+        a.id = b.video_id
+        and b.tag_id = c.id and
+        a.channel_id = d.id
+        <if test="tagId != null">
+        	and c.id = #{tagId}
+        </if>
+        and a.is_usable = true
+        order by a.upload_date desc , a.id desc
+        LIMIT #{offSet}, #{pageSize}
+    </select>
+
+    <select id="selectHotVideosHavingTagCnt2" parameterType="PageHotVideoVo" resultType="int">
+        select count(distinct a.id) as cnt
+        from youtube_hot_videos a,
+        youtube_hot_video_tags b,
+        youtube_tags c,
+        youtube_ch_info d
+        where a.id = b.video_id
+        and b.tag_id = c.id and
+        a.channel_id = d.id
+        <if test="tagId != null">
+        	and c.id = #{tagId}
+        </if>
+        and a.is_usable = true
+    </select>
+    
 
     <select id="selectTagsOfHotVideo" parameterType="int" resultType="HotVideoTagVo">
         select b.id, b.title
