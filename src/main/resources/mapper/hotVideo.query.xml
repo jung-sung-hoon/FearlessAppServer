@@ -16,7 +16,7 @@
         and b.tag_id = c.id and
         a.channel_id = d.id
         <if test="tagId != null">
-        <!--     and c.id = #{tagId} -->
+             and c.id = #{tagId}
         </if>
         and a.is_usable = true
         order by a.upload_date desc , a.id desc
@@ -33,7 +33,7 @@
         and b.tag_id = c.id and
         a.channel_id = d.id
         <if test="tagId != null">
-        <!--    and c.id = #{tagId} -->
+            and c.id = #{tagId}
         </if>
         and a.is_usable = true
     </select>

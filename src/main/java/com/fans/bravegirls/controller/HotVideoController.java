@@ -82,7 +82,7 @@ public class HotVideoController extends BaseRestController {
         return success(result_map);
     }
     
-    @GetMapping(value = "/newHotVideos")
+//    @GetMapping(value = "/newHotVideos")
     public ResponseEntity<?> newHotVideos(HttpServletRequest request,
             @RequestParam(value = "tag_id", required = false) Integer tagId,
             @RequestParam(value = "page") int page, @RequestParam(value = "size") int size) {

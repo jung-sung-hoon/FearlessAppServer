@@ -6,7 +6,7 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 
-@Configuration
+//@Configuration
 public class JsonCustomConfigure {
 
     @Bean
