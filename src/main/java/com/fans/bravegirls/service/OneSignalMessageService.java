@@ -21,8 +21,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class OneSignalMessageService {
 
     private final String onesignal_url = "https://onesignal.com/api/v1/notifications";
-    private final String aos_rest_api_key = "NTk2NTc1ZDYtNGI1ZC00ZDFlLTkwYTgtODQ0MmM4YTVmMGJk";
-    private final String aos_app_id = "469b6e4a-c568-4f74-afec-c478acb153bf";
+    private final String aos_rest_api_key = "OTMxYWNiNmYtMWEwZi00MTg2LTg0NTItNmZlMjQwNjJkNjAx";
+    private final String aos_app_id = "04dacac2-b557-46bb-8845-c8d5468268d3";
 
 
     private final String ios_rest_api_key = "ZTdjYzc1NjktYzUwOC00Nzk1LWIzNjEtOWIyMGEyMmE3MGM0";
@@ -43,8 +43,7 @@ public class OneSignalMessageService {
 
             
         	//ios 보내기
-        	send_message(data_param , message, 
-        			main_param , segment , ios_rest_api_key , ios_app_id);
+        	//send_message(data_param , message, main_param , segment , ios_rest_api_key , ios_app_id);
 
         } catch(Throwable t) {
             t.printStackTrace();

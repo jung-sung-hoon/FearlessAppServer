@@ -32,7 +32,7 @@ public class InstagramScrapBatch {
      */
     //@Scheduled(cron = "0 */5 */2 * * *")
     //@Scheduled(cron = "0 */5 */3 * * *")
-    @Scheduled(cron = "0 */5 00-02 * * *")
+    @Scheduled(cron = "0 */10 00-02 * * *")
     public void instagram_scrap_photo_0() {
 
     	String seq = "1";
@@ -47,7 +47,7 @@ public class InstagramScrapBatch {
      */
     //@Scheduled(cron = "0 */5 1-23/2 * * *")
     //@Scheduled(cron = "0 */5 1-23/3 * * *")
-    @Scheduled(cron = "0 */5 03-05 * * *")
+    @Scheduled(cron = "0 */10 03-05 * * *")
     public void instagram_scrap_photo_1() {
 
     	String seq = "2";
@@ -61,7 +61,7 @@ public class InstagramScrapBatch {
      * 5분마다 작동 , 홀수 시
      */
     //@Scheduled(cron = "0 */5 1-23/2 * * *")
-    @Scheduled(cron = "0 */5 06-08 * * *")
+    @Scheduled(cron = "0 */10 06-08 * * *")
     public void instagram_scrap_photo_2() {
 
     	String seq = "3";
@@ -73,7 +73,7 @@ public class InstagramScrapBatch {
     
     
     //@Scheduled(cron = "0 */10 19-23 * * *")
-    @Scheduled(cron = "0 */5 09-11 * * *")
+    @Scheduled(cron = "0 */10 09-11 * * *")
     public void instagram_scrap_photo_3() {
 
     	String seq = "4";
@@ -83,7 +83,7 @@ public class InstagramScrapBatch {
     	run_scrap(seq , proxy_seq);
     }
     
-    @Scheduled(cron = "0 */5 12-14 * * *")
+    @Scheduled(cron = "0 */10 12-14 * * *")
     public void instagram_scrap_photo_4() {
 
     	String seq = "1";
@@ -93,7 +93,7 @@ public class InstagramScrapBatch {
     	run_scrap(seq , proxy_seq);
     }
     
-    @Scheduled(cron = "0 */5 15-17 * * *")
+    @Scheduled(cron = "0 */10 15-17 * * *")
     public void instagram_scrap_photo_5() {
 
     	String seq = "2";
@@ -103,7 +103,7 @@ public class InstagramScrapBatch {
     	run_scrap(seq , proxy_seq);
     }
     
-    @Scheduled(cron = "0 */5 18-20 * * *")
+    @Scheduled(cron = "0 */10 18-20 * * *")
     public void instagram_scrap_photo_6() {
 
     	String seq = "3";
@@ -113,7 +113,7 @@ public class InstagramScrapBatch {
     	run_scrap(seq , proxy_seq);
     }
     
-    @Scheduled(cron = "0 */5 21-23 * * *")
+    @Scheduled(cron = "0 */10 21-23 * * *")
     public void instagram_scrap_photo_7() {
 
     	String seq = "4";
