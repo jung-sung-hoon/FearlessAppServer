@@ -142,7 +142,7 @@ public class OneSignalMessageController extends BaseRestController {
     	
     	// dcapp://m.dcinside.com/board/bravegirls0409/539833
     	
-    	//oneSignalMessageService.send_message(data_param, message , main_param, segment);
+    	oneSignalMessageService.send_message(data_param, message , main_param, segment);
         
         return success("OK");
     }
