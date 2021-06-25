@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(value = "/api/v1", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/app-api/v2", produces = MediaType.APPLICATION_JSON_VALUE)
 public class HotVideoController extends BaseRestController {
 
     private final HotVideoService hotVideoService;
