@@ -22,7 +22,7 @@ public class SwaggerConfig {
         		//.apiInfo(getApiInfo())
                 .select()
                 .apis(RequestHandlerSelectors.any())
-                .paths(PathSelectors.ant("/api/**"))
+                .paths(PathSelectors.ant("/app-api/**"))
                 .build();
     }
 	
