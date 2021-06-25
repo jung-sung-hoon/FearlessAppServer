@@ -26,17 +26,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("fearless-devteam").password(passwordEncoder().encode("for-bravegirls"))
-                .roles("USER", "ADMIN");
+        auth.inMemoryAuthentication().withUser("fearless-devteam")
+                .password(passwordEncoder().encode("for-bravegirls")).roles("USER", "ADMIN");
     }
 
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable()
-                .authorizeRequests().antMatchers(HttpMethod.POST, "/app-api/v2/oneSignal/message").permitAll()
-                .antMatchers(AUTH_LIST).authenticated().and().httpBasic();
+        http.csrf().disable().authorizeRequests().antMatchers(AUTH_LIST).authenticated().and()
+                .httpBasic();
     }
 
 
