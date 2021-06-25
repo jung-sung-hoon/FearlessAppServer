@@ -229,9 +229,9 @@ public class InstagramService {
 						
 						String photo_url = "https://www.instagram.com/p/"+node.get("shortcode")+"/?utm_source=ig_web_copy_link";
 						
-						String message = one_vo.getUserId() + " 님의 인스타그램 사진이 등록되었습니다. " + photo_url;
+						String message = one_vo.getUserId() + " 님의 인스타그램 사진이 등록되었습니다.";
 						
-						TelegramMessage.funcTelegram(message);
+						TelegramMessage.funcTelegram(message + " " + photo_url);
 						
 						main_param.put("url", photo_url);
 						
@@ -240,6 +240,7 @@ public class InstagramService {
 						main_param.put("large_icon", img_src);
 				    	main_param.put("big_picture", img_src);
 						
+				    	System.out.println("message = " + message );
 						
 						oneSignalMessageService.send_message(data_param , message , main_param, OneSignalSegment.Instagram);
 					}
@@ -348,6 +349,8 @@ public class InstagramService {
 					
 					if(last_date < latest_reel_media) {
 						
+						String photo_url = "";
+						
 						System.out.println("신규 스토리 있다.");
 						
 						//마지막 시간 저장한다.
@@ -368,14 +371,16 @@ public class InstagramService {
 							
 							if(pk.length() > 0) {
 								main_param = new HashMap<>();
-								String photo_url = "https://instagram.com/stories/"+one_info.getUserId()+"/"+pk+"?utm_source=ig_story_item_share&utm_medium=share_sheet";
+								photo_url = "https://instagram.com/stories/"+one_info.getUserId()+"/"+pk+"?utm_source=ig_story_item_share&utm_medium=share_sheet";
 								
 								main_param.put("url", photo_url);
 								
-								message = message + " " + photo_url;
+								//message = message + " " + photo_url;
 							}
 							
-							TelegramMessage.funcTelegram(message);
+							TelegramMessage.funcTelegram(message + " " + photo_url);
+							
+							System.out.println("message = " + message );
 							
 							oneSignalMessageService.send_message(data_param , message , main_param, OneSignalSegment.Instagram);
 						}
@@ -410,11 +415,13 @@ public class InstagramService {
 				
 				main_param.put("url", photo_url);
 				
-				String message = username + " 님의 인스타그램 라이브 방송이 등록되었습니다. " + photo_url;
+				String message = username + " 님의 인스타그램 라이브 방송이 등록되었습니다.";
 				
-				TelegramMessage.funcTelegram(message);
+				TelegramMessage.funcTelegram(message + " "  + photo_url);
 				
 				//System.out.println("photo_url = " + photo_url);
+				
+				System.out.println("message = " + message );
 				
 				oneSignalMessageService.send_message(data_param , message , main_param, OneSignalSegment.Instagram);
 			}
