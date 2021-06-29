@@ -30,7 +30,7 @@ public class HotVideoController extends BaseRestController {
 
     @GetMapping(value = "/hotVideos")
     public ResponseEntity<?> getHotVideos(HttpServletRequest request,
-            @RequestParam(value = "tag_id", required = false) Integer tagId,
+            @RequestParam(value = "tag_id", defaultValue = "0") Integer tagId,
             @RequestParam(value = "page") int page, @RequestParam(value = "size") int size) {
         ipCheck(request);
 
@@ -81,61 +81,6 @@ public class HotVideoController extends BaseRestController {
 
         return success(result_map);
     }
-    
-//    @GetMapping(value = "/newHotVideos")
-    public ResponseEntity<?> newHotVideos(HttpServletRequest request,
-            @RequestParam(value = "tag_id", required = false) Integer tagId,
-            @RequestParam(value = "page") int page, @RequestParam(value = "size") int size) {
-        ipCheck(request);
-
-        PageHotVideoVo pageHotVideoVo = new PageHotVideoVo();
-        pageHotVideoVo.setTagId(tagId);
-
-        if(size <= 0) {
-            size = 20;
-        }
-
-        if(size > 1000) {
-            size = 1000;
-        }
-
-        if(page <= 1) {
-            page = 1;
-        }
-
-        int start_page = page;
-
-        page = (page - 1) * size;
-
-        pageHotVideoVo.setOffSet(page);
-        pageHotVideoVo.setPageSize(size + 1);
-
-        List<HotVideoVo> result = hotVideoService.selectHotVideosHavingTag2(pageHotVideoVo);
-
-        HashMap<String, Object> result_map = new HashMap<>();
-
-        result_map.put("list", result);
-
-        //다음 페이지 있나의 여부
-        result_map.put("nextYn", "N");
-
-        if(result.size() > size) {
-            result_map.put("nextYn", "Y");
-            result.remove(size);
-        }
-
-        result_map.put("nextPageNum", (start_page + 1));
-
-        PageInfoVo pageInfo = new PageInfoVo();
-        pageInfo.setPage(start_page);
-        pageInfo.setSize(size);
-        pageInfo.setTotal(hotVideoService.selectHotVideosHavingTagCnt2(pageHotVideoVo));
-
-        result_map.put("pageInfo", pageInfo);
-
-        return success(result_map);
-    }
-
 
     @GetMapping(value = "/hotVideos/tags")
     public ResponseEntity<?> getHotVideoTags(HttpServletRequest request) {

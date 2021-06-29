@@ -54,7 +54,7 @@ public class HotVideoServiceTest {
         System.out.println(hotVideoService.selectHotVideosHavingTagCnt(pageHotVideoVo));
     }
 
-    //@Test
+    @Test
     public void selectAllHotVideoTags() {
 
         List<HotVideoTagVo> hotVideoTagVos = hotVideoService.selectAllHotVideoTags();

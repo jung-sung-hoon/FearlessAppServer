@@ -14,43 +14,44 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class HotVideoService {
+
     private final HotVideoDao hotVideoDao;
+
 
     public List<HotVideoVo> selectHotVideosHavingTag(PageHotVideoVo pageHotVideoVo) {
         List<HotVideoVo> hotVideoVos = hotVideoDao.selectHotVideosHavingTag(pageHotVideoVo);
 
-        for (HotVideoVo hotVideoVo : hotVideoVos) {
+        for(HotVideoVo hotVideoVo : hotVideoVos) {
             hotVideoVo.setTags(hotVideoDao.selectTagsOfHotVideo(hotVideoVo.getId()));
         }
 
         return hotVideoVos;
     }
-    
-    
+
+
     public int selectHotVideosHavingTagCnt(PageHotVideoVo pageHotVideoVo) {
-    	return hotVideoDao.selectHotVideosHavingTagCnt(pageHotVideoVo);
+        return hotVideoDao.selectHotVideosHavingTagCnt(pageHotVideoVo);
     }
-    
-    
-    //기존 쿼리 문제 있어서 새로 추가
-    public List<HotVideoVo> selectHotVideosHavingTag2(PageHotVideoVo pageHotVideoVo) {
-        List<HotVideoVo> hotVideoVos = hotVideoDao.selectHotVideosHavingTag2(pageHotVideoVo);
 
-        for (HotVideoVo hotVideoVo : hotVideoVos) {
-            hotVideoVo.setTags(hotVideoDao.selectTagsOfHotVideo(hotVideoVo.getId()));
-        }
-
-        return hotVideoVos;
-    }
-    
-    
-    public int selectHotVideosHavingTagCnt2(PageHotVideoVo pageHotVideoVo) {
-    	return hotVideoDao.selectHotVideosHavingTagCnt2(pageHotVideoVo);
-    }
-    
 
     public List<HotVideoTagVo> selectAllHotVideoTags() {
-        return hotVideoDao.selectAllHotVideoTags();
+
+        List<HotVideoTagVo> hotVideoTagVos = hotVideoDao.selectAllHotVideoTags();
+
+        HotVideoTagVo allHotVideoTagVo = new HotVideoTagVo();
+        allHotVideoTagVo.setId(0);
+        allHotVideoTagVo.setTitle("전체");
+
+        PageHotVideoVo pageHotVideoVo = new PageHotVideoVo();
+        pageHotVideoVo.setTagId(0);
+        pageHotVideoVo.setPageSize(100000);
+        pageHotVideoVo.setOffSet(0);
+
+        allHotVideoTagVo.setVideoCount(this.selectHotVideosHavingTagCnt(pageHotVideoVo));
+
+        hotVideoTagVos.add(0, allHotVideoTagVo);
+
+        return hotVideoTagVos;
     }
 
 }
