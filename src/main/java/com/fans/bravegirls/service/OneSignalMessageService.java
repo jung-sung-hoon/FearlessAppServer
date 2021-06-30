@@ -3,13 +3,17 @@ package com.fans.bravegirls.service;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Scanner;
 import com.fans.bravegirls.vo.code.OneSignalSegment;
+import com.fans.bravegirls.vo.model.PushHistoryVo;
 import com.google.common.collect.Lists;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.json.simple.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,6 +32,8 @@ public class OneSignalMessageService {
     private final String ios_rest_api_key = "ZTdjYzc1NjktYzUwOC00Nzk1LWIzNjEtOWIyMGEyMmE3MGM0";
     private final String ios_app_id = "8eadf95f-a1ad-47db-97f3-a9aa43c1fc50";
 
+    @Autowired
+    private PushHistoryService pushHistoryService;
 
     //메시지 보내기
     @Async
@@ -37,9 +43,27 @@ public class OneSignalMessageService {
         String jsonResponse = "";
 
         try {
+        	
+        	Date today = new Date(); 
+        	SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        	String createdDate = format1.format(today);
+        	
+        	PushHistoryVo pushHistoryVo = new PushHistoryVo();
+        	pushHistoryVo.setSegment(segment.toString());
+        	pushHistoryVo.setMessage(message);
+        	pushHistoryVo.setUrl((String)main_param.get("url"));
+        	pushHistoryVo.setCreatedDate(createdDate);
+        	
+        	pushHistoryService.insertPushHistory(pushHistoryVo);
+        	
+        } catch (Exception e) {
+        	e.printStackTrace();
+        }
+        
+        try {
         	//aos 보내기
-        	send_message(data_param , message, 
-        			main_param , segment , aos_rest_api_key , aos_app_id);
+        	send_message(data_param , message, main_param , segment , aos_rest_api_key , aos_app_id);
 
             
         	//ios 보내기
