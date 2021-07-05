@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fans.bravegirls.dao.PushHistoryDao">
+
+	
+	
+	<!-- 푸시 조회 -->
+	<select id="selectPushHistory" resultType="PushHistoryVo">
+		select 
+			seq
+		    ,segment
+		    ,message
+		    ,url
+		    ,created_date
+		from push_history
+		where created_date >=(now()-INTERVAL 2 DAY)
+		order by seq desc
+	</select>
+	
+	<!-- 푸시 등록 -->
+	<insert id="insertPushHistory" parameterType="PushHistoryVo">
+		insert into push_history ( segment, message , url , created_date )
+		values (
+			#{segment}
+		    ,#{message}
+		    ,#{url}
+		    ,#{createdDate}
+		)
+	</insert>
+
+    
+</mapper>
