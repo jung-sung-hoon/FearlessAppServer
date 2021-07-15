@@ -4,7 +4,7 @@ import java.util.List;
 import com.fans.bravegirls.dao.HotVideoDao;
 import com.fans.bravegirls.vo.model.HotVideoTagVo;
 import com.fans.bravegirls.vo.model.HotVideoVo;
-import com.fans.bravegirls.vo.model.PageHotVideoVo;
+import com.fans.bravegirls.vo.model.HotVideoPageable;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,8 +18,8 @@ public class HotVideoService {
     private final HotVideoDao hotVideoDao;
 
 
-    public List<HotVideoVo> selectHotVideosHavingTag(PageHotVideoVo pageHotVideoVo) {
-        List<HotVideoVo> hotVideoVos = hotVideoDao.selectHotVideosHavingTag(pageHotVideoVo);
+    public List<HotVideoVo> selectHotVideosHavingTag(HotVideoPageable hotVideoPageable) {
+        List<HotVideoVo> hotVideoVos = hotVideoDao.selectHotVideosHavingTag(hotVideoPageable);
 
         for(HotVideoVo hotVideoVo : hotVideoVos) {
             hotVideoVo.setTags(hotVideoDao.selectTagsOfHotVideo(hotVideoVo.getId()));
@@ -29,8 +29,8 @@ public class HotVideoService {
     }
 
 
-    public int selectHotVideosHavingTagCnt(PageHotVideoVo pageHotVideoVo) {
-        return hotVideoDao.selectHotVideosHavingTagCnt(pageHotVideoVo);
+    public int selectHotVideosHavingTagCnt(HotVideoPageable hotVideoPageable) {
+        return hotVideoDao.selectHotVideosHavingTagCnt(hotVideoPageable);
     }
 
 
@@ -42,12 +42,12 @@ public class HotVideoService {
         allHotVideoTagVo.setId(0);
         allHotVideoTagVo.setTitle("전체");
 
-        PageHotVideoVo pageHotVideoVo = new PageHotVideoVo();
-        pageHotVideoVo.setTagId(0);
-        pageHotVideoVo.setPageSize(100000);
-        pageHotVideoVo.setOffSet(0);
+        HotVideoPageable hotVideoPageable = new HotVideoPageable();
+        hotVideoPageable.setTagId(0);
+        hotVideoPageable.setPageSize(100000);
+        hotVideoPageable.setOffSet(0);
 
-        allHotVideoTagVo.setVideoCount(this.selectHotVideosHavingTagCnt(pageHotVideoVo));
+        allHotVideoTagVo.setVideoCount(this.selectHotVideosHavingTagCnt(hotVideoPageable));
 
         hotVideoTagVos.add(0, allHotVideoTagVo);
 
