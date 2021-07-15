@@ -7,7 +7,7 @@ import com.fans.bravegirls.common.BaseRestController;
 import com.fans.bravegirls.service.HotVideoService;
 import com.fans.bravegirls.vo.model.HotVideoTagVo;
 import com.fans.bravegirls.vo.model.HotVideoVo;
-import com.fans.bravegirls.vo.model.PageHotVideoVo;
+import com.fans.bravegirls.vo.model.HotVideoPageable;
 import com.fans.bravegirls.vo.model.PageInfoVo;
 
 import lombok.RequiredArgsConstructor;
@@ -34,8 +34,8 @@ public class HotVideoController extends BaseRestController {
             @RequestParam(value = "page") int page, @RequestParam(value = "size") int size) {
         ipCheck(request);
 
-        PageHotVideoVo pageHotVideoVo = new PageHotVideoVo();
-        pageHotVideoVo.setTagId(tagId);
+        HotVideoPageable hotVideoPageable = new HotVideoPageable();
+        hotVideoPageable.setTagId(tagId);
 
         if(size <= 0) {
             size = 20;
@@ -53,10 +53,10 @@ public class HotVideoController extends BaseRestController {
 
         page = (page - 1) * size;
 
-        pageHotVideoVo.setOffSet(page);
-        pageHotVideoVo.setPageSize(size + 1);
+        hotVideoPageable.setOffSet(page);
+        hotVideoPageable.setPageSize(size + 1);
 
-        List<HotVideoVo> result = hotVideoService.selectHotVideosHavingTag(pageHotVideoVo);
+        List<HotVideoVo> result = hotVideoService.selectHotVideosHavingTag(hotVideoPageable);
 
         HashMap<String, Object> result_map = new HashMap<>();
 
@@ -75,7 +75,7 @@ public class HotVideoController extends BaseRestController {
         PageInfoVo pageInfo = new PageInfoVo();
         pageInfo.setPage(start_page);
         pageInfo.setSize(size);
-        pageInfo.setTotal(hotVideoService.selectHotVideosHavingTagCnt(pageHotVideoVo));
+        pageInfo.setTotal(hotVideoService.selectHotVideosHavingTagCnt(hotVideoPageable));
 
         result_map.put("pageInfo", pageInfo);
 

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fans.bravegirls.dao.PhotoDao">
+
+
+    <select id="selectPhotosInFolder" parameterType="PhotoPageable" resultType="PhotoVo">
+        select seq, id, name, mimeType, event_date
+        from bbrive_data
+        where parent_id = #{folderId}
+        order by name
+        LIMIT #{offSet}, #{pageSize}
+    </select>
+
+    <select id="countPhotosInFolder" parameterType="string" resultType="int">
+        select count(1)
+        from bbrive_data
+        where parent_id = #{folderId}
+    </select>
+
+</mapper>
