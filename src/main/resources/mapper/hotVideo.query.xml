@@ -4,7 +4,7 @@
 <mapper namespace="com.fans.bravegirls.dao.HotVideoDao">
 
 
-    <select id="selectHotVideosHavingTag" parameterType="PageHotVideoVo" resultType="HotVideoVo">
+    <select id="selectHotVideosHavingTag" parameterType="HotVideoPageable" resultType="HotVideoVo">
         select unique a.id, a.code, a.title, a.play_time, a.upload_date, d.title as channel_title
         from youtube_hot_videos a,
         youtube_hot_video_tags b,
@@ -22,7 +22,7 @@
         LIMIT #{offSet}, #{pageSize}
     </select>
 
-    <select id="selectHotVideosHavingTagCnt" parameterType="PageHotVideoVo" resultType="int">
+    <select id="selectHotVideosHavingTagCnt" parameterType="HotVideoPageable" resultType="int">
         select count(distinct a.id) as cnt
         from youtube_hot_videos a,
         youtube_hot_video_tags b,

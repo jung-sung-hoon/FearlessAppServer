@@ -3,7 +3,7 @@ package com.fans.bravegirls.service;
 import java.util.List;
 import com.fans.bravegirls.vo.model.HotVideoTagVo;
 import com.fans.bravegirls.vo.model.HotVideoVo;
-import com.fans.bravegirls.vo.model.PageHotVideoVo;
+import com.fans.bravegirls.vo.model.HotVideoPageable;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
@@ -27,15 +27,15 @@ public class HotVideoServiceTest {
     	int offSet = 1;
     	int pageSize = 2;
     	
-    	PageHotVideoVo pageHotVideoVo = new PageHotVideoVo();
-        pageHotVideoVo.setTagId(tagId);
+    	HotVideoPageable hotVideoPageable = new HotVideoPageable();
+        hotVideoPageable.setTagId(tagId);
         
         offSet = (offSet - 1) * pageSize;
         
-        pageHotVideoVo.setOffSet(offSet);
-        pageHotVideoVo.setPageSize(pageSize+1);
+        hotVideoPageable.setOffSet(offSet);
+        hotVideoPageable.setPageSize(pageSize+1);
     	
-        List<HotVideoVo> hotVideoVos = hotVideoService.selectHotVideosHavingTag(pageHotVideoVo);
+        List<HotVideoVo> hotVideoVos = hotVideoService.selectHotVideosHavingTag(hotVideoPageable);
 
         Assert.assertNotNull(hotVideoVos);
         Assert.assertNotNull(hotVideoVos.get(0).getTags());
@@ -51,7 +51,7 @@ public class HotVideoServiceTest {
         System.out.println(hotVideoVos);
         
         //총건수
-        System.out.println(hotVideoService.selectHotVideosHavingTagCnt(pageHotVideoVo));
+        System.out.println(hotVideoService.selectHotVideosHavingTagCnt(hotVideoPageable));
     }
 
     @Test
