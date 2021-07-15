@@ -7,8 +7,11 @@
     <select id="selectPhotosInFolder" parameterType="PhotoPageable" resultType="PhotoVo">
         select seq, id, name, mimeType, event_date
         from bbrive_data
-        where parent_id = #{folderId}
-        order by name
+        where 1 = 1
+        <if test="folderId != null">
+        and parent_id = #{folderId}
+        </if>
+        order by event_date desc, name asc
         LIMIT #{offSet}, #{pageSize}
     </select>
 
@@ -18,4 +21,13 @@
         where parent_id = #{folderId}
     </select>
 
+    <select id="countPhotoDates" parameterType="string" resultType="PhotoDateVO">
+        select event_date, count(1) as cnt
+        from bbrive_data
+        <if test="folderId != null">
+            where parent_id = #{folderId}
+        </if>
+        group by event_date
+        order by event_date desc
+    </select>
 </mapper>

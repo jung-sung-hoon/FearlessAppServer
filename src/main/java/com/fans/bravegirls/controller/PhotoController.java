@@ -44,7 +44,16 @@ public class PhotoController extends BaseRestController {
         Map<String, Object> result_map = new HashMap<>();
         result_map.put("list", photoService.getPhotosInFolder(pageable));
         result_map.put("pageInfo", pageInfo);
+        return success(result_map);
+    }
 
+
+    @GetMapping(value = "/photos/dates")
+    public ResponseEntity<?> getPhotosDates(HttpServletRequest request,
+            @RequestParam(value = "folderId", required = false) String folderId) {
+
+        Map<String, Object> result_map = new HashMap<>();
+        result_map.put("list", photoService.getPhotoDates(folderId));
         return success(result_map);
     }
 

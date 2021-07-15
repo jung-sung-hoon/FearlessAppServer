@@ -4,6 +4,7 @@ import java.util.List;
 import com.fans.bravegirls.dao.FolderDao;
 import com.fans.bravegirls.dao.PhotoDao;
 import com.fans.bravegirls.vo.model.FolderVO;
+import com.fans.bravegirls.vo.model.PhotoDateVO;
 import com.fans.bravegirls.vo.model.PhotoPageable;
 import com.fans.bravegirls.vo.model.PhotoVO;
 import lombok.RequiredArgsConstructor;
@@ -23,18 +24,10 @@ public class PhotoService {
 
     public List<PhotoVO> getPhotosInFolder(PhotoPageable pageable) {
 
-        if(pageable.getFolderId() == null) {
-            pageable.setFolderId(ROOT_FOLDER_ID);
-        }
-
         return photoDao.selectPhotosInFolder(pageable);
     }
 
     public int countPhotosInFolder(PhotoPageable pageable) {
-
-        if(pageable.getFolderId() == null) {
-            pageable.setFolderId(ROOT_FOLDER_ID);
-        }
 
         return photoDao.countPhotosInFolder(pageable.getFolderId());
     }
@@ -45,5 +38,9 @@ public class PhotoService {
         }
 
         return folderDao.selectFoldersInParentFolder(folderId);
+    }
+
+    public List<PhotoDateVO> getPhotoDates(String folderId) {
+        return photoDao.countPhotoDates(folderId);
     }
 }
