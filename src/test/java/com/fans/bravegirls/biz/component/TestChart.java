@@ -17,7 +17,6 @@ import com.fans.bravegirls.service.ChartService;
 import com.fans.bravegirls.vo.model.ChartVo;
 import com.fans.bravegirls.vo.model.HotVideoVo;
 import com.fans.bravegirls.vo.model.PageChartVo;
-import com.fans.bravegirls.vo.model.PageHotVideoVo;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
