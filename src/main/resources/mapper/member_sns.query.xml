@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fans.bravegirls.dao.MemberSnsInfoDao">
+
+	<!-- sns 정보 가져 오기 -->
+	<select id="selectMemberSnsInfo"  resultType="MemberSnsInfoVo">
+		select 
+			a.user_id
+		    ,a.birth_day
+		    ,a.position
+		    ,b.sns_kind
+		    ,b.sns_url
+		from member_list a
+		left join sns_member_info b on a.user_id = b.user_id and b.use_yn='Y'
+		where a.use_yn='Y'
+		order by a.order_seq asc , b.order_seq asc
+	</select>
+
+	<select id="selectCorpSnsInfo" resultType="CorpSnsInfoVo">
+		select 
+			sns_kind
+		    ,sns_url
+		from sns_corp_info
+		where use_yn = 'Y'
+		order by order_seq asc
+	</select>
+	
+    
+</mapper>
