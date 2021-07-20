@@ -5,7 +5,7 @@
 
 
     <select id="selectFoldersInParentFolder" parameterType="string" resultType="FolderVO">
-        select id, name
+        select id, name, photo_cnt, path
         from folder
         where parent_id = #{folderId}
         order by name ;
