@@ -1,7 +1,10 @@
 package com.fans.bravegirls.service;
 
+import java.util.List;
+import com.fans.bravegirls.vo.model.FolderVO;
 import com.fans.bravegirls.vo.model.PhotoPageable;
 import lombok.extern.slf4j.Slf4j;
+import org.assertj.core.util.Lists;
 import static org.junit.Assert.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,5 +34,15 @@ public class PhotoServiceTest {
 
         assertNotNull(photoService.getFoldersInParentFolder(null));
         System.out.println(photoService.getFoldersInParentFolder(null));
+    }
+
+    @Test
+    public void test_getFolderPhotosInParentFolder() {
+        List<FolderVO> holder = Lists.newArrayList();
+
+        photoService.getFolderPhotosInParentFolder("1Fgkg-MHO-TTc1ichsi6mKOJfVFMrU1yC", holder);
+
+        System.out.println(holder.size());
+        System.out.println(holder);
     }
 }
