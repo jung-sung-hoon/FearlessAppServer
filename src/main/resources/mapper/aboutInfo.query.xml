@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fans.bravegirls.dao.AboutInfoDao">
+
+    <select id="selectAboutInfoList" resultType="AboutInfoVO">
+        select 
+			id
+		    , title
+		    , link
+		    , icon
+		    , reg_date
+		from about_info
+		where use_yb = 1
+		order by id asc
+    </select>
+
+</mapper>
