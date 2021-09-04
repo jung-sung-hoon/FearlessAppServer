@@ -61,5 +61,14 @@ public class TestMemberSnsInfo {
     	
     }
     
-
+	/**
+	 *	생일자 멤버 조회 
+	 */
+    //@Test
+    public void selectBirthDay() {
+    	
+    	MemberSnsInfoVo birth_day_membe = memberSnsInfoService.selectBirthDay();
+    	
+    	System.out.println(birth_day_membe);
+    }
 }
