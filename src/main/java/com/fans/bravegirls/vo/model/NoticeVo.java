@@ -10,4 +10,15 @@ public class NoticeVo {
     private String regDate;
     private String otPopName;
     private String otPopUrl;
+    
+    
+    public String getOtPopName() {
+    	if(otPopName == null) return "";
+    	return otPopName;
+    }
+    
+    public String getOtPopUrl() {
+    	if(otPopUrl == null) return "";
+    	return otPopUrl;
+    }
 }
