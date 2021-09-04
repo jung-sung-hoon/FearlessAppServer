@@ -14,9 +14,11 @@ public interface MemberSnsInfoDao {
     
 
 	//멤버들 정보 가져 오기
-	List<MemberSnsInfoVo> selectMemberSnsInfo();
+	List<MemberSnsInfoVo> selectMemberSnsInfo(MemberSnsInfoVo memberSnsInfoVo);
 	
 	//멤버들 정보 가져 오기
 	List<CorpSnsInfoVo> selectCorpSnsInfo();
-		
+	
+	//생일자 멤버 정보 가져오기
+	MemberSnsInfoVo selectBirthDay(MemberSnsInfoVo memberSnsInfoVo);
 }

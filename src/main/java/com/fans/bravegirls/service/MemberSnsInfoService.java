@@ -11,6 +11,8 @@ import com.fans.bravegirls.vo.model.CorpSnsInfoVo;
 import com.fans.bravegirls.vo.model.MemberSnsInfoVo;
 import com.fans.bravegirls.vo.model.PushHistoryVo;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -27,7 +29,15 @@ public class MemberSnsInfoService {
     //멤버들 정보 가져 오기
   	public List<HashMap<String,Object>> selectMemberSnsInfo() {
   		
-  		List<MemberSnsInfoVo> member_sns_list = memberSnsInfoDao.selectMemberSnsInfo();
+  		Date today = new Date(); 
+    	SimpleDateFormat format1 = new SimpleDateFormat("MM.dd");
+
+    	String input_birth_day = format1.format(today);
+    	
+  		MemberSnsInfoVo memberSnsInfoVo = new MemberSnsInfoVo();
+  		memberSnsInfoVo.setBirthDay(input_birth_day);
+  		
+  		List<MemberSnsInfoVo> member_sns_list = memberSnsInfoDao.selectMemberSnsInfo(memberSnsInfoVo);
     	
     	
     	List<HashMap<String,Object>> result_list = new LinkedList<>();
@@ -57,6 +67,8 @@ public class MemberSnsInfoService {
     			user_info.put("userId", user_id);
     			user_info.put("position", one_obj.getPosition());
     			user_info.put("birthday", one_obj.getBirthDay());
+    			user_info.put("birthdayYn", one_obj.getBirthDayYn());
+    			user_info.put("birthDayAboutImg", one_obj.getBirthDayAboutImg());
     			user_info.put("snsList" , sns_list);
     			
     			result_list.add(user_info);
@@ -70,7 +82,6 @@ public class MemberSnsInfoService {
     		
     	}
     	
-    	System.out.println(result_list);
   		
   		return result_list;
   	}
@@ -78,6 +89,22 @@ public class MemberSnsInfoService {
   	//회사 정보 가져 오기
   	public List<CorpSnsInfoVo> selectCorpSnsInfo() {
   		return memberSnsInfoDao.selectCorpSnsInfo();
+  	}
+  	
+  	//생일자 멤버 조회
+  	public MemberSnsInfoVo selectBirthDay() {
+  		
+  		Date today = new Date(); 
+    	SimpleDateFormat format1 = new SimpleDateFormat("MM.dd");
+
+    	String input_birth_day = format1.format(today);
+    	
+  		MemberSnsInfoVo memberSnsInfoVo = new MemberSnsInfoVo();
+  		memberSnsInfoVo.setBirthDay(input_birth_day);
+  		
+  		MemberSnsInfoVo birth_day_member = memberSnsInfoDao.selectBirthDay(memberSnsInfoVo);
+  		
+  		return birth_day_member;
   	}
 }
 

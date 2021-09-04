@@ -4,17 +4,34 @@
 <mapper namespace="com.fans.bravegirls.dao.MemberSnsInfoDao">
 
 	<!-- sns 정보 가져 오기 -->
-	<select id="selectMemberSnsInfo"  resultType="MemberSnsInfoVo">
-		select 
+	<select id="selectMemberSnsInfo"  parameterType="MemberSnsInfoVo" resultType="MemberSnsInfoVo">
+		select
 			a.user_id
 		    ,a.birth_day
 		    ,a.position
-		    ,b.sns_kind
-		    ,b.sns_url
-		from member_list a
-		left join sns_member_info b on a.user_id = b.user_id and b.use_yn='Y'
-		where a.use_yn='Y'
-		order by a.order_seq asc , b.order_seq asc
+		    ,a.sns_kind
+		    ,a.sns_url
+		    ,a.birth_day_yn
+		    , case when a.birth_day_yn = 'Y' then a.birth_day_about_img else '' end birth_day_about_img
+		from (
+			select 
+				a.order_seq
+				,a.user_id
+				,a.birth_day
+		        ,a.birth_day_about_img
+				,a.position
+				,b.sns_kind
+				,b.sns_url
+				, case when substring(a.birth_day,6) = #{birthDay} then 'Y' 
+					   when a.bitrh_day_test_yn = 'Y' then 'Y'
+					   else 'N'
+				end birth_day_yn
+			from member_list a
+			left join sns_member_info b on a.user_id = b.user_id and b.use_yn='Y'
+			where a.use_yn='Y'
+			order by a.order_seq asc , b.order_seq asc
+		) a
+		order by a.order_seq
 	</select>
 
 	<select id="selectCorpSnsInfo" resultType="CorpSnsInfoVo">
@@ -26,5 +43,21 @@
 		order by order_seq asc
 	</select>
 	
+	<!-- 생일자 정보 조회 -->
+	<select id="selectBirthDay" parameterType="MemberSnsInfoVo" resultType="MemberSnsInfoVo">
+        SELECT 
+			a.user_id
+		    ,user_nm
+			,birth_day
+		    ,birth_day_img
+		    ,birth_day_icon
+		    ,'Y' as birth_day_yn
+		    ,a.position
+			,b.sns_kind
+			,b.sns_url
+		FROM mydb.member_list a
+		left join sns_member_info b on a.user_id = b.user_id and b.use_yn='Y' and b.sns_kind='instagram'
+		where substring(birth_day,6) = #{birthDay} or bitrh_day_test_yn = 'Y'
+    </select>
     
 </mapper>
