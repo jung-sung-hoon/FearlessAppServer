@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fans.bravegirls.dao.NoticeDao">
+
+	<!-- 공지 리스트 가져 오기 -->
+	<select id="selectNoticeList" parameterType="NoticePageable" resultType="NoticeVo">
+		select 
+			seq
+		    ,title
+		    ,content
+		    ,reg_date
+		From notice
+		where del_yn = 'N'
+		order by seq desc
+		LIMIT #{offSet}, #{pageSize}
+	</select>
+
+	<!-- 팝업 공지용 1건  -->
+	<select id="selectNoticePop" parameterType="NoticePageable" resultType="NoticeVo">
+		select 
+			seq
+		    ,title
+		    ,content
+		    ,reg_date
+		From notice
+		where del_yn = 'N'
+		and view_start_date &lt;= #{todayDate}
+		and view_end_date >= #{todayDate}
+		order by seq desc
+		limit 1
+	</select>
+	
+	
+    
+</mapper>
