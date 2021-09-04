@@ -8,5 +8,6 @@ public class NoticeVo {
     private String title;
     private String content;
     private String regDate;
-    
+    private String otPopName;
+    private String otPopUrl;
 }
