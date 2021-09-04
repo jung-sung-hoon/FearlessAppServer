@@ -9,6 +9,7 @@ public class MemberSnsInfoVo {
 	private String birthDay;
     private String position;
     private String snsKind;
+    private String aboutImg;
     private String snsUrl;
     private String birthDayImg;
     private String birthDayIcon;

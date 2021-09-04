@@ -8,6 +8,7 @@
 		select
 			a.user_id
 		    ,a.birth_day
+		    ,a.about_img
 		    ,a.position
 		    ,a.sns_kind
 		    ,a.sns_url
@@ -20,6 +21,7 @@
 				,a.birth_day
 		        ,a.birth_day_about_img
 				,a.position
+				,a.about_img
 				,b.sns_kind
 				,b.sns_url
 				, case when substring(a.birth_day,6) = #{birthDay} then 'Y' 

@@ -65,6 +65,7 @@ public class MemberSnsInfoService {
     			
     			HashMap<String,Object> user_info = new HashMap<>();
     			user_info.put("userId", user_id);
+    			user_info.put("aboutImg", one_obj.getAboutImg());
     			user_info.put("position", one_obj.getPosition());
     			user_info.put("birthday", one_obj.getBirthDay());
     			user_info.put("birthdayYn", one_obj.getBirthDayYn());
