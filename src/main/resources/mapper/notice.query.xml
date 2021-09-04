@@ -10,6 +10,8 @@
 		    ,title
 		    ,content
 		    ,reg_date
+		    ,ot_pop_url
+		    ,ot_pop_name
 		From notice
 		where del_yn = 'N'
 		order by seq desc
@@ -23,6 +25,8 @@
 		    ,title
 		    ,content
 		    ,reg_date
+		    ,ot_pop_url
+		    ,ot_pop_name
 		From notice
 		where del_yn = 'N'
 		and view_start_date &lt;= #{todayDate}
