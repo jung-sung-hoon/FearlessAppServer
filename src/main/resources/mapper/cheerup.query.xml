@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fans.bravegirls.dao.CheerUpDao">
+
+	<!-- 응원리스트 가져 오기 -->
+	<select id="selectCheerUp"  resultType="CheerUpVo">
+		SELECT 
+			seq
+		    , title
+		    , sub_title
+		    , img_url
+		    , youtube_code
+		FROM mydb.cheer_up
+		where 1=1
+		and use_yn = 'Y'
+		order by seq desc;
+	</select>
+
+    
+</mapper>
