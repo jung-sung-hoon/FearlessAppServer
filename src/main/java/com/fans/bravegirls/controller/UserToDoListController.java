@@ -1,8 +1,8 @@
 package com.fans.bravegirls.controller;
 
 import com.fans.bravegirls.common.BaseRestController;
-import com.fans.bravegirls.service.CheerUpService;
-import com.fans.bravegirls.vo.model.CheerUpVo;
+import com.fans.bravegirls.service.UserToDoListService;
+import com.fans.bravegirls.vo.model.UserToDoListVo;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,16 +19,16 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(value = "/app-api/v2", produces = MediaType.APPLICATION_JSON_VALUE)
-public class CheerUpController extends BaseRestController {
+public class UserToDoListController extends BaseRestController {
 
-    private final CheerUpService cheerUpService;
+    private final UserToDoListService userToDoListService;;
 
 
-    @GetMapping(value = "/cheerup")
+    @GetMapping(value = "/userToDoList")
     public ResponseEntity<?> scheduled(HttpServletRequest request) {
         ipCheck(request);
 
-        List<CheerUpVo> result = cheerUpService.selectCheerUp();
+        List<UserToDoListVo> result = userToDoListService.selectUserToDoList();
 
         HashMap<String, Object> result_map = new HashMap<>();
 

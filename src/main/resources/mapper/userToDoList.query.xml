@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fans.bravegirls.dao.UserToDoListDao">
+
+	<!-- 오늘 할일 가져 오기 -->
+	<select id="selectUserToDoList"  resultType="UserToDoListVo">
+		<![CDATA[
+		select 
+			idx, title, url , view_start_dtm , view_end_dtm 
+		from user_todo_list
+		where view_start_dtm < now()
+		and view_end_dtm >= now()
+		order by view_order asc , idx desc
+		]]>
+	</select>
+
+    
+</mapper>
