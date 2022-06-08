@@ -65,7 +65,7 @@
             <appender-ref ref="CONSOLE"/>
         </root>
 
-        <property name="LOGS" value="/home/ubuntu/app/logs/bravegirls/batch" />
+        <property name="LOGS" value="/home/clab/work/fearless/logs" />
         <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
             <encoder>
                 <Pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36}.%M [%L]- %msg%n</Pattern>
@@ -122,7 +122,7 @@
         <root level="INFO">
             <appender-ref ref="CONSOLE"/>
         </root>
-
+		<!-- 
         <property name="LOGS" value="/home/ubuntu/app/logs/bravegirls/batch" />
         <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
             <encoder>
@@ -135,7 +135,7 @@
                 <maxHistory>30</maxHistory>
             </rollingPolicy>
         </appender>
-
+		 -->
         <logger name="org.springframework" level="INFO">
             <appender-ref ref="FILE"/>
         </logger>
