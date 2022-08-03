@@ -36,7 +36,7 @@
 		select 
 			*
 			, DATE_FORMAT(end_time,'%Y%m%d') as limit_day 
-		from mydb.events
+		from events
 		where 1=1
 		and end_time &lt;= #{endTime}
 		and is_in_progress is true

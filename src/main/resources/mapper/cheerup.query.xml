@@ -11,7 +11,7 @@
 		    , sub_title
 		    , img_url
 		    , youtube_code
-		FROM mydb.cheer_up
+		FROM cheer_up
 		where 1=1
 		and use_yn = 'Y'
 		order by seq desc;

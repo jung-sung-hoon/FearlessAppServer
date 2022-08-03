@@ -46,8 +46,8 @@ spring:
   profiles: prod
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    jdbcUrl: jdbc:mysql://fearless-assemble-db.ctk83ps9umjm.ap-northeast-2.rds.amazonaws.com:3306/mydb?autoReconnection=true&characterEncoding=UTF8&useSSL=false
-    username: admin
-    password: "iamnotfearless!"
+    jdbcUrl: jdbc:mysql://private-db-mysql-sgp1-74343-do-user-12137892-0.b.db.ondigitalocean.com:25060/defaultdb?autoReconnection=true&characterEncoding=UTF8&useSSL=false
+    username: subadmin
+    password: "AVNS_PwDapuOpe-aLlrBkvTx"
     maximum-pool-size: 10
 

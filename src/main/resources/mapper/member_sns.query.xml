@@ -57,7 +57,7 @@
 		    ,a.position
 			,b.sns_kind
 			,b.sns_url
-		FROM mydb.member_list a
+		FROM member_list a
 		left join sns_member_info b on a.user_id = b.user_id and b.use_yn='Y' and b.sns_kind='instagram'
 		where substring(birth_day,6) = #{birthDay} or bitrh_day_test_yn = 'Y'
     </select>
