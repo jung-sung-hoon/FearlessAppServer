@@ -90,7 +90,7 @@
         <logger name="jdbc.resultset" level="DEBUG" additivity="false">
             <appender-ref ref="FILE"/>
         </logger>
-        <logger name="com.fans.bravegirls.batch" level="DEBUG">
+        <logger name="com.fans.bravegirls" level="DEBUG">
             <appender-ref ref="FILE"/>
         </logger>
         <root level="DEBUG">
@@ -123,7 +123,7 @@
             <appender-ref ref="CONSOLE"/>
         </root>
 		<!-- 
-        <property name="LOGS" value="/home/ubuntu/app/logs/bravegirls" />
+        <property name="LOGS" value="/home/ubuntu/app/logs/batch" />
         <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
             <encoder>
                 <Pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36}.%M [%L]- %msg%n</Pattern>
@@ -135,7 +135,7 @@
                 <maxHistory>30</maxHistory>
             </rollingPolicy>
         </appender>
-		 -->
+		  -->
         <logger name="org.springframework" level="INFO">
             <appender-ref ref="FILE"/>
         </logger>
@@ -148,7 +148,7 @@
         <logger name="jdbc.resultset" level="INFO" additivity="false">
             <appender-ref ref="FILE"/>
         </logger>
-        <logger name="com.fans.bravegirls.batch" level="INFO">
+        <logger name="com.fans.bravegirls" level="INFO">
             <appender-ref ref="FILE"/>
         </logger>
         <root level="INFO">

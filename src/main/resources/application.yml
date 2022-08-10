@@ -46,8 +46,8 @@ spring:
   profiles: prod
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    jdbcUrl: jdbc:mysql://private-db-mysql-sgp1-74343-do-user-12137892-0.b.db.ondigitalocean.com:25060/defaultdb?autoReconnection=true&characterEncoding=UTF8&useSSL=false
+    jdbcUrl: jdbc:mysql://db-mysql-sgp1-59378-do-user-12173300-0.b.db.ondigitalocean.com:25060/defaultdb?autoReconnection=true&characterEncoding=UTF8&useSSL=false
     username: subadmin
-    password: "AVNS_PwDapuOpe-aLlrBkvTx"
+    password: "AVNS_n37yly6a3Mm-PHbsg9F"
     maximum-pool-size: 10
 
