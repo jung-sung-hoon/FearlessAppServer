@@ -5,7 +5,7 @@
 
 
     <select id="selectHotVideosHavingTag" parameterType="HotVideoPageable" resultType="HotVideoVo">
-        select unique a.id, a.code, a.title, a.play_time, a.upload_date, d.title as channel_title
+        select distinct a.id, a.code, a.title, a.play_time, a.upload_date, d.title as channel_title
         from youtube_hot_videos a,
         youtube_hot_video_tags b,
         youtube_tags c,
